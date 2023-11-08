@@ -47,15 +47,19 @@ export const signupwithemail = async (email, pass) => {
             await sendEmailVerification(res.user)
             alert('email signup link has been send to your email, please check your inbox to verify your profile')
         }
-        return [error];
+        return true;
         
 
     } catch (err) {
-        console.error(err);
+        console.error(err.code);
         if (err.code === 'auth/email-already-in-use'){
             alert('This Email is already in use!');
-        }}
-
+        }
+        else if (err.code === 'auth/invalid-email') 
+        alert('invalid email id ');
+    return false;
+}
+    
 }
 export const logout = async () => {
     try {

@@ -1,27 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './component/navbar'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Home } from './page/home'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import  {Home}  from './page/home'
 import { auth } from './service/Auth'
+import signuppage from './page/signuppage';
+import { Loginpage } from './page/loginpage';
+import CreateAccount from './page/create-account'
+import { getallpost } from './service/Auth/database'
+import { useEffect } from 'react'
+import { UserDataProvider } from './service/context/usercontext'
 function App() {
+  const navigate=useNavigate()
 
+useEffect(()=>{
+  const datalogin=async()=>{
+    await auth.onAuthStateChanged((user)=>{
+      if(user){
+        // navigate('/home')
+        }
+          })
+  }
+  datalogin();
+},[])
   return (
-    <BrowserRouter>
-      <div className='bg-black container px-20'>
-        { auth.currentUser &&  <Navbar />}
+    <UserDataProvider>
+      <div className='mx-0'>
         <Routes>
-          <Route exect path='/home' Component={Home} />
-          <Route exect path='/signup' Component={Signup} />
+          <Route path='/home' Component={Home} />
+          <Route exect path='/' Component={signuppage} />
+          <Route exect path='/create-account' Component={CreateAccount} />
+          <Route exect path='/login' Component={Loginpage} />
         </Routes>
+        
       </div>
-    </BrowserRouter>
+    </UserDataProvider>
 
 
   )
 }
-import Signup from './page/login'
 
 export default App

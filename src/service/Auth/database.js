@@ -1,73 +1,35 @@
 import { auth, app, firestore } from ".";
 import { addDoc, getDoc, collection, doc, query, where, getDocs } from "firebase/firestore";
 
-const teacher = collection(firestore, 'teacher');
-const student = collection(firestore, 'student');
+const user = collection(firestore, 'user');
 
-export const varify_teacher = async ({ email, uid, experience, qualification, bio, name, age }) => {
+export const Create_Account = async ({ email, uid, bio, name, age ,username}) => {
     try {
-        await addDoc(collection(firestore, 'teacher'), {
+        await addDoc(collection(firestore, 'user'), {
             email: email,
             name: name,
-            rating: null,
             uid: uid,
-            age: age,
-            qualification: qualification,
-            subject: [],
-            experience: experience,
+            dateofbirth: age,
             bio: bio,
             restricted: false,
-            test_score: null,
             profileImageURL: null,
             createdAt: new Date(),
+            follower:[],
+            following:[],
+            username:username,
+            post:[],
+
         })
     }
     catch (err) {
         console.error(err);
     }
 }
-export const student_signup = async ({ email, uid, classs, name, age }) => {
-    try {
-        if(!check_data_isexist(uid)){
-            await addDoc(collection(firestore, 'student'), {
-                name: name,
-                email: email,
-                restricted: false,
-                class: classs,
-                subject: [],
-                age: age,
-                quetions: [],
-                topic: [],
-                uid: uid,
-                profileImageURL: null,
-                createdAt: new Date(),
-            })
-        }
-    }
-    catch (err) {
-        console.error(err);
-    }
-}
 
 
-export const user = async ({ name, email, role, uid }) => {
+export const get_userdata = async (uid) => {
     try {
-
-        await addDoc(collection(firestore, 'user'), {
-            name: name,
-            email: email,
-            role: role,
-            createdAt: new Date(),
-            uid: uid
-        })
-    }
-    catch (err) {
-        console.error(err);
-    }
-}
-export const get_userdata_for_teacher = async (uid) => {
-    try {
-        const q = await query(teacher, where('uid', '==', uid));
+        const q = await query(user, where('uid', '==', uid));
         const doc_refs = await getDocs(q)
         const res = []
         doc_refs.forEach(country => {
@@ -81,28 +43,31 @@ export const get_userdata_for_teacher = async (uid) => {
         console.error(err);
     }
 }
-
-export const get_userdata_for_student = async (uid) => {
+export const getallpost = async () => {
     try {
-        const q = await query(student, where('uid', '==', uid));
+        const q = await query(user);
         const doc_refs = await getDocs(q)
         const res = []
+        console.log(doc_refs)
         doc_refs.forEach(country => {
             res.push({
-                ...country.data()
-            })
-        })
+                ...country.data().post
+            })})
+        console.log(res)
         return res;
     }
     catch (err) {
         console.error(err);
     }
 }
-export const check_data_isexist = async (uid) => {
+
+
+export const check_data_is_exist = async (uid) => {
     try {
-        const q = await query(student, where('uid', '==', uid));
+        const q = await query(user, where('uid', '==', uid));
         const doc_refs = await getDocs(q)
-        if(doc_refs.exist()){
+        console.log(doc_refs)
+        if(doc_refs){
             alert('data already exist');
             return true;
         }
@@ -114,10 +79,3 @@ export const check_data_isexist = async (uid) => {
         console.error(err);
     }
 }
-
-
-
-
-
-
-
