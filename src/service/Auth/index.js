@@ -1,6 +1,7 @@
 import { getAuth, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, signOut, sendEmailVerification } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from 'firebase/storage';
 
 
 const firebaseConfig = {
@@ -17,6 +18,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app)
+const storage=getStorage(app)
 
 
 
@@ -24,8 +26,6 @@ export const signInWithGoogle = async () => {
     var provider = new GoogleAuthProvider();
     try {
         await signInWithPopup(auth, provider);
-        console.log(auth)
-
     } catch (err) {
         console.error(err);
     }
@@ -79,6 +79,6 @@ export const resetpassward = async (email) => {
     }
 }
 
-export { auth, app, firestore };
+export { auth, app, firestore,storage };
 
 

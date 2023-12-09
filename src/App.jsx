@@ -1,37 +1,54 @@
 import './App.css'
 import Navbar from './component/navbar'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import  {Home}  from './page/home'
+import { Home } from './page/home'
 import { auth } from './service/Auth'
 import signuppage from './page/signuppage';
 import { Loginpage } from './page/loginpage';
 import CreateAccount from './page/create-account'
-import { getallpost } from './service/Auth/database'
-import { useEffect } from 'react'
-import { UserDataProvider } from './service/context/usercontext'
-function App() {
-  const navigate=useNavigate()
+import { get_userdata, getallpost } from './service/Auth/database'
+import { useEffect, useState } from 'react'
+import { UserDataProvider, useuserdatacontext } from './service/context/usercontext'
 
-useEffect(()=>{
-  const datalogin=async()=>{
-    await auth.onAuthStateChanged((user)=>{
-      if(user){
-        // navigate('/home')
-        }
-          })
-  }
-  datalogin();
-},[])
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Profile } from './component/profile'
+import { Profilepage } from './page/profilepage'
+
+function App() {
+  const navigate = useNavigate()
+  const [userdata, setuserdata] = useState(null)
+
+  // useEffect(() => {
+  //   if (auth?.currentUser) { navigate('/home')}
+  //   else { navigate('/home') }
+  // },[])
+
   return (
-    <UserDataProvider>
-      <div className='mx-0'>
+    <UserDataProvider value={userdata}>
+      <div className='mx-5'>
+
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+
         <Routes>
           <Route path='/home' Component={Home} />
           <Route exect path='/' Component={signuppage} />
           <Route exect path='/create-account' Component={CreateAccount} />
           <Route exect path='/login' Component={Loginpage} />
+          <Route exect path='/profile/:username' Component={Profilepage} />
         </Routes>
-        
+
       </div>
     </UserDataProvider>
 

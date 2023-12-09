@@ -16,30 +16,25 @@ const Login = ({ onenter, role }) => {
 
   const handelgooglesignup = async () => {
     await signInWithGoogle();
-   
+    role==='signup' && navigate('./create-account')
+    role==='login' && navigate('/home')
   }
 
   useEffect(() => {
     if (auth.currentUser) return navigate("/home")
   }, [auth.currentuser])
   return (
-    <div className="flex flex-col my-8 w-96">
+    <div className="flex flex-col my-5 w-96">
       <h3 className='text-3xl my-2 font-bold '> join now . </h3>
       <div className=" my-5 sm:w-96 bg-white text-black text-center hover:scale-105 transition-all ease font-semibold outline rounded-2xl ">
         <button className='m-auto capitalize flex p-2 px-6 text-base sm:text-xl ' onClick={handelgooglesignup}><i className='mx-2'><GoogleIcon /> </i>sign-up with Google</button>
       </div>
       <div className='my-4 '>
-        <hr style={{
-          height: '2px',
-          backgroundColor: 'rgb(218, 223, 225)'
-        }} />
+        <hr  />
         <h2 className='text-xl text-center py-2 font-semibold mx-4'>
           or , continue with email
         </h2>
-        <hr style={{
-          height: '2px',
-          backgroundColor: 'rgb(218, 223, 225)'
-        }} />
+        <hr  />
       </div>
 
 
@@ -58,7 +53,7 @@ const Login = ({ onenter, role }) => {
         <label className='my-3' >already have an account ?  </label>
         <button className='my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize'><Link to='/login'>sign-in</Link> </button>
       </div>}
-      {role === "login" && <div className='my-3 w-96 capitalize text-xl flex flex-col '>
+      {role === "login" && <div className='my-2 w-96 capitalize text-xl flex flex-col '>
         <label className='my-3' >don't have an account ?  </label>
         <button className='my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize'><Link to='/'>sign-up</Link> </button>
       </div>}

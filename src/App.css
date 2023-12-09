@@ -1,0 +1,28 @@
+.animinate{
+    animation: animinate-bounce 300ms ease-in-out;
+    width: 700px;
+}
+textarea::-webkit-scrollbar{
+    display: none;
+
+}
+.scroll-hidden::-webkit-scrollbar{
+    display: none;
+
+}
+textarea{
+    height: inherit;
+    
+}
+
+.max-h-popup{
+    max-height: 75vh;
+}
+@keyframes animinate-bounce {
+    0%{
+        transform: translate(-500px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}

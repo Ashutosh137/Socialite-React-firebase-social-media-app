@@ -1,16 +1,24 @@
-import React from 'react'
-
-export const Popup = ({children,closefunction}) => {
+import React from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+export const Popupitem = ({ children, closefunction }) => {
   return (
-    <div className="w-screen h-screen bg-transparent grid place-content-center  shadow-white border-2
-     p-10 absolute left-0 top-0">
-     
-        <div className="absolute text-4xl top-10 left-5 z-50 bg-black">
-      <button onClick={closefunction}>x</button>
-      </div>
-        <div className="m-5">
-            {children}
+    <div className=' backdrop-blur-sm  absolute left-0  top-0 w-screen h-screen '>
+      <div className="hidden sm:block  shadow-gray-700 shadow-2xl rounded-2xl border-2 border-gray-700 animinate  fixed  left-1/4 top-16 bg-black text-white">
+        <div className="text-4xl p-3 z-50">
+          <button onClick={closefunction}><CloseIcon/></button>
         </div>
+        <div className="p-5 max-h-popup overflow-scroll scroll-hidden ">
+          {children}
+        </div>
+      </div>
+      <div className="p-5 absolute sm:hidden h-screen w-screen left-0 top-0 bg-black text-white">
+        <div className="text-4xl m-3 z-50">
+          <button onClick={closefunction}>x</button>
+        </div>
+        <div className="m-3">
+          {children}
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,24 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../component/navbar';
 import { useuserdatacontext } from '../service/context/usercontext';
-import {Popup} from  '../ui/popup'
+import { auth } from '../service/Auth';
+import { Popupitem } from '../ui/popup'
+import { createnewpost, get_userdata, getallpost } from '../service/Auth/database';
+import { Post } from '../ui/post';
+import { Createpost } from '../component/createpost';
 
 export const Home = () => {
-  const {postpopup,togglepost} = useuserdatacontext();
+  const { postpopup, togglepost } = useuserdatacontext();
+  const [psttext, setpsttext] = useState('')
+  const [allpostdata, setallpostdata] = useState([])
+
+  if (allpostdata == [null]) {
+    return <></>
+  }
+
+  useEffect(() => {
+    const data = async () => {
+      const allpost = await getallpost();
+      setallpostdata(allpost)
+      console.log(allpost)
+    }
+    data()
+  }, [])
+
   return (
-    <div>
+    <div className='flex flex-nowrap '>
       <Navbar />
-     {postpopup && <Popup closefunction={togglepost}>
-      
-<div className="text-center capitalize">
-  <form action="
-  " className='flex flex-col space-y-4'>
-    <textarea type="text" className='px-5 placeholder:capitalize placeholder:font-serif placeholder:text-neutral-500  sm:text-lg text-sm p-2 border-1 border-black  rounded-2xl my-2 border text-black ' />
-    <button className='bg-blue-500 text-white text-center p-2 capitalize rounded-full'>post</button>
-  </form>
-</div>
-      </Popup>
-      } 
+      <div className="w-full">
+
+        <div className="m-10">
+          <Createpost />
+        </div>
+        <div className="m-4">
+          {allpostdata.map((postarray, index) => {
+            console.log(postarray)
+            return <>{postarray.map((post, index) => {
+              return <div className="">
+                <Post post={post} popup={true} />
+              </div>
+            })}</>
+          })}
+        </div>
+      </div>
+
+
+
+
+
 
     </div>
   )
