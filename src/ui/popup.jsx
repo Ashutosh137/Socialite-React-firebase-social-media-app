@@ -2,8 +2,8 @@ import React from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 export const Popupitem = ({ children, closefunction }) => {
   return (
-    <div className=' backdrop-blur-sm  absolute left-0  top-0 w-screen h-screen '>
-      <div className="hidden sm:block  shadow-gray-700 shadow-2xl rounded-2xl border-2 border-gray-700 animinate  fixed  left-1/4 top-16 bg-black text-white">
+    <div className=' backdrop-blur-sm z-50 fixed left-0  top-0 w-screen h-screen '>
+      <div className=" fixed  shadow-gray-700 shadow-2xl rounded-2xl border-2 border-gray-700 animinate left-1/4 top-16 bg-black text-white">
         <div className="text-4xl p-3 z-50">
           <button onClick={closefunction}><CloseIcon/></button>
         </div>

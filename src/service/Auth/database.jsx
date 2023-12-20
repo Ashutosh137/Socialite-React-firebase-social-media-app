@@ -1,9 +1,9 @@
 import { auth, app, firestore, storage } from ".";
 import { addDoc, getDoc, collection, doc, query, where, getDocs, updateDoc, setDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { useuserdatacontext } from "../context/usercontext";
 
 const user = collection(firestore, 'user');
-var docid;
 export const Create_Account = async ({ email, uid, bio, name, age, username, profileimg }) => {
     try {
         await addDoc(user, {
@@ -17,6 +17,7 @@ export const Create_Account = async ({ email, uid, bio, name, age, username, pro
             createdAt: new Date(),
             follower: [],
             following: [],
+            saved:[],
             username: username,
             post: [],
         })
@@ -62,7 +63,6 @@ export const get_userdata = async (uid) => {
         const doc_refs = await getDocs(q)
         const res = []
         doc_refs.forEach(country => {
-            docid = country.id;
             res.push({
                 ...country.data(),
             })
@@ -95,9 +95,38 @@ export const get_userdatabyname = async (username) => {
 
 
 export const updateuserdata = async (userdata) => {
+
     try {
+        const q = await query(user, where('uid', '==', auth.currentUser.uid));
+        const doc_refs = await getDocs(q)
+        var docid;
+        doc_refs.forEach(country => {
+            docid = country.id;
+        })
+
         await updateDoc(doc(firestore, `user/${docid}`), userdata);
-        console.log('userdata updatee')
+
+        console.log('userdata updatee', userdata, ' with ' , docid )
+    }
+    catch (err) {
+        console.error(err);
+
+    }
+
+}
+export const updateprofileuserdata = async (userdata,username) => {
+
+    try {
+        const q = await query(user, where('username', '==', username));
+        const doc_refs = await getDocs(q)
+        var docid;
+        doc_refs.forEach(country => {
+            docid = country.id;
+        })
+
+        await updateDoc(doc(firestore, `user/${docid}`), userdata);
+
+        console.log('userdata updatee', userdata, ' with ' , docid )
     }
     catch (err) {
         console.error(err);
@@ -114,8 +143,25 @@ export const getallpost = async () => {
             res.push(
                 country.data().post
             )
-            console.log(country.data().post)
         })
+        return res;
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+export const getallprofile = async () => {
+    try {
+        const q = await query(user);
+        const doc_refs = await getDocs(q)
+        const res = []
+        doc_refs.forEach(country => {
+            res.push(
+                country.data()
+            )
+        })
+
+        res.sort()
         return res;
     }
     catch (err) {

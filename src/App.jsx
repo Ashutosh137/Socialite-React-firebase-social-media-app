@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Profile } from './component/profile'
 import { Profilepage } from './page/profilepage'
+import { List } from './page/list'
 
 function App() {
   const navigate = useNavigate()
@@ -21,12 +22,12 @@ function App() {
 
   // useEffect(() => {
   //   if (auth?.currentUser) { navigate('/home')}
-  //   else { navigate('/home') }
+  //   else { navigate('/home') }2+
   // },[])
 
   return (
     <UserDataProvider value={userdata}>
-      <div className='mx-5'>
+      <div className=' mt-24 mb-16 sm:mb-0 sm:mt-5'>
 
         <ToastContainer
           position="top-center"
@@ -47,8 +48,8 @@ function App() {
           <Route exect path='/create-account' Component={CreateAccount} />
           <Route exect path='/login' Component={Loginpage} />
           <Route exect path='/profile/:username' Component={Profilepage} />
+          <Route exect path='/lists' Component={List} />
         </Routes>
-
       </div>
     </UserDataProvider>
 

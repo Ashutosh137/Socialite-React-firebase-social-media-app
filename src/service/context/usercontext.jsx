@@ -3,7 +3,7 @@ import { auth } from "../Auth";
 import { useNavigate } from "react-router-dom";
 import { get_userdata, updateuserdata } from "../Auth/database";
 import { toast } from "react-toastify";
-import image from '/src/ui/images/defaultprofileimage.png'
+import image from '/src/assets/defaultprofileimage.png'
 
 
 export const UserDataContext = createContext();
@@ -22,6 +22,7 @@ const [defaultprofileimage, setdefaultprofileimage] = useState(image)
       await auth.onAuthStateChanged(async (user) => {
         if (user) {
           let data = await get_userdata(user?.uid);
+          console.log('getting userdata from useeffect in authchage')
           if (data?.username) setuserdata(data);
           
           else {
