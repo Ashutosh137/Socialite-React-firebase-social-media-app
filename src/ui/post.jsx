@@ -17,7 +17,7 @@ import { get_userdata, updateprofileuserdata, updatepost } from '../service/Auth
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Comment from './comment';
-
+import Time from '../service/other/time';
 export const Post = ({ postdata, popup }) => {
   const [active, setactive] = useState('')
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext()
@@ -70,7 +70,6 @@ export const Post = ({ postdata, popup }) => {
           postedby: userdata?.uid,
           postedat: new Date(),
           commentid: Createid(),
-          replies: [],
           likes: []
         }
         ]
@@ -85,6 +84,7 @@ export const Post = ({ postdata, popup }) => {
   function handelactive(act) {
     active === act ? setactive('') : setactive(act)
   }
+  
 
   return (
     <div className='md:my-4 my-2 p-2 text-lg flex flex-col'>
@@ -96,9 +96,11 @@ export const Post = ({ postdata, popup }) => {
 
               <div onClick={() => {
                 navigate(`/profile/${postedby?.username}`)
-              }} className='flex text-base sm:text-lg justify-start w-full capitalize space-x-2'>
+              }} className='flex text-base sm:text-lg justify-start w-full  capitalize space-x-2'>
                 <label className="font-semibold">{postedby?.name || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={200} />}</label>
-                <label className="text-gray-500 text-sm sm:text-base flex space-x-3">@{postedby?.username || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={150} />}</label>
+               
+               <label className="text-gray-500 text-sm sm:text-base flex space-x-3">@{postedby?.username || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={150} />}</label>
+             <label className='text-gray-500 text-sm sm:text-base font-mono' htmlFor="">{Time(post?.postedat?.toJSON().seconds) || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={200} />}</label>
               </div>
               <div onClick={() => { active === 'menu' ? setactive('') : setactive('menu') }} className='ml-auto'>
                 <i><MoreVertIcon /></i>

@@ -71,9 +71,9 @@ export default function Comment({ currentcomment, toggle, setpost, post }) {
             </div>
 
 
-            <div className="flex flex-col space-y-1">
+            <div className="flex my-2">
                 <pre className='capitalize whitespace-pre-wrap my-1  text-sm font-sans text-left w-full '>{comment?.content}</pre>
-                <div className="flex space-x-3">
+                <div className="flex ml-auto mr-6 space-x-3 ">
                     <div className="flex text-gray-400 space-x-1 hover:text-red-900 " onClick={() => {
                         { comment?.likes.includes(userdata?.username) ? setcomment(prev => ({ ...prev, 'likes': prev.likes.filter((e) => e !== userdata?.username) })) : setcomment(prev => ({ ...prev, 'likes': [...prev.likes, userdata?.username] })) }
 
@@ -82,11 +82,10 @@ export default function Comment({ currentcomment, toggle, setpost, post }) {
                         {comment?.likes.length > 0 && <label className='font-serif m-auto text-xs'  >{comment.likes.length}</label>}
                         <i className=''>{comment?.likes.includes(userdata?.username) ? <FavoriteIcon style={{ 'color': '#CF000F' }} /> : <FavoriteBorderIcon />}</i>
                     </div>
-                    <div className="flex text-gray-400 hover:text-red-900 ">
-                        <i className=''> <SendIcon /> </i>
-                    </div>
+                   
                 </div>
             </div>
+
 
         </div>
     </div>
