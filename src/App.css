@@ -14,6 +14,10 @@ textarea{
     height: inherit;
     
 }
+.h-postimg{
+   max-height: 34rem ;
+   max-width: 30rem;
+}
 
 .max-h-popup{
     max-height: 75vh;

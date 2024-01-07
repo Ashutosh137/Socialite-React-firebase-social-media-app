@@ -25,9 +25,11 @@ function App() {
   //   else { navigate('/home') }2+
   // },[])
 
+  console.log('auth condtion ',auth.currentUser)
+
   return (
     <UserDataProvider value={userdata}>
-      <div className=' mt-24 mb-16 sm:mb-0 sm:mt-5'>
+      <div className=' mt-24 mb-16 md:mx-16 sm:mb-0 sm:mt-5'>
 
         <ToastContainer
           position="top-center"

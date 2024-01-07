@@ -54,8 +54,9 @@ const CreateAccount = () => {
                     <label className="md:text-xl text-base font-sans p-1 mx-3 " min={4} max={10} > username</label>
                     <input type="text" name='username' placeholder="enter your unique uername..." value={formdata.username} className='px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 w-80 md:w-2/5 md:text-lg text-sm p-2 border-3 border-black  rounded-2xl my-2 border text-black  ' onChange={async (e) => {
                         handelchange(e)
-                        const data = await check_username_is_exist(e.target.value.trim())
-                        const isValidInput = /^[a-zA-Z0-9_]+$/.test(e.target.value.trim());
+                        const data = await check_username_is_exist(e.target.value.trim().toLowerCase())
+                        console.log(data)
+                        const isValidInput = /^[a-zA-Z0-9_]+$/.test(e.target.value.trim().toLowerCase());
                         if (data[0] || !isValidInput) {
                             setisusernameexist(true)
                             e.target.style.borderColor = 'red'
@@ -80,7 +81,7 @@ const CreateAccount = () => {
 
                 <div className="flex-col flex my-2">
                     <label className="md:text-xl text-base  font-sans p-1 mx-3 "> date of birth</label>
-                    <input type="date" name='age' aria-invalid={!(formdata.age> new Date() || formdata?.age < new Date('1970-1-1'))} value={formdata.age} className='px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1 border-black  rounded-2xl my-2 border text-black  ' onChange={handelchange} required></input>
+                    <input type="date" name='age' aria-invalid={(formdata.age > new Date() || formdata?.age < new Date('1970-1-1'))} value={formdata.age} className='px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1 border-black  rounded-2xl my-2 border text-black  ' onChange={handelchange} required></input>
 
                 </div>
                 <div className="flex-col flex my-2">

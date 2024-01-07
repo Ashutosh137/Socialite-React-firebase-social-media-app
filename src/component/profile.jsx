@@ -7,10 +7,11 @@ import { Popupitem } from '../ui/popup';
 import { useuserdatacontext } from '../service/context/usercontext';
 import { check_username_is_exist, get_userdatabyname, updateprofileuserdata } from '../service/Auth/database';
 import { toast } from 'react-toastify';
+import { Skeleton } from '@mui/material';
 import LinkedCameraIcon from '@mui/icons-material/LinkedCamera';
 import { Getimagedownloadlink } from '../service/Auth/database'
 import { auth } from '../service/Auth';
-import { preview } from 'vite';
+import Profileviewbox from './profileviewbox';
 
 export const Profile = ({ username }) => {
     const [profileuserdata, setprofileuserdata] = useState(null)
@@ -43,23 +44,34 @@ export const Profile = ({ username }) => {
 
     useEffect(() => {
         const data = async () => {
-            console.log(username, username === userdata.username)
-            const profile = username === userdata.username ? userdata : await get_userdatabyname(username)
+
+            const profile = await get_userdatabyname(username)
             setprofileuserdata(profile);
+            setactive('')
         }
         data()
 
-    }, [])
+    }, [username])
 
-    const handelfollow=()=>{
+    const handelfollow = () => {
         if (auth.currentUser) {
             profileuserdata?.follower?.includes(userdata?.username) ? setprofileuserdata(prev => ({ ...prev, 'follower': profileuserdata?.follower.filter((e) => e !== userdata?.username) })) : setprofileuserdata(prev => ({ ...prev, 'follower': [...prev?.follower, userdata?.username] }))
-            userdata?.following.includes(profileuserdata?.username) ? setuserdata(prev=>({...prev, 'following':[...prev.following,profileuserdata?.username]})) : setuserdata(prev=>({...prev,'following': userdata?.following.filter((e) => e !== userdata?.username) }))
+            
+            !userdata?.following.includes(profileuserdata?.username) ? setuserdata(prev => ({ ...prev, 'following': [...prev.following, profileuserdata?.username] })) : setuserdata(prev => ({ ...prev, 'following': userdata?.following.filter((e) => e !== userdata?.username) }))
         }
         else {
             navigate('/login')
         }
 
+    }
+    const handelfollowing=()=>{
+        if(auth?.currentUser){
+
+        }
+        else{
+            navigate('/login')
+
+        }
     }
 
     return (
@@ -68,7 +80,10 @@ export const Profile = ({ username }) => {
                 <i onClick={() => {
                     navigate('/home')
                 }}><ArrowBackIcon /></i>
-                <label className="text-2xl mx-4 capitalize ">{profileuserdata?.name}</label>
+                <div className='flex flex-col mx-4 capitalize'>
+                <label className="text-2xl   "  >{profileuserdata?.name || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={150} />}</label>
+                <label className='text-gray-500 text-base' >{profileuserdata?.post.length} Postes</label>
+                </div> 
             </div>
             <div className='flex'>
                 <div className="sm:my-10 space-y-3 flex flex-col text-left m-5">
@@ -76,32 +91,37 @@ export const Profile = ({ username }) => {
                         setactive('proflieimage')
                     }} src={profileuserdata?.profileImageURL || defaultprofileimage} alt={defaultprofileimage} className="sm:w-28 sm:h-28 h-20 w-20 bg-gray-300 rounded-full  border-4 border-neutral-600" />
                     <div className="flex flex-col ">
-                        <label className='my-1 font-semibold'>{profileuserdata?.name}</label>
-                        <label className='text-xl text-gray-400'>@{profileuserdata?.username}</label>
+                        <label className='my-1 font-semibold'>{profileuserdata?.name || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={150} />}</label>
+                        <label className='text-xl text-gray-400'>@{profileuserdata?.username || <Skeleton animation="wave" sx={{ bgcolor: 'grey.900' }} variant="text" width={150} />}</label>
                     </div>
                     <pre className="font-snas  text-base sm:text-lg">{profileuserdata?.bio}</pre>
                     <div className="flex space-x-3 text-lg text-gray-400">
                         <label onClick={() => {
-                            setactive('followers')
+                           profileuserdata.follower.length>0 && setactive('followers')
                         }}>{profileuserdata?.follower.length} follower</label>
                         <label onClick={() => {
-                            setactive('followers')
+                             profileuserdata.following.length>0 && setactive('following')
                         }}>{profileuserdata?.following.length} following</label>
                     </div>
                 </div>
-                {profileuserdata?.username === userdata?.username ? <div className='cursor-pointer mr-5 ml-auto'>
-                    <button title='edit profile' onClick={() => {
-                        active === 'edit' ? setactive('') : setactive("edit")
-                        seteditformdata(userdata)
-                    }}
-                        className='bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto text-white '><span className='flex justify-center sm:justify-start  '><EditIcon /><label className='sm:block hidden mx-2' >edit profile</label></span></button>
-                </div> :
-                    <div className='ml-auto'>
-                        <button title='follow' onClick={() => {handelfollow()}} className='bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg mr-2  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto text-white '><label className='mx-2' >{profileuserdata?.follower.includes(userdata?.username) ? <>following</> : <>follow</>}</label></button>
+                {profileuserdata?.username === userdata?.username ?
+                    <div className={`${userdata?.username ? 'block' : 'hidden'} cursor-pointer mr-5 ml-auto`}>
+                        <button title='edit profile' onClick={() => {
+                            active === 'edit' ? setactive('') : setactive("edit")
+                            seteditformdata(userdata)
+                        }}
+                            className='bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto text-white '><span className='flex justify-center sm:justify-start  '><EditIcon /><label className='sm:block hidden mx-2' >edit profile</label></span></button>
+                    </div>
+                    :
+                    <div className={`${userdata?.username ? 'block' : 'hidden'} cursor-pointer mr-5 ml-auto`}>
+                        <button title='follow' onClick={() => { handelfollow() }} className='bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg mr-2  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto text-white '><label className='mx-2' >{profileuserdata?.follower.includes(userdata?.username) ? <>following</> : <>follow</>}</label></button>
                     </div>}
+
             </div>
 
             <hr />
+
+            {!profileuserdata?.username && <div className='text-center my-10 font-serif text-2xl border-b border-gray-500 p-5 mx-5  '>profile doesnot exist</div>}
 
 
             <div className="">
@@ -119,6 +139,34 @@ export const Profile = ({ username }) => {
                 }}>
                     <img src={profileuserdata?.profileImageURL} alt={defaultprofileimage} className='w-96 m-auto mb-10 rounded-2xl h-96 object-fill' />
                 </Popupitem>
+            </div>}
+
+            {active === 'followers' && <div>
+                {<Popupitem closefunction={() => {
+                    setactive('')
+
+                }} >
+                    <div className="flex flex-col justify-center align-middle space-y-3">
+                        <h2 className='text-center text-3xl '>followers</h2>
+                        {profileuserdata?.follower.map((profile)=>{
+                            return <Profileviewbox profileusername={profile}/>
+                        })}
+                    </div>
+                </Popupitem>}
+            </div>}
+
+            {active === 'following' && <div>
+                {<Popupitem closefunction={() => {
+                    setactive('')
+
+                }} >
+                    <div className="flex flex-col justify-center align-middle space-y-3">
+                        <h2 className='text-center text-3xl '>following</h2>
+                        {profileuserdata?.following.map((profile)=>{
+                            return <Profileviewbox profileusername={profile}/>
+                        })}
+                    </div>
+                </Popupitem>}
             </div>}
 
 

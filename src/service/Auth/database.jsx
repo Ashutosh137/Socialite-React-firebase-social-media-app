@@ -17,7 +17,7 @@ export const Create_Account = async ({ email, uid, bio, name, age, username, pro
             createdAt: new Date(),
             follower: [],
             following: [],
-            saved:[],
+            saved: [],
             username: username,
             post: [],
         })
@@ -42,7 +42,7 @@ export const createnewpost = async (uid, text, image) => {
             likes: [],
             comments: [],
             shares: 0,
-            postedby:uid,
+            postedby: uid,
             postedat: new Date(),
             img: imgurl || null
         }, ...res.post];
@@ -106,7 +106,7 @@ export const updateuserdata = async (userdata) => {
 
         await updateDoc(doc(firestore, `user/${docid}`), userdata);
 
-        console.log('userdata updatee', userdata, ' with ' , docid )
+        console.log('userdata updatee', userdata, ' with ', docid)
     }
     catch (err) {
         console.error(err);
@@ -114,7 +114,7 @@ export const updateuserdata = async (userdata) => {
     }
 
 }
-export const updateprofileuserdata = async (userdata,username) => {
+export const updateprofileuserdata = async (userdata, username) => {
 
     try {
         const q = await query(user, where('username', '==', username));
@@ -126,7 +126,7 @@ export const updateprofileuserdata = async (userdata,username) => {
 
         await updateDoc(doc(firestore, `user/${docid}`), userdata);
 
-        console.log('userdata updatee', userdata, ' with ' , docid )
+        console.log('userdata updatee', userdata, ' with ', docid)
     }
     catch (err) {
         console.error(err);
@@ -192,7 +192,6 @@ export const check_username_is_exist = async (username) => {
         const doc_refs = await getDocs(q)
         const res = []
         doc_refs.forEach(country => {
-            docid = country.id;
             res.push({
                 ...country.data(),
             })
@@ -243,3 +242,33 @@ export const Getimagedownloadlink = async (image, uid) => {
         throw error;
     }
 };
+
+
+export const updatepost = async (post, postedby) => {
+    console.log(postedby)
+    try {
+        const q = await query(user, where('uid', '==', postedby));
+        const doc_refs = await getDocs(q)
+        var docid;
+
+        doc_refs.forEach(async (country) => {
+            docid = country.id;
+            var postdata = country.data().post
+            postdata.map(async (currentpost, index) => {
+                if (post.postid === currentpost.postid) {
+                    postdata[index] = post
+                    await updateDoc(doc(firestore, `user/${docid}`), {
+                        post: postdata
+                    })
+                }
+
+            })
+
+        });
+        
+    }
+    catch (err) {
+        console.log(err)
+    }
+
+}

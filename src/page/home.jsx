@@ -7,14 +7,11 @@ import { createnewpost, get_userdata, getallpost, getallprofile } from '../servi
 import { Post } from '../ui/post';
 import { Createpost } from '../component/createpost';
 import Profileviewbox from '../component/profileviewbox';
-
+import Suggestion from '../component/suggestion';
 export const Home = () => {
-  const { postpopup, togglepost } = useuserdatacontext();
-  const [psttext, setpsttext] = useState('')
   const [allpostdata, setallpostdata] = useState([])
-  const [alluser, setalluser] = useState([])
 
-  if (allpostdata == [null] || alluser ==[null]) {
+  if (allpostdata == [null]) {
     return <></>
   }
 
@@ -23,24 +20,17 @@ export const Home = () => {
       const allpost = await getallpost();
       setallpostdata(allpost)
     }
-    const dataforallusers=async ()=>{
-      const alluser=await getallprofile();
-      setalluser(alluser)
-      console.log(alluser)
-    }
-
-
     dataforallpost()
-    dataforallusers()
   }, [])
 
   return (
-    <div className='flex w-full '>
+    <div className='flex w-full justify-around h-screen '>
       <Navbar />
-      <div className="w-full">
+      <div className="flex border-gray-800 max-h-screen  overflow-y-scroll scroll-hidden  border-x-2  w-full mx-3 flex-col ">
         <div className="">
           <Createpost />
         </div>
+        <hr className='border-gray-700 w-full' />
         <div className="">
           {allpostdata.map((postarray, index) => {
             return <>{postarray.map((post, index) => {
@@ -51,15 +41,8 @@ export const Home = () => {
           })}
         </div>
       </div>
-      <div className="w-1/3 mx-2 hidden md:block">
-        <h2 className="text-2xl text-center text-white capitalize my-3 font-semibold">who to follow</h2>
-        <div className="flex flex-col space-y-2">
-          {alluser.map((proflie,index)=>{
-            return  <Profileviewbox index={index} profile={proflie}/>
-          })
-          }
-       
-        </div>
+      <div className="w-1/4 hidden md:block">
+      <Suggestion />
       </div>
     </div>
   )
