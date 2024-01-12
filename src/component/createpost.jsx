@@ -6,16 +6,22 @@ import { toast } from 'react-toastify';
 import { useuserdatacontext } from '../service/context/usercontext';
 import CloseIcon from '@mui/icons-material/Close';
 import Createid from '../service/other/createid';
+import ProgressBar from "@badrap/bar-of-progress";
+
 
 export const Createpost = ({ toggle }) => {
-    const { userdata, setuserdata,defaultprofileimage } = useuserdatacontext()
+    const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext()
     const [posttext, setposttext] = useState('')
     const [postmedia, setpostmedia] = useState(null)
 
+    const progress = new ProgressBar();
+
+
     const handelpost = async () => {
         if (auth.currentUser && posttext !== '') {
+            progress.start()
             var url = await Getimagedownloadlink(postmedia)
-            const id=Createid()
+            const id = Createid()
             var newpost = [{
                 content: posttext,
                 likes: [],
@@ -30,6 +36,8 @@ export const Createpost = ({ toggle }) => {
             setposttext('')
             setpostmedia(null)
             toggle();
+            progress.finish()
+
             toast.success("sucessfully posted")
         }
     }
@@ -49,7 +57,7 @@ export const Createpost = ({ toggle }) => {
                 {postmedia && (
                     <div className="flex">
                         <img src={URL.createObjectURL(postmedia)} alt={defaultprofileimage} className="w-1/2 rounded-3xl" />
-                        <i onClick={()=>{
+                        <i onClick={() => {
                             setpostmedia(null)
                         }} className='mr-auto cursor-pointer p-3'><CloseIcon /></i>
                     </div>

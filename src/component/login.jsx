@@ -46,7 +46,7 @@ const Login = ({ onenter, role }) => {
         <input type="email" placeholder="Email" value={email} className='px-3 m-auto w-96  text-xl p-2 border-1 border-black rounded-sm my-2 border text-black  ' onChange={e => setemail(e.target.value)} required></input>
         <input type="password" placeholder="password" value={pass} className='px-3 m-auto w-96 text-xl p-2 border-1 border-black rounded-sm my-2 border text-black ' onChange={e => setpass(e.target.value)} required></input>
         <label className="text-xs sm:text-sm my-3 font-serif">By signing up, you agree to the Terms of Service and Privacy Policy, including Cookie Use.</label>
-        <button type="submit" className='rounded-2xl w-80 my-4 text-xl p-1 capitalize bg-sky-600  m-auto hover:scale-105 transition-all ease'>sign-up</button>
+        <button type="submit" className='rounded-2xl w-80 my-4 text-xl p-1 capitalize bg-sky-600  m-auto hover:scale-105 transition-all ease'>{role==='login'? 'login':'sign-up'}</button>
 
       </form>
       {role === "signup" && <div className='my-3 w-96 capitalize text-xl flex flex-col '>

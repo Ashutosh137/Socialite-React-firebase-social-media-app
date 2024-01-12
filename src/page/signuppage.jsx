@@ -1,7 +1,7 @@
 import React from 'react';
 import { signupwithemail, auth } from '../service/Auth/index'
 import { useNavigate } from 'react-router-dom';
-import Login from '../ui/login';
+import Login  from '../component/login'
 
 const Signuppage = () => {
     const navigate = useNavigate()

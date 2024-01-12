@@ -3,11 +3,12 @@ import { auth } from "../service/Auth";
 import { check_data_is_exist, check_username_is_exist, Create_Account,get_userdata } from '../service/Auth/database'
 import { useNavigate } from "react-router-dom";
 import { useuserdatacontext } from "../service/context/usercontext";
+import ProgressBar from "@badrap/bar-of-progress";
 
 const CreateAccount = () => {
     const navigate = useNavigate()
     const {setuserdata}=useuserdatacontext()
-    console.log(auth.currentUser)
+    const pregress= new ProgressBar()
     const [isusernameexist, setisusernameexist] = useState(false)
 
     useEffect(() => {
@@ -18,7 +19,7 @@ const CreateAccount = () => {
             }
         }
         data()
-    }, [])
+    })
 
     const [formdata, setformdata] = useState({
         name: "",
@@ -28,8 +29,10 @@ const CreateAccount = () => {
     })
 
     const checkdata = async () => {
+        pregress.start()
         await Create_Account({ email: auth.currentUser.email, uid: auth.currentUser.uid, bio: formdata.bio, name: formdata.name, age: formdata.age, username: formdata.username, profileimg: auth.currentUser.photoURL || null });
         setuserdata(await get_userdata(auth?.currentUser?.uid))
+        pregress.finish()
         navigate('/home');
 
 

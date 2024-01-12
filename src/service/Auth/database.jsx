@@ -17,6 +17,7 @@ export const Create_Account = async ({ email, uid, bio, name, age, username, pro
             createdAt: new Date(),
             follower: [],
             following: [],
+            blockusers: [],
             saved: [],
             username: username,
             post: [],
@@ -76,7 +77,7 @@ export const get_userdata = async (uid) => {
 }
 export const get_userdatabyname = async (username) => {
     try {
-        const q = await query(user, where('username', '==', username));
+        const q = await query(user, where('username', '==', username.trim()));
         const doc_refs = await getDocs(q)
         const res = []
         doc_refs.forEach(country => {
@@ -92,6 +93,26 @@ export const get_userdatabyname = async (username) => {
     }
 }
 
+export const getpostdata = async (username, postid) => {
+    try {
+        var res = []
+        const data = await get_userdatabyname(username)
+        await data?.post.map((pot) => { if (postid === pot.postid) { res.push(pot) } })
+        return res[0];
+    } catch (err) {
+        console.error('Error: Post not found')
+    }
+}
+export const getpostdatabyuid = async (uid, postid) => {
+    try {
+        var res = []
+        const data = await get_userdata(uid)
+        await data?.post.map((pot) => { if (postid === pot.postid) { res.push(pot) } })
+        return res[0];
+    } catch (err) {
+        console.error('Error: Post not found')
+    }
+}
 
 
 export const updateuserdata = async (userdata) => {
@@ -175,12 +196,7 @@ export const getallprofile = async () => {
 export const check_data_is_exist = async (uid) => {
     try {
         const data = await get_userdata(uid);
-        if (data) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return !!data
     }
     catch (err) {
         console.error(err);
@@ -188,16 +204,8 @@ export const check_data_is_exist = async (uid) => {
 }
 export const check_username_is_exist = async (username) => {
     try {
-        const q = await query(user, where('username', '==', username));
-        const doc_refs = await getDocs(q)
-        const res = []
-        doc_refs.forEach(country => {
-            res.push({
-                ...country.data(),
-            })
-        })
-        console.log(res)
-        return res;
+
+        return await get_userdatabyname(username);
     }
     catch (err) {
         console.error(err);
@@ -213,8 +221,8 @@ export const Getimagedownloadlink = async (image, uid) => {
                 uploadTask.on(
                     'state_changed',
                     (snapshot) => {
-                        const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-                        // setProgress(progress);
+                        // const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                        // // setProgress(progress);
                     },
                     (error) => {
                         console.error('Error during upload:', error);
@@ -223,7 +231,6 @@ export const Getimagedownloadlink = async (image, uid) => {
                     async () => {
                         try {
                             const url = await getDownloadURL(uploadTask.snapshot.ref);
-                            console.log(url);
                             resolve(url);
                         } catch (error) {
                             console.error('Error getting download URL:', error);
@@ -238,14 +245,12 @@ export const Getimagedownloadlink = async (image, uid) => {
         return imageUrl;
     } catch (error) {
         console.error('Error:', error);
-        // Handle errors as needed
         throw error;
     }
 };
 
 
 export const updatepost = async (post, postedby) => {
-    console.log(postedby)
     try {
         const q = await query(user, where('uid', '==', postedby));
         const doc_refs = await getDocs(q)
@@ -265,10 +270,9 @@ export const updatepost = async (post, postedby) => {
             })
 
         });
-        
+
     }
     catch (err) {
         console.log(err)
     }
-
 }

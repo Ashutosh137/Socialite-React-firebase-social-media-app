@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../ui/login'
+import Login from '../component/login';
 import { signinwithemail } from '../service/Auth';
 import { useNavigate } from 'react-router-dom';
 export const Loginpage = () => {
