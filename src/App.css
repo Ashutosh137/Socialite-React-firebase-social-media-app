@@ -1,32 +1,29 @@
-.animinate{
-    animation: animinate-bounce 300ms ease-in-out;
-    width: 700px;
+.animinate {
+  animation: animinate-bounce 300ms ease-in-out;
+  width: 700px;
 }
-textarea::-webkit-scrollbar{
-    display: none;
-
+textarea::-webkit-scrollbar {
+  display: none;
 }
-.scroll-hidden::-webkit-scrollbar{
-    display: none;
-
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
 }
-textarea{
-    height: inherit;
-    
+textarea {
+  height: inherit;
 }
-.h-postimg{
-   max-height: 34rem ;
-   max-width: 30rem;
+.h-postimg {
+  max-height: 34rem;
+  max-width: 30rem;
 }
 
-.max-h-popup{
-    max-height: 75vh;
+.max-h-popup {
+  max-height: 75vh;
 }
 @keyframes animinate-bounce {
-    0%{
-        transform: translate(-500px);
-    }
-    100%{
-        transform: translateY(0);
-    }
+  0% {
+    transform: translate(-500px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

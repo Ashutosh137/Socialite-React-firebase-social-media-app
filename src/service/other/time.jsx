@@ -1,26 +1,27 @@
 const Time = (seconds) => {
-    const currentTimeInSeconds = Math.floor(Date.now() / 1000);
-    const differenceInSeconds = currentTimeInSeconds - seconds ;
-    if(seconds){
-     
+  const currentTimeInSeconds = Math.floor(Date.now() / 1000);
+  const differenceInSeconds = currentTimeInSeconds - seconds;
+  if (seconds) {
     if (differenceInSeconds < 10) {
-      return 'Just now';
+      return "Just now";
     } else if (differenceInSeconds < 60) {
       return `${differenceInSeconds} sec ago`;
     } else if (differenceInSeconds < 3600) {
       const minutes = Math.floor(differenceInSeconds / 60);
-      return `${minutes} min${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} min${minutes > 1 ? "s" : ""} ago`;
     } else if (differenceInSeconds < 86400) {
       const hours = Math.floor(differenceInSeconds / 3600);
-      return `${hours} hr${hours > 1 ? 's' : ''} ago`;
+      return `${hours} hr${hours > 1 ? "s" : ""} ago`;
     } else {
-      const dateObject = new Date( seconds * 1000);
-    
-      return dateObject.toLocaleString('en-US',{ day: 'numeric', month: 'short' });
+      const dateObject = new Date(seconds * 1000);
+
+      return dateObject.toLocaleString("en-US", {
+        day: "numeric",
+        month: "short",
+      });
     }
-  }
-  else{
-    return 'just now'
+  } else {
+    return "just now";
   }
 };
 
