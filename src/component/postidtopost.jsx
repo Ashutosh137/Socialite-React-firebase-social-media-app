@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  get_userdatabyname,
-  getpostdata,
-  getpostdatabyuid,
-} from "../service/Auth/database";
+import { getpostdatabyuid } from "../service/Auth/database";
 import { Post } from "./post";
 import ProgressBar from "@badrap/bar-of-progress";
 import { useNavigate } from "react-router-dom";

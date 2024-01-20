@@ -72,7 +72,7 @@ export default function Profileviewbox({
       <div className=" px-4 my-auto ml-auto">
         <button
           className="bg-white w-24 hover:bg-slate-200 rounded-full text-sm shadow-lg ml-auto font-medium text-black
-     capitalize py-1 px-4  self-center"
+     capitalize py-1 px-4 "
         >
           {userdata?.following.includes(profileuserdata?.uid)
             ? "following"

@@ -97,9 +97,6 @@ export const Post = ({ postdata, popup = true }) => {
           },
         ],
       }));
-
-      toast.success("comment sucessfully");
-      console.log(post?.comments);
     }
   };
 
@@ -115,7 +112,7 @@ export const Post = ({ postdata, popup = true }) => {
       {!hide && !postdelete && (
         <div className="flex w-full align-middle sm:space-x-2 ">
           <img
-            className="rounded-full mx-2 bg-gray-400 outline outline-neutral-500 w-8 sm:w-10 h-8 sm:h-10"
+            className="rounded-full mx-2 bg-gray-400 border border-neutral-500 w-8 sm:w-10 h-8 sm:h-10"
             src={postedby?.profileImageURL || defaultprofileimage}
           />
           <div className="flex w-full m-1 sm:mx-3 flex-col">
@@ -582,7 +579,7 @@ export const Post = ({ postdata, popup = true }) => {
                   <div className="flex space-y-5 flex-col my-5 ">
                     {post?.comments.map((comm, index) => {
                       return (
-                        <div className="flex flex-col space-y-5 ">
+                        <div className="flex flex-col space-y-1 ">
                           <Comment
                             setpost={setpost}
                             toggle={() => {

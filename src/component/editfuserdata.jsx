@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Getimagedownloadlink } from "../service/Auth/database";
 import { auth } from "../service/Auth";
 
-export default function Editfuserdata() {
+export default function Editfuserdata({ toggle = () => {} }) {
   const progress = new ProgressBar();
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
   const [editformdata, seteditformdata] = useState(userdata);
@@ -19,34 +19,34 @@ export default function Editfuserdata() {
 
   const handelchange = (e) => {
     const { name, value } = e.target;
-    seteditformdata((prevData) => ({ ...prevData, [name]: value.trim() }));
+    name === "bio"
+      ? seteditformdata((prevData) => ({ ...prevData, [name]: value }))
+      : seteditformdata((prevData) => ({ ...prevData, [name]: value.trim() }));
   };
 
-  console.log(profileimage, profileimgurl);
-
   return (
-    <div className="sm:p-5 w-full text-left">
-      <div className="text-center m-auto  w-80 font-semibold capitalize  border-b-2 pb-4 border-white">
-        <h2>edit profile</h2>
+    <div className="sm:p-5 w-full text-left text-base ">
+      <div className="text-center m-auto  w-60 font-semibold text-xl capitalize  border-b-2 pb-2 rounded-md border-white">
+        <h2>edit profile data</h2>
       </div>
       <form
         className="flex flex-col space-y-2 "
         onSubmit={async (e) => {
           e.preventDefault();
           progress.start();
-
           if (profileimage) {
             try {
               const data = await Getimagedownloadlink(
                 profileimage,
                 auth.currentUser.uid
               );
+              console.log(data);
               await seteditformdata((prevData) => ({
                 ...prevData,
                 profileImageURL: data,
               }));
-              console.log(userdata, editformdata);
-              if (!isusernameexist && userdata !== editformdata) {
+              console.log(editformdata, isusernameexist);
+              if (!isusernameexist) {
                 setuserdata(editformdata);
               }
               setprofileimgurl(editformdata?.profileImageURL);
@@ -57,14 +57,13 @@ export default function Editfuserdata() {
             }
           } else {
             if (!isusernameexist && userdata !== editformdata) {
-              seteditformdata(userdata);
               setuserdata(editformdata);
-              setactive("");
               setprofileimgurl(editformdata.profileImageURL);
               toast.success("Updated successfully");
             }
           }
           progress.finish();
+          toggle();
         }}
       >
         <div className="my-5 flex flex-col m-auto">
@@ -107,7 +106,7 @@ export default function Editfuserdata() {
             placeholder="enter your unique uername..."
             minLength={6}
             value={editformdata?.username}
-            className="px-5 placeholder:capitalize bg-black  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500   md:text-lg text-sm p-2 border-1   rounded-2xl  "
+            className="px-5 placeholder:capitalize bg-black  border-2 border-gray-300  placeholder:text-neutral-500  sm:text-lg text-sm p-2 border-1   rounded-2xl  "
             onChange={async (e) => {
               handelchange(e);
               const data = await check_username_is_exist(e.target.value.trim());
@@ -134,7 +133,7 @@ export default function Editfuserdata() {
         <div className="flex-col flex ">
           <label className="md:text-xl border-b-2 border-gray-800   p-2 mx-3 ">
             {" "}
-            full name{" "}
+            full name
           </label>
 
           <input
@@ -142,13 +141,13 @@ export default function Editfuserdata() {
             name="name"
             placeholder="full name..."
             value={editformdata?.name}
-            className="px-5 placeholder:capitalize bg-black   border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500   md:text-lg text-sm p-2 border-1   rounded-2xl   "
+            className="px-5 placeholder:capitalize bg-black   border-2 border-gray-300  placeholder:text-neutral-500  sm:text-lg text-sm p-2 border-1   rounded-2xl   "
             onChange={handelchange}
             required
           ></input>
         </div>
 
-        <div className="flex-col flex ">
+        <div className="flex-col flex space-y-2">
           <label className="md:text-xl    p-2 mx-3 border-b-2 border-gray-800  ">
             {" "}
             date of birth
@@ -164,7 +163,7 @@ export default function Editfuserdata() {
             type="date"
             name="age"
             value={editformdata?.dateofbirth}
-            className="px-5 placeholder:capitalize bg-black   border-2 border-gray-300 placeholder:font-serif w-full placeholder:text-neutral-500     md:text-lg text-sm p-2 border-1   rounded-2xl    "
+            className="px-5 placeholder:capitalize bg-black   border-2 border-gray-300  w-full placeholder:text-neutral-500    sm:text-lg text-sm p-2 border-1   rounded-2xl    "
             onChange={handelchange}
             required
           ></input>
@@ -179,16 +178,19 @@ export default function Editfuserdata() {
             name="bio"
             placeholder="write about your exprience , your favirate topics and many more about you "
             value={editformdata?.bio}
-            className="px-5 placeholder:capitalize bg-black -white  border-2 border-gray-300  capitalize placeholder:font-serif placeholder:text-neutral-500  md:text-lg text-sm p-2 border-1   rounded-2xl   "
+            className="px-5 placeholder:capitalize bg-black -white  border-2 border-gray-300  capitalize  placeholder:text-neutral-500 sm:text-lg text-sm p-2 border-1 rounded-2xl   "
             onChange={handelchange}
           ></textarea>
         </div>
-        <button
-          type="submit"
-          className="rounded-2xl text-lg md:text-xl border-white my-6 p-2 mr-auto md:px-7 border-1 capitalize bg-sky-600 hover:scale-105 transition-all m-auto ease"
-        >
-          edit profile
-        </button>
+        <div className=" m-auto">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600 rounded-full m-auto  shadow-lg
+          capitalize p-3 px-5 w-60 my-3 font-semibold "
+          >
+            edit profile
+          </button>
+        </div>
       </form>
     </div>
   );

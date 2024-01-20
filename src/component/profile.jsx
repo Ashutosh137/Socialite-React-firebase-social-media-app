@@ -47,11 +47,12 @@ export const Profile = ({ username }) => {
   useEffect(() => {
     const data = async () => {
       progress.start();
-
-      const profile = await get_userdatabyname(username);
-      setprofileuserdata(profile);
+      if (username === userdata?.username) setprofileuserdata(userdata);
+      else {
+        const profile = await get_userdatabyname(username);
+        setprofileuserdata(profile);
+      }
       progress.finish();
-
       setactive("");
     };
     data();
@@ -110,7 +111,7 @@ export const Profile = ({ username }) => {
             )}
           </label>
           <label className="text-gray-500 text-base">
-            {profileuserdata?.post?.length} Postes
+            {profileuserdata?.post?.length} Posts
           </label>
         </div>
         <i
@@ -183,7 +184,7 @@ export const Profile = ({ username }) => {
                     navigate("/setting");
                   }}
                 >
-                  account settings{" "}
+                  account settings
                 </button>
               </>
             )}
@@ -194,8 +195,7 @@ export const Profile = ({ username }) => {
         <div className="sm:my-10 space-y-3 flex flex-col text-left m-5">
           <img
             src={profileuserdata?.profileImageURL || defaultprofileimage}
-            alt={defaultprofileimage}
-            className="sm:w-28 sm:h-28 h-20 w-20 bg-gray-300 rounded-full  border-4 border-neutral-600"
+            className="sm:w-28 sm:h-28 h-20 w-20  rounded-full  border-2 border-neutral-600"
           />
           <div className="flex flex-col ">
             <label className="my-1 font-semibold">
@@ -224,14 +224,22 @@ export const Profile = ({ username }) => {
           <div className="flex space-x-3 text-lg text-gray-400">
             <label
               onClick={() => {
-                profileuserdata?.follower.length > 0 && setactive("followers");
+                ((profileuserdata?.follower.length > 0 &&
+                  profileuserdata.uid === userdata.uid) ||
+                  (profileuserdata?.privacy &&
+                    profileuserdata?.follower.includes(userdata?.uid))) &&
+                  setactive("followers");
               }}
             >
               {profileuserdata?.follower?.length} follower
             </label>
             <label
               onClick={() => {
-                profileuserdata.following.length > 0 && setactive("following");
+                ((profileuserdata?.following.length > 0 &&
+                  profileuserdata.uid === userdata.uid) ||
+                  (profileuserdata?.privacy &&
+                    profileuserdata?.follower.includes(userdata?.uid))) &&
+                  setactive("following");
               }}
             >
               {profileuserdata?.following?.length} following
@@ -265,9 +273,7 @@ export const Profile = ({ username }) => {
           >
             <button
               title="follow"
-              onClick={() => {
-                handelfollow();
-              }}
+              onClick={handelfollow}
               className="bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg mr-2  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto  "
             >
               <label className="mx-2">
@@ -284,28 +290,98 @@ export const Profile = ({ username }) => {
 
       <hr />
 
+      {profileuserdata?.uid === userdata?.uid ? (
+        <>
+          {profileuserdata?.post?.length === 0 ? (
+            <div className="w-full my-20 flex flex-col  justify-center">
+              <i className="rounded-full m-auto text-zinc-800 scale-125 border-2 border-stone-700 p-3  my-2 flex justify-center ">
+                <CameraEnhanceIcon />
+              </i>
+              <h1 className="sm:text-3xl text-lg font-bold text-center my-1">
+                share your first post
+              </h1>
+              <button
+                onClick={() => {
+                  setactive("post");
+                }}
+                className="rounded-2xl text-lg md:text-xl px-10 border-white my-5 p-2 mr-auto  border-1 capitalize bg-sky-600 hover:scale-105 transition-all m-auto ease"
+              >
+                post
+              </button>
+            </div>
+          ) : (
+            <>
+              {profileuserdata?.post?.map((item, index) => {
+                return (
+                  <div key={index} className="">
+                    <Post index={index} postdata={item} popup={true} />
+                    <hr />
+                  </div>
+                );
+              })}
+            </>
+          )}{" "}
+        </>
+      ) : (
+        <>
+          {profileuserdata?.privacy ? (
+            <>
+              {profileuserdata?.follower.includes(userdata?.uid) ? (
+                <>
+                  {profileuserdata?.post?.length === 0 ? (
+                    <div className="w-full my-12 flex flex-col justify-center">
+                      <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
+                        <CameraEnhanceIcon />
+                      </i>
+                      <h1 className="text-3xl font-bold text-center my-2">
+                        no post yet
+                      </h1>
+                    </div>
+                  ) : (
+                    <>
+                      {profileuserdata?.post?.map((item, index) => {
+                        return (
+                          <div key={index} className="">
+                            <Post index={index} postdata={item} popup={true} />
+                            <hr />
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
+                </>
+              ) : (
+                <div className="w-full my-12 flex flex-col justify-center">
+                  <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
+                    <CameraEnhanceIcon />
+                  </i>
+                  <h1 className="text-3xl font-bold text-center my-2">
+                    this profile is private
+                  </h1>
+                </div>
+              )}{" "}
+            </>
+          ) : (
+            <>
+              {profileuserdata?.post?.map((item, index) => {
+                return (
+                  <div key={index} className="">
+                    <Post index={index} postdata={item} popup={true} />
+                    <hr />
+                  </div>
+                );
+              })}
+            </>
+          )}
+        </>
+      )}
+
       {!profileuserdata && (
         <div className="text-center my-10 font-serif text-2xl border-b border-gray-500 p-5 mx-5  ">
           profile doesnot exist
         </div>
       )}
 
-      <div className="">
-        {profileuserdata?.post == [null] ? (
-          <div className="text-2xl capitalize text-center">no post</div>
-        ) : (
-          <>
-            {profileuserdata?.post?.map((item, index) => {
-              return (
-                <div key={index} className="">
-                  <Post index={index} postdata={item} popup={true} />
-                  <hr />
-                </div>
-              );
-            })}
-          </>
-        )}
-      </div>
       {active === "report" && (
         <Popupitem
           closefunction={() => {
@@ -453,41 +529,15 @@ export const Profile = ({ username }) => {
               setactive("");
             }}
           >
-            <Editfuserdata />
+            <Editfuserdata
+              toggle={() => {
+                setactive("");
+              }}
+            />
           </Popupitem>
         </div>
       )}
-      {profileuserdata?.post?.length === 0 && (
-        <>
-          {profileuserdata?.username !== userdata?.username ? (
-            <div className="w-full my-12 flex flex-col justify-center">
-              <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
-                <CameraEnhanceIcon />
-              </i>
-              <h1 className="text-3xl font-bold text-center my-2">
-                no post yet
-              </h1>
-            </div>
-          ) : (
-            <div className="w-full my-20 flex flex-col  justify-center">
-              <i className="rounded-full m-auto text-zinc-800 scale-125 border-2 border-stone-700 p-3  my-2 flex justify-center ">
-                <CameraEnhanceIcon />
-              </i>
-              <h1 className="sm:text-3xl text-lg font-bold text-center my-1">
-                share your first post
-              </h1>
-              <button
-                onClick={() => {
-                  setactive("post");
-                }}
-                className="rounded-2xl text-lg md:text-xl px-10 border-white my-5 p-2 mr-auto  border-1 capitalize bg-sky-600 hover:scale-105 transition-all m-auto ease"
-              >
-                post
-              </button>
-            </div>
-          )}
-        </>
-      )}
+
       {active === "post" && (
         <Popupitem
           closefunction={() => {
