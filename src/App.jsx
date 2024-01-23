@@ -21,10 +21,9 @@ function App() {
   const navigate = useNavigate();
   const [userdata, setuserdata] = useState(null);
 
-  // useEffect(() => {
-  //   if (auth?.currentUser) { navigate('/home') }
-  //   else { navigate('/') }
-  // })
+ 
+
+  
 
   return (
     <UserDataProvider value={userdata}>

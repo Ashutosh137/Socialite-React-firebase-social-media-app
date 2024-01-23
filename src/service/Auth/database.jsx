@@ -31,6 +31,7 @@ export const Create_Account = async ({
       dateofbirth: age,
       bio: bio,
       restricted: false,
+      privacy: false,
       profileImageURL: profileimg,
       createdAt: new Date(),
       follower: [],
@@ -215,6 +216,9 @@ export const check_username_is_exist = async (username) => {
 export const Getimagedownloadlink = async (image, uid) => {
   try {
     // Use a promise to wait for the download URL
+    if (image === null) {
+      return null;
+    }
     const imageUrl = await new Promise((resolve, reject) => {
       try {
         const storageRef = ref(storage, `${uid}/${image.name}`);
@@ -240,7 +244,7 @@ export const Getimagedownloadlink = async (image, uid) => {
           }
         );
       } catch (error) {
-        console.log(err);
+        console.log(err0r);
         resolve(null);
       }
     });

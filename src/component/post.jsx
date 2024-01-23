@@ -287,7 +287,7 @@ export const Post = ({ postdata, popup = true }) => {
             </pre>
 
             <div className="w-full">
-              {loadingimg && (
+              {loadingimg && post?.img && (
                 <Skeleton
                   animation="wave"
                   sx={{ bgcolor: "grey.900" }}

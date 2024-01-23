@@ -8,14 +8,12 @@ const Signuppage = () => {
 
   const handelsubmit = async (email, pass) => {
     const sigup = await signupwithemail(email, pass);
-    if (sigup) {
-      navigate("/create-account");
-    }
+    sigup && navigate("/create-account");
   };
 
   return (
     <div className="w-full mx-5 flex flex-wrap  capitalize">
-      <div className=" m-auto outline xl:block hidden  outline-gray-200">
+      <div className=" m-auto outline xl:block hidden  outline-gray-900">
         <img
           className="w-80"
           src="https://cdn.dribbble.com/users/4329662/screenshots/15802739/socialite_v3_final-08_copy.png"

@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 export const Loginpage = () => {
   const navigate = useNavigate();
   const handelsubmit = async (email, pass) => {
-    await signinwithemail(email, pass);
-    navigate("/home");
+    const data = await signinwithemail(email, pass);
+    data && navigate("/home");
   };
   return (
     <div className="w-full mx-5 flex flex-wrap capitalize">
@@ -21,12 +21,7 @@ export const Loginpage = () => {
         <div className=" my-4">
           <h1 className="text-6xl text-left font-sans font-bold ">login </h1>
         </div>
-        <Login
-          onenter={() => {
-            handelsubmit();
-          }}
-          role="login"
-        />
+        <Login onenter={handelsubmit} role="login" />
       </div>
     </div>
   );

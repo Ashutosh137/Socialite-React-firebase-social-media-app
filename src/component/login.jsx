@@ -14,14 +14,23 @@ const Login = ({ onenter, role }) => {
   };
 
   const handelgooglesignup = async () => {
-    await signInWithGoogle();
-    role === "signup" && navigate("./create-account");
-    role === "login" && navigate("/home");
+    const data = await signInWithGoogle();
+
+    {
+      data && role === "signup"
+        ? navigate("./create-account")
+        : navigate("/home");
+    }
   };
 
   useEffect(() => {
-    if (auth.currentUser) return navigate("/home");
-  }, [auth.currentuser]);
+    const unsubscribe = auth.onAuthStateChanged(() => {
+      auth.currentUser && navigate("/home");
+    });
+
+    return () => unsubscribe();
+  }, []);
+  
   return (
     <div className="flex flex-col my-5 w-96">
       <h3 className="text-3xl my-2 font-bold "> join now . </h3>

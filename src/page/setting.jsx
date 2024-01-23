@@ -5,25 +5,25 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Editfuserdata from "../component/editfuserdata";
 import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
-import Display from "../component/display";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Resetpassword from "../component/resetpassword";
 import { toast } from "react-toastify";
 import Block from "../component/block";
 
 export default function Setting() {
-  const [active, setactive] = useState("");
+  const [active, setactive] = useState(
+    `${window.innerWidth < 480 ? "" : "account"}`
+  );
   const [reportitle, setreportitle] = useState("");
   const [report, setreport] = useState("");
   const navigate = useNavigate();
-
   return (
-    <div className="flex w-full justify-around max-h-screen  overflow-y-scroll scroll-hidden  my-5 ">
+    <div className="flex w-full justify-around max-h-screen  overflow-y-scroll scroll-hidden my-5 ">
       <Navbar />
 
-      <section className="flex border-gray-800  text-center capitalize text-base border-x-2  w-full mx-3">
+      <section className="flex border-gray-800  text-center capitalize text-base border-x-2  w-full sm:mx-3">
         <div
-          className={`px-3 flex-col ${
+          className={`px-3 flex-col w-full sm:w-auto ${
             active === "" ? "flex" : "hidden"
           } md:flex`}
         >
@@ -50,7 +50,7 @@ export default function Setting() {
               onClick={() => {
                 active === "password" ? setactive("") : setactive("password");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">password and protection</h1>
               <i className="ml-auto">
@@ -60,21 +60,9 @@ export default function Setting() {
 
             <div
               onClick={() => {
-                active === "display" ? setactive("") : setactive("display");
-              }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 border-2 m-3 rounded-3xl sm:w-72 flex"
-            >
-              <h1 className="m-auto w-full">display and color</h1>
-              <i className="ml-auto">
-                <KeyboardArrowRightIcon />
-              </i>
-            </div>
-
-            <div
-              onClick={() => {
                 active === "block" ? setactive("") : setactive("block");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">who can see your posts</h1>
               <i className="ml-auto">
@@ -85,7 +73,7 @@ export default function Setting() {
               onClick={() => {
                 active === "report" ? setactive("") : setactive("report");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">report a problem</h1>
               <i className="ml-auto ">
@@ -97,7 +85,7 @@ export default function Setting() {
                 auth.signOut();
                 navigate("/login");
               }}
-              className="p-3 justify-center  border-gray-700 border-2 text-red-400 hover:bg-gray-300 hover:text-black transition-colors ease-in-out duration-400 font-semibold m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center  border-gray-700 border-2 text-red-400 hover:text-white transition-colors ease-in-out duration-400 font-semibold m-3 rounded-3xl sm:w-72 flex"
             >
               logout
             </div>
@@ -117,11 +105,11 @@ export default function Setting() {
               <KeyboardArrowLeftIcon />
             </i>
             {active === "account" && <Editfuserdata />}
-            {active === "display" && <Display />}
             {active === "password" && (
               <Resetpassword toggle={() => setactive("")} />
             )}
             {active === "block" && <Block />}
+
             {active === "report" && (
               <div className="w-full mx-2  text-base text-left capitalize">
                 <h1 className="text-center text-xl">report a problem</h1>
@@ -166,8 +154,7 @@ export default function Setting() {
                         setreport("");
                         setreportitle("");
                       }}
-                      className="bg-blue-500 hover:bg-blue-600 rounded-full m-auto  shadow-lg
-          capitalize p-3 px-5 w-60 my-3 font-semibold "
+                      className="bg-blue-500 hover:bg-blue-600 rounded-full m-auto  shadow-lg capitalize p-3 px-5 w-60 my-3 font-semibold "
                     >
                       report
                     </button>

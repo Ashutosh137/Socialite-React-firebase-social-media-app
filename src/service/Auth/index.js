@@ -11,6 +11,7 @@ import {
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDWMsQ_lIPutPYLWfsu0UBCipPyxwvVvwE",
@@ -31,7 +32,8 @@ const storage = getStorage(app);
 export const signInWithGoogle = async () => {
   var provider = new GoogleAuthProvider();
   try {
-    await signInWithPopup(auth, provider);
+    const data = await signInWithPopup(auth, provider);
+    return data;
   } catch (err) {
     console.error(err);
   }
@@ -39,7 +41,8 @@ export const signInWithGoogle = async () => {
 
 export const signinwithemail = async (email, pass) => {
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
+    const data = await signInWithEmailAndPassword(auth, email, pass);
+    return data;
   } catch (err) {
     console.error(err);
   }
@@ -55,17 +58,15 @@ export const signupwithemail = async (email, pass) => {
 
     if (res) {
       await sendEmailVerification(res.user);
-      alert(
-        "email signup link has been send to your email, please check your inbox to verify your profile"
-      );
+      toast.error("invaild email id");
     }
-    return true;
+    return res;
   } catch (err) {
     console.error(err.code);
     if (err.code === "auth/email-already-in-use") {
-      alert("This Email is already in use!");
-    } else if (err.code === "auth/invalid-email") alert("invalid email id ");
-    return false;
+      toast.error("This email id is already in use , please use different email id");
+    } else if (err.code === "auth/invalid-email")
+      toast.error("invalid email id or passwaord");
   }
 };
 export const logout = async () => {
