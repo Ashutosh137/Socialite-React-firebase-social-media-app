@@ -12,7 +12,7 @@ const Signuppage = () => {
   };
 
   return (
-    <div className="w-full mx-5 flex flex-wrap  capitalize">
+    <div className="w-full flex  p-2 capitalize">
       <div className=" m-auto outline xl:block hidden  outline-gray-900">
         <img
           className="w-80"
@@ -20,12 +20,8 @@ const Signuppage = () => {
           alt=""
         />
       </div>
-      <div className="xl:w-1/2 ">
-        <div className=" my-5">
-          <h1 className="text-6xl text-left font-sans font-bold ">
-            happening now{" "}
-          </h1>
-        </div>
+      <div>
+        <h1 className="text-6xl text-left font-bold ">happening now </h1>
         <Login onenter={handelsubmit} role="signup" />
       </div>
     </div>

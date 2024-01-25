@@ -14,7 +14,7 @@ export const Popupitem = ({ children, closefunction }) => {
         </div>
       </div>
       {/* mobile */}
-      <div className="p-5 absolute sm:hidden h-screen w-screen left-0 top-0 bg-black text-white">
+      <div className="p-5 absolute sm:hidden overflow-y-scroll scroll-hidden h-screen w-screen left-0 top-0 bg-black text-white">
         <div className="text-4xl m-3 z-50">
           <button onClick={closefunction}>x</button>
         </div>

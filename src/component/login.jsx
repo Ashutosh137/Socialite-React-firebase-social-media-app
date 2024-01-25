@@ -32,9 +32,9 @@ const Login = ({ onenter, role }) => {
   }, []);
   
   return (
-    <div className="flex flex-col my-5 w-96">
+    <div className="flex flex-col sm:w-3/4 sm:my-5 p-4 w-full">
       <h3 className="text-3xl my-2 font-bold "> join now . </h3>
-      <div className=" my-5 sm:w-96 bg-white text-black text-center hover:scale-105 transition-all ease font-semibold outline rounded-2xl ">
+      <div className=" my-5 sm: bg-white text-black text-center hover:scale-105 transition-all ease font-semibold outline rounded-2xl ">
         <button
           className="m-auto capitalize flex p-2 px-6 text-base sm:text-xl "
           onClick={handelgooglesignup}
@@ -54,7 +54,7 @@ const Login = ({ onenter, role }) => {
       </div>
 
       <form
-        className="flex flex-col w-96 "
+        className="flex  flex-col  "
         onSubmit={(e) => {
           e.preventDefault();
           handelsubmit();
@@ -64,7 +64,7 @@ const Login = ({ onenter, role }) => {
           type="email"
           placeholder="Email"
           value={email}
-          className="px-3 m-auto w-96  text-xl p-2 border-1 border-black rounded-sm my-2 border text-black  "
+          className="px-3  text-xl p-2 border-1 border-black rounded-lg my-2 border text-black  "
           onChange={(e) => setemail(e.target.value)}
           required
         ></input>
@@ -72,7 +72,7 @@ const Login = ({ onenter, role }) => {
           type="password"
           placeholder="password"
           value={pass}
-          className="px-3 m-auto w-96 text-xl p-2 border-1 border-black rounded-sm my-2 border text-black "
+          className="px-3 text-xl p-2 border-1 border-black rounded-lg my-2 border text-black "
           onChange={(e) => setpass(e.target.value)}
           required
         ></input>
@@ -88,7 +88,7 @@ const Login = ({ onenter, role }) => {
         </button>
       </form>
       {role === "signup" && (
-        <div className="my-3 w-96 capitalize text-xl flex flex-col ">
+        <div className="my-3  capitalize text-xl flex flex-col ">
           <label className="my-3">already have an account ? </label>
           <button className="my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize">
             <Link to="/login">sign-in</Link>{" "}
@@ -96,7 +96,7 @@ const Login = ({ onenter, role }) => {
         </div>
       )}
       {role === "login" && (
-        <div className="my-2 w-96 capitalize text-xl flex flex-col ">
+        <div className="my-2  capitalize text-xl flex flex-col ">
           <label className="my-3">don't have an account ? </label>
           <button className="my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize">
             <Link to="/">sign-up</Link>{" "}

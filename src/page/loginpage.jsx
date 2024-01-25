@@ -9,18 +9,16 @@ export const Loginpage = () => {
     data && navigate("/home");
   };
   return (
-    <div className="w-full mx-5 flex flex-wrap capitalize">
-      <div className=" m-auto outline xl:block hidden p-1  outline-gray-900">
+    <div className="w-full flex p-2 capitalize">
+      <div className=" m-auto outline xl:block hidden outline-gray-900">
         <img
           className="w-80"
           src="https://cdn.dribbble.com/users/4329662/screenshots/15802739/socialite_v3_final-08_copy.png"
           alt=""
         />
       </div>
-      <div className="xl:w-1/2 ">
-        <div className=" my-4">
-          <h1 className="text-6xl text-left font-sans font-bold ">login </h1>
-        </div>
+      <div>
+        <h1 className="text-6xl text-left  font-bold ">login </h1>
         <Login onenter={handelsubmit} role="login" />
       </div>
     </div>

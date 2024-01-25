@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useuserdatacontext } from "../service/context/usercontext";
 import { get_userdata } from "../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -11,17 +11,17 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Popupitem } from "../ui/popup";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
-import Reply from "./reply";
 
-export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
+export default function Reply({ reply, setcommentpost }) {
+  console.log('ashutosh')
+
   const { userdata, defaultprofileimage } = useuserdatacontext();
   const [commentby, setcommentby] = useState(null);
-
   const [loadingimg, setloadingimg] = useState(true);
   const navigate = useNavigate();
   const [active, setactive] = useState("");
   const [delet, setdelet] = useState(false);
-  const [comment, setcomment] = useState(currentcomment || null);
+  const [comment, setcomment] = useState(reply || null);
 
   useEffect(() => {
     const data = async () => {
@@ -32,18 +32,20 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
   }, []);
 
   useEffect(() => {
-    const data = async () => {
+    const data = () => {
       if (comment && auth.currentUser) {
-        setpost((prev) => ({
+        setcommentpost((prev) => ({
           ...prev,
-          comments: prev?.comments.map((currcomment) => {
-            if (comment.commentid === currcomment?.commentid) {
-              return comment;
-            } else return currcomment;
+          reply: prev?.reply.map((repli) => {
+            if (repli.commentid === comment?.commentid) return comment;
+            else {
+              return repli;
+            }
           }),
         }));
       }
     };
+
     data();
   }, [comment]);
 
@@ -59,20 +61,20 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
         }));
   };
 
+  
+
   const delcomment = () => {
-    setpost((pre) => ({
+    setcommentpost((pre) => ({
       ...pre,
-      comments: pre?.comments.filter(
-        (curr) => curr.commentid !== comment?.commentid
-      ),
+      reply: pre?.reply?.filter((rep) => rep.commentid !== comment?.commentid),
     }));
   };
+
   if (commentby?.block?.includes(userdata?.uid)) {
     return <></>;
   }
-
   return (
-    <div className=" w-full ">
+    <div className=" w-4/5 ml-auto ">
       {!delet && (
         <div className="capitalize flex w-full  sm:space-x-2 ">
           <img
@@ -127,11 +129,12 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 <MoreVertIcon />
               </label>
               {active === "menu" && (
-                <div className="absolute top-5 right-3 sm:right-8 px-4 text-sm bg-black  -my-5 py-5 p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2  ">
+                <div className="absolute top-5 right-3 sm:right-8 px-4 text-sm bg-black sm:-my-16 -my-5 py-5 p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2  ">
                   <button
                     className="w-40 p-1 rounded-full text-white hover:bg-gray-950 "
                     onClick={() => {
                       navigate(`/profile/${commentby?.username} `);
+                      toggle();
                     }}
                   >
                     View profile
@@ -200,34 +203,13 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                       <FavoriteBorderIcon />
                     )}
                   </i>
-                  <div className="flex">
-                    <label htmlFor="">{comment?.reply?.length}</label>
-                    <i
-                      onClick={() => {
-                        setactivation({
-                          to: commentby?.username,
-                          commentid: comment?.commentid,
-                        });
-                        setactive("reply");
-                      }}
-                      className="hover:text-green-700"
-                    >
-                      <ReplyIcon />
-                    </i>
-                  </div>
                 </div>
               </div>
             </div>
             {active === "reply" && (
               <div>
-                {comment?.reply?.map((reply) => {
-                  return (
-                    <Reply
-                      cuutcomment={comment}
-                      reply={reply}
-                      setcommentpost={setcomment}
-                    />
-                  );
+                {comment?.reply.map((reply) => {
+                  return <Reply reply={reply} />;
                 })}
               </div>
             )}
@@ -288,4 +270,4 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
       )}
     </div>
   );
-};
+}

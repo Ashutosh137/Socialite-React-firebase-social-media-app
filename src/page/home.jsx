@@ -31,7 +31,7 @@ export const Home = () => {
   return (
     <div className="flex w-full justify-around h-screen ">
       <Navbar />
-      <div className="flex border-gray-800 max-h-screen  overflow-y-scroll scroll-hidden  border-x-2  w-full mx-3 flex-col ">
+      <div className="flex border-gray-800 max-h-screen  overflow-y-scroll scroll-hidden  border-x-2  w-full sm:mx-3 flex-col ">
         <div className="">
           <Createpost />
         </div>

@@ -56,8 +56,8 @@ const CreateAccount = () => {
   };
 
   return (
-    <div className="capitalize px-5">
-      <h1 className="text-4xl md:text-6xl my-12 font-serif font-bold ">
+    <div className="capitalize sm:px-5 px-3">
+      <h1 className="text-4xl md:text-6xl sm:my-12 my-5 font-bold ">
         create an account with us{" "}
       </h1>
       <form
@@ -79,22 +79,25 @@ const CreateAccount = () => {
           <input
             type="text"
             name="username"
-            placeholder="enter your unique uername..."
+            placeholder="enter your unique uername ..."
+            maxLength={20}
             value={formdata.username}
             className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 w-80 md:w-2/5 md:text-lg text-sm p-2 border-3 border-black  rounded-2xl my-2 border text-black  "
             onChange={async (e) => {
               handelchange(e);
               const data = await check_username_is_exist(
+                
                 e.target.value.trim().toLowerCase()
               );
-              console.log(data);
               const isValidInput = /^[a-zA-Z0-9_]+$/.test(
                 e.target.value.trim().toLowerCase()
               );
               if (data[0] || !isValidInput) {
                 setisusernameexist(true);
                 e.target.style.borderColor = "red";
+                
               } else {
+            
                 setisusernameexist(false);
                 e.target.style.borderColor = "black";
               }
@@ -133,7 +136,7 @@ const CreateAccount = () => {
 
         <div className="flex-col flex my-2">
           <label className="md:text-xl text-base  font-sans p-1 mx-3 ">
-            {" "}
+           
             date of birth
           </label>
           <input
@@ -166,7 +169,7 @@ const CreateAccount = () => {
         </div>
         <button
           type="submit"
-          className="rounded-2xl text-lg md:text-xl border-white my-6 p-2 mr-auto md:w-80 px-7 border-1 capitalize bg-sky-600 hover:scale-105 transition-all ease"
+          className="rounded-2xl text-lg mx-3 md:text-xl border-white my-6 p-2 mr-auto md:w-80 px-7 border-1 capitalize bg-sky-600 hover:scale-105 transition-all ease"
         >
           create account
         </button>

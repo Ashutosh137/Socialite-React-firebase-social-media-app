@@ -90,7 +90,7 @@ export const Profile = ({ username }) => {
   };
 
   return (
-    <div className="overflow-y-scroll scroll-hidden h-screen w-full p-2 text-2xl capitalize">
+    <div className="scroll-hidden w-full p-2 sm:text-2xl text-lg capitalize">
       <div className="flex relative m-1 sm:m-2 ">
         <i
           onClick={() => {
@@ -99,7 +99,7 @@ export const Profile = ({ username }) => {
         >
           <ArrowBackIcon />
         </i>
-        <div className="flex flex-col mx-4 capitalize">
+        <div className="flex flex-col sm:text-xl text-lg mx-4 capitalize">
           <label>
             {profileuserdata?.name || (
               <Skeleton
@@ -110,7 +110,7 @@ export const Profile = ({ username }) => {
               />
             )}
           </label>
-          <label className="text-gray-500 text-base">
+          <label className="text-gray-500 text-sm sm:text-base">
             {profileuserdata?.post?.length} Posts
           </label>
         </div>
@@ -192,7 +192,7 @@ export const Profile = ({ username }) => {
         )}
       </div>
       <div className="flex">
-        <div className="sm:my-10 space-y-3 flex flex-col text-left m-5">
+        <div className="sm:my-10 sm:space-y-3 space-y-1 flex flex-col text-left m-5">
           <img
             src={profileuserdata?.profileImageURL || defaultprofileimage}
             className="sm:w-28 sm:h-28 h-20 w-20  rounded-full  border-2 border-neutral-600"
@@ -208,7 +208,7 @@ export const Profile = ({ username }) => {
                 />
               )}
             </label>
-            <label className="text-xl text-gray-400">
+            <label className="flex text-lg sm:text-xl space-x-1 text-gray-400">
               @
               {profileuserdata?.username || (
                 <Skeleton

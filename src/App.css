@@ -2,7 +2,7 @@
   animation: animinate-bounce 300ms ease-in-out;
   width: 700px;
 }
-textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar, body::-webkit-scrollbar {
   display: none;
 }
 .scroll-hidden::-webkit-scrollbar {

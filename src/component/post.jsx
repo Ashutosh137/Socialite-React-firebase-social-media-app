@@ -9,8 +9,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Skeleton } from "@mui/material";
-import Createid from "../service/other/createid";
 import { Popupitem } from "../ui/popup";
+import ShareIcon from "@mui/icons-material/Share";
 import { useuserdatacontext } from "../service/context/usercontext";
 import {
   get_userdata,
@@ -19,9 +19,9 @@ import {
 } from "../service/Auth/database";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Comment from "./comment";
 import ProgressBar from "@badrap/bar-of-progress";
 import Time from "../service/other/time";
+import Addcomment from "./addcomment";
 export const Post = ({ postdata, popup = true }) => {
   const [active, setactive] = useState("");
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
@@ -32,23 +32,26 @@ export const Post = ({ postdata, popup = true }) => {
 
   const [postdelete, setpostdelete] = useState(false);
 
-  const [commenttext, setcommenttext] = useState("");
   const [postedby, setpostedby] = useState(null);
   const navigate = useNavigate();
   const [loadingimg, setloadingimg] = useState(true);
 
+  
   useEffect(() => {
     const data = async () => {
       const postedby = await get_userdata(post?.postedby);
       setpostedby(postedby);
     };
+
     data();
   }, []);
-
+  
   useEffect(() => {
     const data = async () => {
-      await updateprofileuserdata(postedby, postedby?.username);
+      if(postedby){ await updateprofileuserdata(postedby, postedby?.username);
+      }
     };
+    return
     data();
   }, [postedby]);
 
@@ -82,24 +85,6 @@ export const Post = ({ postdata, popup = true }) => {
         }));
   };
 
-  const handelcomment = () => {
-    if (auth?.currentUser && commenttext != "") {
-      setpost((prev) => ({
-        ...prev,
-        comments: [
-          ...prev?.comments,
-          {
-            content: commenttext,
-            postedby: userdata?.uid,
-            postedat: new Date(),
-            commentid: Createid(),
-            likes: [],
-          },
-        ],
-      }));
-    }
-  };
-
   function handelactive(act) {
     active === act ? setactive("") : setactive(act);
   }
@@ -110,18 +95,18 @@ export const Post = ({ postdata, popup = true }) => {
   return (
     <div className="md:my-4 my-2 p-2 text-lg flex flex-col">
       {!hide && !postdelete && (
-        <div className="flex w-full align-middle sm:space-x-2 ">
+        <div className="flex w-full align-middle space-x-2 ">
           <img
-            className="rounded-full mx-2 bg-gray-400 border border-neutral-500 w-8 sm:w-10 h-8 sm:h-10"
+            className="rounded-full border border-neutral-500 w-8 aspect-square sm:w-10 h-8 sm:h-10"
             src={postedby?.profileImageURL || defaultprofileimage}
           />
           <div className="flex w-full m-1 sm:mx-3 flex-col">
-            <div className="flex relative align-middle">
+            <div className="flex relative text-sm sm:text-base  align-middle">
               <div
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}`);
                 }}
-                className="flex text-base sm:text-lg justify-start w-full  capitalize space-x-2"
+                className="flex text-sm sm:text-base justify-start w-full capitalize space-x-1 sm:space-x-2"
               >
                 <label className="font-semibold my-auto">
                   {postedby?.name || (
@@ -133,7 +118,7 @@ export const Post = ({ postdata, popup = true }) => {
                     />
                   )}
                 </label>
-                <label className="text-gray-500 text-sm sm:text-base flex my-auto space-x-3">
+                <label className="text-gray-500 flex my-auto space-x-3">
                   @
                   {postedby?.username || (
                     <Skeleton
@@ -281,7 +266,7 @@ export const Post = ({ postdata, popup = true }) => {
               onClick={() => {
                 navigate(`/profile/${postedby?.username}/${post?.postid}`);
               }}
-              className="text-sm   whitespace-pre-wrap my-2 font-sans w-full p-2 "
+              className="text-sm  whitespace-pre-wrap my-2 w-full sm:p-2 "
             >
               {post?.content}
             </pre>
@@ -296,11 +281,9 @@ export const Post = ({ postdata, popup = true }) => {
                   height={250}
                 />
               )}
-              {post?.img ? (
+              {post?.img && (
                 <img
-                  onDoubleClick={() => {
-                    handal_like();
-                  }}
+                  onDoubleClick={handal_like}
                   onLoadCapture={() => {
                     setloadingimg(false);
                   }}
@@ -312,8 +295,6 @@ export const Post = ({ postdata, popup = true }) => {
                     loadingimg ? "hidden" : "block"
                   } w-full h-full h-postimg  border-neutral-500 border-2 rounded-2xl`}
                 />
-              ) : (
-                <></>
               )}
             </div>
 
@@ -321,7 +302,9 @@ export const Post = ({ postdata, popup = true }) => {
               <div
                 className="flex space-x-1 hover:text-sky-900"
                 onClick={() => {
-                  post?.comments.length > -1 && handelactive("comment");
+                  post?.comments.length > -1 &&
+                    popup &&
+                    handelactive("comment");
                 }}
               >
                 <label className="text-gray-400">
@@ -364,39 +347,19 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
 
-              {userdata?.saved.some((savedpost) => {
-                return savedpost.postid === post?.postid;
-              }) ? (
-                <i
-                  onClick={() => {
-                    const updatedSaved = userdata?.saved.filter(
-                      (savedpost) => post?.postid != savedpost?.postid
-                    );
-
-                    auth.currentUser &&
-                      setuserdata((prev) => ({ ...prev, saved: updatedSaved }));
-                    toast.success("removed from your Bookmark ");
-                  }}
-                >
-                  <BookmarkIcon style={{ color: "#22A7F0" }} />
-                </i>
-              ) : (
-                <i
-                  className="hover:text-blue-900 "
-                  onClick={() => {
-                    setuserdata((prev) => ({
-                      ...prev,
-                      saved: [
-                        ...prev?.saved,
-                        { postedby: post?.postedby, postid: post?.postid },
-                      ],
-                    }));
-                    toast.success(" Added to your Bookmark ");
-                  }}
-                >
-                  <BookmarkBorderIcon />
-                </i>
-              )}
+              <i
+                className="hover:text-green-400"
+                onClick={() => {
+                  navigator.share({
+                    title:
+                      "Spreading the Vibes: Check Out My Latest Socialite Post! ",
+                    text: "Embark on a journey through elegance and excitement! My newest post on [Socialite App] is here to dazzle your feed. Swipe up to experience the glitz, glamour, and all things fabulous!",
+                    url: `${window.location.origin}/profile/${postedby?.username}/${post?.postid}`,
+                  });
+                }}
+              >
+                <ShareIcon />
+              </i>
             </div>
           </div>
         </div>
@@ -540,61 +503,8 @@ export const Post = ({ postdata, popup = true }) => {
                   setactive("");
                 }}
               >
-                <Post postdata={post} />
-                <div className="flex text-center flex-col container ">
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      handelcomment();
-                      setcommenttext("");
-                    }}
-                    className="flex w-full my-2 border  rounded-xl border-neutral-500 p-4 justify-around"
-                  >
-                    <img
-                      src={userdata?.profileImageURL || defaultprofileimage}
-                      className="w-10 h-10  border-2 bg-gray-400 border-neutral-400  rounded-full"
-                      alt=""
-                    />
-                    <input
-                      onChange={(e) => {
-                        setcommenttext(e.target.value);
-                      }}
-                      value={commenttext}
-                      maxLength={50}
-                      type="text"
-                      className="mx-2 w-full bg-black capitalize text-white text-base border-2 px-4 border-white rounded-xl "
-                      placeholder="write a comment .."
-                    />
-                    <button className="bg-blue-500 text-sm  text-white text-center p-2 sm:px-4 capitalize rounded-md  md:w-40">
-                      comment
-                    </button>
-                  </form>
-
-                  <h2 className="sm:text-xl text-base my-3 text-center p-2 capitalize text-gray-400">
-                    {" "}
-                    {post?.comments.length > 0
-                      ? "comments"
-                      : "Don't be shy! , Your opinion is valuable—share it with us in the comments."}
-                  </h2>
-                  <div className="flex space-y-5 flex-col my-5 ">
-                    {post?.comments.map((comm, index) => {
-                      return (
-                        <div className="flex flex-col space-y-1 ">
-                          <Comment
-                            setpost={setpost}
-                            toggle={() => {
-                              setactive("");
-                            }}
-                            key={index}
-                            currentcomment={comm}
-                            post={post}
-                          />
-                          <hr className="w-full border-gray-700" />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
+                <Post postdata={post} popup={false} />
+                <Addcomment cuupost={post} cuusetpost={setpost} />
               </Popupitem>
             </>
           )}
