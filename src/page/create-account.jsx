@@ -139,7 +139,7 @@ const CreateAccount = () => {
           <input
             type="date"
             name="age"
-            aria-invalid={
+            invalid={
               formdata.age > new Date() || formdata?.age < new Date("1970-1-1")
             }
             value={formdata.age}

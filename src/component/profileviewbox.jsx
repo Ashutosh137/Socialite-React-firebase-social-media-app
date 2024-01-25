@@ -30,14 +30,14 @@ export default function Profileviewbox({
       onClick={() => {
         navigate(`/profile/${profileuserdata?.username}`);
       }}
-      className="flex m-auto  cursor-pointer p-2 justify-between align-middle "
+      className="flex  w-full  cursor-pointer p-2 align-middle "
     >
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         className="rounded-full w-10 h-10 my-auto mx-1"
       />
       <div
-        className="flex m-1 flex-col cursor-pointer"
+        className="flex w-full m-1 flex-col cursor-pointer"
         onClick={() => {
           navigate(`/profile/${profileuserdata?.username}`);
         }}
@@ -69,7 +69,7 @@ export default function Profileviewbox({
           </pre>
         )}
       </div>
-      <div className=" px-4 my-auto ml-auto">
+      <div className="w-full px-4 my-auto ml-auto">
         <button
           className="bg-white w-24 hover:bg-slate-200 rounded-full text-sm shadow-lg ml-auto font-medium text-black
      capitalize py-1 px-4 "

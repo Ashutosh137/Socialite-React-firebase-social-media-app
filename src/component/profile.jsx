@@ -224,10 +224,10 @@ export const Profile = ({ username }) => {
           <div className="flex space-x-3 text-lg text-gray-400">
             <label
               onClick={() => {
-                ((profileuserdata?.follower.length > 0 &&
-                  profileuserdata.uid === userdata.uid) ||
+                (profileuserdata?.follower.length > 0 &&
+                  (profileuserdata.uid === userdata.uid) ||
                   (profileuserdata?.privacy &&
-                    profileuserdata?.follower.includes(userdata?.uid))) &&
+                    profileuserdata?.follower.includes(userdata?.uid) || !profileuserdata?.privacy)) &&
                   setactive("followers");
               }}
             >
@@ -235,10 +235,10 @@ export const Profile = ({ username }) => {
             </label>
             <label
               onClick={() => {
-                ((profileuserdata?.following.length > 0 &&
-                  profileuserdata.uid === userdata.uid) ||
+                (profileuserdata?.following.length > 0 &&
+                  (profileuserdata.uid === userdata.uid) ||
                   (profileuserdata?.privacy &&
-                    profileuserdata?.follower.includes(userdata?.uid))) &&
+                    profileuserdata?.follower.includes(userdata?.uid) || !profileuserdata?.privacy)) &&
                   setactive("following");
               }}
             >
