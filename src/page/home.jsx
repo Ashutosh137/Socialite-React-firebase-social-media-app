@@ -36,7 +36,7 @@ export const Home = () => {
           <Createpost />
         </div>
         <hr className="border-gray-700 w-full" />
-        <div className="">
+        <div className="sm:mx-3 mx-1">
           {allpostdata.map((postarray, index) => {
             return <Post postdata={postarray} popup={true} />;
           })}

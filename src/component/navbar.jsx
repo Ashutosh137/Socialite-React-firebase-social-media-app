@@ -38,7 +38,7 @@ const Navbar = () => {
                 <label className=" mx-2 md:block hidden">home</label>
               </span>
             </Link>
-            <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
+            <Link to={`${userdata?.username ? `/search` : "/login"}`}>
               <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
                 <SearchIcon />
                 <label className="md:block hidden mx-2">explore</label>
@@ -144,30 +144,30 @@ const Navbar = () => {
 
       <div>
         <div className="sm:hidden z-40 fixed top-0 left-0  bg-neutral-900 w-full">
-          <div className="flex px-3 my-4  align-middle justify-between">
-            <Link to={`/profile/${userdata?.username}`} className="mx-4">
+          <div className="flex px-3 my-3  align-middle justify-between">
+            <Link to={`/profile/${userdata?.username}`} className="mx-2">
               <img
-                className="w-10 h-10 rounded-full border-gray-700 hover:border-gray-100 border-2 hover:p-1 "
+                className="w-10 h-10 aspect-square rounded-full border-gray-700 hover:border-gray-100 border-2 hover:p-1 "
                 src={userdata?.profileImageURL || defaultprofileimage}
                 alt={defaultprofileimage}
               />
             </Link>
 
-            <h1 className="text-3xl capitalize">socialite</h1>
+            <h1 className="text-2xl m-auto capitalize">socialite</h1>
 
             <Link
-              className="border-gray-700 hover:border-gray-100 border-2 rounded-3xl p-2  "
+              className="border-gray-600 aspect-square hover:border-gray-100 border-2 rounded-3xl p-1  "
               to="/setting"
             >
               <SettingsIcon />
             </Link>
           </div>
-          <hr />
+          <hr className="border-gray-500 rounded-md" />
         </div>
 
         <div className="sm:hidden z-50 left-0 fixed bottom-0 w-full">
-          <hr />
-          <div className="flex py-5 rounded-sm bg-neutral-900">
+          <hr className="border-gray-500" />
+          <div className="flex py-3 rounded-sm bg-neutral-900">
             <Link
               to="/home"
               className="mx-5 border-gray-700 hover:border-gray-100 border-2 rounded-3xl p-2  m-auto"
@@ -178,7 +178,7 @@ const Navbar = () => {
             </Link>
             <Link
               className="mx-5 border-gray-700 hover:border-gray-100 border-2 rounded-3xl p-2  m-auto"
-              to="/serach"
+              to="/search"
             >
               <span>
                 <SearchIcon />

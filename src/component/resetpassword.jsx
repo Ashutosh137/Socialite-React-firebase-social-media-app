@@ -13,15 +13,15 @@ export default function Resetpassword({ toggle }) {
   };
 
   return (
-    <div className="text-base sm:p-5 w-full capitalize flex flex-col space-y-4 text-left">
+    <div className="text-sm sm:text-base sm:p-5 px-2 w-full capitalize flex flex-col space-y-4 text-left">
       <h1 className="text-2xl text-center p-2">reset your passward</h1>
       <div className="flex mx-2  justify-around">
-        <label htmlFor="email">email address </label>
+        <label>email address </label>
         <div className="flex flex-col">
           <input
             type="email"
             name="email"
-            className={`px-5 bg-black w-80 border-2   text-gray-300 sm:text-base text-sm p-1 border-1 rounded-xl ${
+            className={`px-5 bg-black sm:w-80 w-full border-2   text-gray-300 sm:text-base text-sm p-1 border-1 rounded-xl ${
               auth.currentUser.emailVerified
                 ? "border-green-400"
                 : "border-gray-500"
@@ -33,7 +33,7 @@ export default function Resetpassword({ toggle }) {
             <button
               onClick={handelvarify}
               className={` rounded-full w-40 p-1 text-gray-300 shadow-lg
-          capitalize px-5 my-3bg-gray-600`}
+          capitalize px-5 my-3 bg-gray-700`}
             >
               verify now
             </button>
@@ -41,8 +41,8 @@ export default function Resetpassword({ toggle }) {
         </div>
       </div>
 
-      <div className="flex justify-around">
-        <h1 className="my-auto w-40">change your socilite password</h1>
+      <div className="flex  w-full justify-around ">
+        <h1 className=" w-40  my-auto">change your socilite password</h1>
         <button
           className="rounded-full bg-blue-500 text-gray-200 p-1 shadow-lg
           capitalize px-5 my-3"
@@ -53,21 +53,18 @@ export default function Resetpassword({ toggle }) {
             );
           }}
         >
-          change your profile passward
+          send link via email
         </button>
       </div>
-      <div className="flex  justify-around">
-        <label htmlFor="email" className="w-40 ">
-          last sign-in time
-        </label>
+
+      <div className="flex justify-around">
+        <label className="w-40 ">last sign-in time</label>
         <label className="text-gray-400">
           {auth.currentUser.metadata.lastSignInTime.toString()}
         </label>
       </div>
       <div className="flex  justify-around">
-        <label htmlFor="email" className="w-40">
-          Created at{" "}
-        </label>
+        <label className="w-40">Created at </label>
         <label className="text-gray-400">
           {auth.currentUser.metadata.creationTime.toString()}
         </label>

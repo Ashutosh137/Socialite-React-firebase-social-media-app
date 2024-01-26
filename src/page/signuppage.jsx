@@ -2,13 +2,16 @@ import React from "react";
 import { signupwithemail, auth } from "../service/Auth/index";
 import { useNavigate } from "react-router-dom";
 import Login from "../component/login";
+import { toast } from "react-toastify";
 
 const Signuppage = () => {
   const navigate = useNavigate();
 
   const handelsubmit = async (email, pass) => {
     const sigup = await signupwithemail(email, pass);
+    signup && toast.success('signup successfully ')
     sigup && navigate("/create-account");
+
   };
 
   return (

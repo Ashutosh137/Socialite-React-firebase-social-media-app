@@ -16,6 +16,7 @@ import { Profile } from "./component/profile";
 import { Profilepage } from "./page/profilepage";
 import { List } from "./page/list";
 import Seepost from "./component/seepost";
+import Search from "./page/search";
 
 function App() {
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ function App() {
           <Route exect path="/create-account" Component={CreateAccount} />
           <Route exect path="/login" Component={Loginpage} />
           <Route exect path="/setting" Component={Setting} />
+          <Route exect path="/search" Component={Search} />
           <Route exect path="/profile/:username" Component={Profilepage} />
           <Route exect path="/profile/:username/:postid" Component={Seepost} />
           <Route exect path="/lists" Component={List} />

@@ -69,7 +69,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
     progress.finish();
   };
   return (
-    <div className="flex  text-center flex-col container ">
+    <div className="flex flex-col ">
       {active !== "comment" && (
         <div className="flex space-x-3 m-1 justify-start align-middle w-full">
           <label className="text-sm capitalize my-auto text-left ">
@@ -94,13 +94,13 @@ export default function Addcomment({ cuupost, cuusetpost }) {
             (await handelcomment());
           setcommenttext("");
         }}
-        className="flex w-full my-2 border  rounded-xl border-neutral-500 p-4 justify-around"
+        className="flex w-full my-2 sm:p-4 p-2 border rounded-xl border-gray-500 justify-around"
       >
         <img
           src={userdata?.profileImageURL || defaultprofileimage}
-          className="w-10 h-10  border-2 bg-gray-400 border-neutral-400  rounded-full"
+          className="w-10 h-10 bg-gray-400  rounded-full"
         />
-        <div className="flex w-full mx-2 space-x-2">
+        <div className="flex w-full mx-2 space-x-1">
           <input
             onChange={(e) => {
               setcommenttext(e.target.value);
@@ -108,7 +108,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
             value={commenttext}
             maxLength={50}
             type="text"
-            className=" w-full bg-black capitalize text-white text-base border-2 px-4 border-white rounded-xl "
+            className=" w-full bg-black capitalize text-white text-sm sm:text-base border px-4 border-white rounded-xl "
             placeholder="write a comment .."
           />
           <button
@@ -147,10 +147,10 @@ export default function Addcomment({ cuupost, cuusetpost }) {
         </div>
       )}
 
-      <h2 className="sm:text-xl text-base sm:my-3 my-1 text-center p-2 capitalize text-gray-400">
+      <h2 className="sm:text-xl text-base sm:my-3 text-center p-2 capitalize text-gray-200">
         {post?.comments?.length > 0
           ? "comments"
-          : "Don't be shy! , Your opinion is valuable—share it with us in the comments."}
+          : "Don't be shy! , Your opinion is valuable , share it with us in the comments."}
       </h2>
       <div className="flex space-y-5 flex-col my-5 ">
         {post?.comments?.map((comm, index) => {

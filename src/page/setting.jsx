@@ -33,7 +33,7 @@ export default function Setting() {
             </i>
             <h1 className="text-2xl font-semibold m-auto">settings</h1>
           </div>
-          <div className=" mt-5 flex flex-col ">
+          <div className=" mt-5 flex flex-col p-2">
             <div
               onClick={() => {
                 active === "account" ? setactive("") : setactive("account");
@@ -85,7 +85,7 @@ export default function Setting() {
                 auth.signOut();
                 navigate("/login");
               }}
-              className="p-3 justify-center  border-gray-700 border-2 text-red-400 hover:text-white transition-colors ease-in-out duration-400 font-semibold m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center border-gray-700 border-2 text-red-400 hover:text-white transition-colors ease-in-out duration-400 font-semibold m-3 rounded-3xl w-72 flex"
             >
               logout
             </div>
@@ -111,11 +111,11 @@ export default function Setting() {
             {active === "block" && <Block />}
 
             {active === "report" && (
-              <div className="w-full mx-2  text-base text-left capitalize">
+              <div className="w-full  p-2 text-sm sm:text-base text-left capitalize">
                 <h1 className="text-center text-xl">report a problem</h1>
                 <div className="my-5 flex flex-col justify-center space-y-3">
-                  <div className="flex-col flex ">
-                    <label className="md:text-xl border-b-2 border-gray-800   p-2 mx-3 ">
+                  <div className="flex-col flex space-y-1">
+                    <label className=" p-2 mx-3 ">
                       {" "}
                       report title
                     </label>
@@ -124,13 +124,13 @@ export default function Setting() {
                       name="name"
                       placeholder="Report Title"
                       value={reportitle}
-                      className="px-5 placeholder:capitalize bg-black  border-2 border-gray-300  placeholder:text-neutral-500  sm:text-lg text-sm p-2 border-1   rounded-2xl   "
+                      className="px-5 placeholder:capitalize bg-black placeholder:text-neutral-500  sm:text-lg text-sm p-2 rounded-xl   "
                       onChange={(e) => setreportitle(e.target.value)}
                       autoFocus
                     ></input>
                   </div>
-                  <div className="flex-col flex ">
-                    <label className="md:text-xl border-b-2 border-gray-800   p-2 mx-3 ">
+                  <div className="flex-col flex space-y-1">
+                    <label className="p-2 mx-3 ">
                       {" "}
                       discribe your problem
                     </label>
@@ -140,7 +140,7 @@ export default function Setting() {
                       rows={3}
                       placeholder="discribe your problem in brirf "
                       value={report}
-                      className="px-5 placeholder:capitalize bg-black  border-2 border-gray-300  placeholder:text-neutral-500  sm:text-lg text-sm p-2 border-1   rounded-2xl   "
+                      className="px-5 placeholder:capitalize bg-black   placeholder:text-neutral-500  sm:text-lg text-sm p-2  rounded-xl   "
                       onChange={(e) => setreport(e.target.value)}
                     ></textarea>
                   </div>

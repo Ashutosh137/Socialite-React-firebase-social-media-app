@@ -63,7 +63,7 @@ export default function Seepost() {
         </div>
       )}
 
-      <div className="border-gray-800 h-full border-x-2 w-full">
+      <div className="border-gray-800 p-2 sm:p-4 border-x-2 w-full">
         {post === undefined && (
           <div className="w-full capitalize text-center text-base flex flex-col h-screen ">
             <div className="my-auto ">
@@ -92,7 +92,7 @@ export default function Seepost() {
               >
                 <ArrowBack />
               </i>
-              <label className=" text-2xl ">post</label>
+              <label className="text-xl sm:text-2xl ">post</label>
             </div>
 
             {post !== null && (

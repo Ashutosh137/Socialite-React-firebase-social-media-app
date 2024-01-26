@@ -88,7 +88,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={150}
+                    width={100}
                   />
                 )}
               </label>
@@ -104,7 +104,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={150}
+                    width={100}
                   />
                 )}
               </label>
@@ -127,9 +127,9 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 <MoreVertIcon />
               </label>
               {active === "menu" && (
-                <div className="absolute top-5 right-3 sm:right-8 px-4 text-sm bg-black  -my-5 py-5 p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2  ">
+                <div className="absolute top-5 right-7 sm:right-8 px-4 text-sm bg-black -my-5 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-1 sm:space-y-2  ">
                   <button
-                    className="w-40 p-1 rounded-full text-white hover:bg-gray-950 "
+                    className="sm:w-40 w-28 p-1 rounded-full text-white hover:bg-gray-950 "
                     onClick={() => {
                       navigate(`/profile/${commentby?.username} `);
                     }}
@@ -137,7 +137,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     View profile
                   </button>
                   <button
-                    className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
+                    className="sm:w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
                     onClick={() => {
                       setactive("report");
                     }}
@@ -147,7 +147,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                   {(userdata?.username === commentby?.username ||
                     post?.postedby === userdata?.uid) && (
                     <button
-                      className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
+                      className="sm:w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
                       onClick={() => {
                         setdelet(true);
                         delcomment();
@@ -210,11 +210,12 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                         });
                         setactive("reply");
                       }}
-                      className="hover:text-green-700"
+                      className="hover:text-green-700 text-xl"
                     >
                       <ReplyIcon />
                     </i>
                   </div>
+                  -
                 </div>
               </div>
             </div>

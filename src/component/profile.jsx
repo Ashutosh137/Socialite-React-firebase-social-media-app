@@ -123,7 +123,7 @@ export const Profile = ({ username }) => {
           <MoreVertIcon />
         </i>
         {active === "setting" && profileuserdata && (
-          <div className="absolute top-12 right-3  sm:right-8 px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-3  rounded-xl shadow-sm shadow-white flex flex-col space-y-4  ">
+          <div className="absolute top-12 right-3  sm:right-8 px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-3  rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
             <button
               className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
               onClick={() => {
@@ -192,13 +192,13 @@ export const Profile = ({ username }) => {
         )}
       </div>
       <div className="flex">
-        <div className="sm:my-10 sm:space-y-3 space-y-1 flex flex-col text-left m-5">
+        <div className="sm:my-10 sm:space-y-3 aspect-square space-y-1 flex flex-col text-left sm:m-5 m-3">
           <img
             src={profileuserdata?.profileImageURL || defaultprofileimage}
             className="sm:w-28 sm:h-28 h-20 w-20  rounded-full  border-2 border-neutral-600"
           />
           <div className="flex flex-col ">
-            <label className="my-1 font-semibold">
+            <label className=" text-xl font-semibold">
               {profileuserdata?.name || (
                 <Skeleton
                   animation="wave"
@@ -208,7 +208,7 @@ export const Profile = ({ username }) => {
                 />
               )}
             </label>
-            <label className="flex text-lg sm:text-xl space-x-1 text-gray-400">
+            <label className="flex text-lg  space-x-1 text-gray-400">
               @
               {profileuserdata?.username || (
                 <Skeleton
@@ -220,8 +220,8 @@ export const Profile = ({ username }) => {
               )}
             </label>
           </div>
-          <pre className="  text-base sm:text-lg">{profileuserdata?.bio}</pre>
-          <div className="flex space-x-3 text-lg text-gray-400">
+          <pre className=" text-sm sm:text-base">{profileuserdata?.bio}</pre>
+          <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
               onClick={() => {
                 (profileuserdata?.follower.length > 0 &&
@@ -485,7 +485,7 @@ export const Profile = ({ username }) => {
               }}
             >
               <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-3xl my-5 ">followers</h2>
+                <h2 className="text-center text-xl sm:text-3xl my-5 ">followers</h2>
                 {profileuserdata?.follower.map((profile) => {
                   return <Profileviewbox profileusername={profile} />;
                 })}
@@ -512,7 +512,7 @@ export const Profile = ({ username }) => {
               }}
             >
               <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-3xl my-5 ">following</h2>
+                <h2 className="text-center text-xl sm:text-3xl my-5 ">following</h2>
                 {profileuserdata?.following.map((profile) => {
                   return <Profileviewbox profileusername={profile} />;
                 })}

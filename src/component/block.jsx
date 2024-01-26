@@ -5,7 +5,7 @@ import Profileviewbox from "./profileviewbox";
 
 export default function Block() {
   const { userdata, setuserdata } = useuserdatacontext();
-  const [privacy, setprivacy] = useState(userdata.privacy ? 1 : 0);
+  const [privacy, setprivacy] = useState(userdata?.privacy ? 1 : 0);
 
   useEffect(() => {
     const data = () => {
@@ -18,10 +18,9 @@ export default function Block() {
   }, [privacy]);
 
   return (
-    <div className="text-base text-center sm:p-5 capitalize w-full ">
+    <div className=" text-center p-2 text-sm sm:text-base sm:p-5 capitalize w-full ">
       <h1 className="font-semibold text-xl">who can see your content</h1>
-      <div className="">
-        <label className="text-left my-3 text-xl">account privacy</label>
+      <div className="my-8">
         <div className="flex justify-between">
           <label>account privacy</label>
           <input
@@ -37,8 +36,9 @@ export default function Block() {
             name="privacy"
           />
         </div>
+          <p className="text-xs my-4 mx-3 text-gray-300 w-full text-left">When your account is public, your profile and posts can be seen by anyone, on or off socialite, even if they don't have an socialite account.</p>
       </div>
-      <div className="text-left flex flex-col my-10 text-xl">
+      <div className="text-left flex flex-col my-10">
         <label>
           blocked accounts{" "}
           <span className="font-semibold">( {userdata?.block.length} )</span>

@@ -2,10 +2,12 @@ import React from "react";
 import Login from "../component/login";
 import { signinwithemail } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export const Loginpage = () => {
   const navigate = useNavigate();
   const handelsubmit = async (email, pass) => {
     const data = await signinwithemail(email, pass);
+    data && toast.success("login successfully ");
     data && navigate("/home");
   };
   return (

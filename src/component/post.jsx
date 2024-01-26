@@ -36,7 +36,6 @@ export const Post = ({ postdata, popup = true }) => {
   const navigate = useNavigate();
   const [loadingimg, setloadingimg] = useState(true);
 
-  
   useEffect(() => {
     const data = async () => {
       const postedby = await get_userdata(post?.postedby);
@@ -45,13 +44,14 @@ export const Post = ({ postdata, popup = true }) => {
 
     data();
   }, []);
-  
+
   useEffect(() => {
     const data = async () => {
-      if(postedby){ await updateprofileuserdata(postedby, postedby?.username);
+      if (postedby) {
+        await updateprofileuserdata(postedby, postedby?.username);
       }
     };
-    return
+    return;
     data();
   }, [postedby]);
 
@@ -93,7 +93,7 @@ export const Post = ({ postdata, popup = true }) => {
     return <></>;
   }
   return (
-    <div className="md:my-4 my-2 p-2 text-lg flex flex-col">
+    <div className="md:my-4 my-2 p-1 text-lg flex flex-col">
       {!hide && !postdelete && (
         <div className="flex w-full align-middle space-x-2 ">
           <img
@@ -106,7 +106,7 @@ export const Post = ({ postdata, popup = true }) => {
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}`);
                 }}
-                className="flex text-sm sm:text-base justify-start w-full capitalize space-x-1 sm:space-x-2"
+                className="flex text-sm sm:text-base justify-start w-full capitalize space-x-2 sm:space-x-3"
               >
                 <label className="font-semibold my-auto">
                   {postedby?.name || (
@@ -129,7 +129,7 @@ export const Post = ({ postdata, popup = true }) => {
                     />
                   )}
                 </label>
-                <label className="text-gray-500 text-xs m-auto sm:text-sm ">
+                <label className="text-gray-500 text-xs max-w-10 sm:max-w-full m-auto sm:text-sm ">
                   {Time(post?.postedat?.toJSON().seconds) || (
                     <Skeleton
                       animation="wave"
@@ -151,64 +151,7 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
               {active === "menu" && (
-                <div className="absolute top-12 right-3  sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-5 p-3  rounded-xl shadow-sm shadow-white flex flex-col space-y-4  ">
-                  <button
-                    className="w-40 p-1 rounded-full hover:bg-gray-950   capitalize"
-                    onClick={() => {
-                      navigator.share({
-                        title:
-                          "Spreading the Vibes: Check Out My Latest Socialite Post! ",
-                        text: "Embark on a journey through elegance and excitement! My newest post on [Socialite App] is here to dazzle your feed. Swipe up to experience the glitz, glamour, and all things fabulous!",
-                        url: `${window.location.origin}/profile/${postedby?.username}/${post?.postid}`,
-                      });
-                      setactive("");
-                    }}
-                  >
-                    share post{" "}
-                  </button>
-                  <button className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950  text-white">
-                    {userdata?.saved.some((savedpost) => {
-                      return savedpost.postid === post.postid;
-                    }) ? (
-                      <i
-                        onClick={() => {
-                          const updatedSaved = userdata?.saved.filter(
-                            (savedpost) => post?.postid != savedpost?.postedby
-                          );
-                          setuserdata((prev) => ({
-                            ...prev,
-                            saved: updatedSaved,
-                          }));
-                          toast.success("removed from your Bookmark ");
-                          setactive("");
-                        }}
-                        className="flex justify-center space-x-3"
-                      >
-                        <label>saved</label>
-                      </i>
-                    ) : (
-                      <i
-                        className=" justify-center flex space-x-3"
-                        onClick={() => {
-                          auth.currentUser &&
-                            setuserdata((prev) => ({
-                              ...prev,
-                              saved: [
-                                ...prev?.saved,
-                                {
-                                  postedby: post?.postedby,
-                                  postid: post?.postid,
-                                },
-                              ],
-                            }));
-                          toast.success(" Added to your Bookmark ");
-                          setactive("");
-                        }}
-                      >
-                        <label>save</label>
-                      </i>
-                    )}
-                  </button>
+                <div className="absolute top-12 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950   capitalize"
                     onClick={() => {
@@ -229,6 +172,54 @@ export const Post = ({ postdata, popup = true }) => {
                       View comment
                     </button>
                   )}
+
+                  <button
+                    className="w-40 capitalize p-1 rounded-full hover:bg-gray-950 text-white"
+                    onClick={() => {
+                      if (!auth.currentUser) return;
+
+                      const updatedSaved = userdata?.saved.filter(
+                        (savedpost) => post?.postid !== savedpost?.postedby
+                      );
+
+                      if (
+                        userdata?.saved.some(
+                          (savedpost) => post?.postid === savedpost?.postid
+                        )
+                      ) {
+                        setuserdata((prev) => ({
+                          ...prev,
+                          saved: updatedSaved,
+                        }));
+                        toast.success("Removed from your Bookmark");
+                      } else {
+                        setuserdata((prev) => ({
+                          ...prev,
+                          saved: [
+                            ...prev?.saved,
+                            {
+                              postedby: post?.postedby,
+                              postid: post?.postid,
+                            },
+                          ],
+                        }));
+                        toast.success("Added to your Bookmark");
+                      }
+
+                      setactive("");
+                    }}
+                  >
+                    <i className="flex justify-center space-x-3">
+                      <label>
+                        {userdata?.saved.some(
+                          (savedpost) => post?.postid === savedpost?.postid
+                        )
+                          ? "Remove from bookmark"
+                          : "Add to bookmark"}
+                      </label>
+                    </i>
+                  </button>
+
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500 "
                     onClick={() => {
@@ -277,7 +268,7 @@ export const Post = ({ postdata, popup = true }) => {
                   animation="wave"
                   sx={{ bgcolor: "grey.900" }}
                   variant="rectangular"
-                  width={400}
+                  width={280}
                   height={250}
                 />
               )}
@@ -298,22 +289,105 @@ export const Post = ({ postdata, popup = true }) => {
               )}
             </div>
 
-            <div className="flex text-lg mt-5   text-gray-400  space-x-2 m-2 justify-between px-5">
-              <div
-                className="flex space-x-1 hover:text-sky-900"
-                onClick={() => {
-                  post?.comments.length > -1 &&
-                    popup &&
-                    handelactive("comment");
-                }}
-              >
-                <label className="text-gray-400">
-                  {post?.comments?.length > 0 ? post?.comments?.length : ""}
-                </label>
-                <i className="">
-                  <InsertCommentIcon />
+            <div className="flex text-lg mt-5 text-gray-400 space-x-3 m-2 justify-between px-2 sm:px-5">
+              <div className="flex align-middle w-full justify-between space-x-2">
+                <div
+                  className="flex space-x-1 hover:text-sky-900"
+                  onClick={() => {
+                    
+                      popup &&
+                      handelactive("comment");
+                  }}
+                >
+                  <label className="text-gray-500">
+                    {post?.comments?.length > 0 ? post?.comments?.length : ""}
+                  </label>
+                  <i className="">
+                    <InsertCommentIcon />
+                  </i>
+                </div>
+                <div className="flex text-gray-500 space-x-1 text-base  ">
+                  {post?.likes?.length > 0 && (
+                    <label
+                      onClick={() => {
+                        setactive("like");
+                      }}
+                      className=" m-auto  "
+                    >
+                      {post?.likes?.length}
+                    </label>
+                  )}
+                  <i
+                    onClick={() => {
+                      handal_like();
+                    }}
+                    className="hover:text-red-900 "
+                  >
+                    {post?.likes?.includes(userdata?.uid) ? (
+                      <FavoriteIcon style={{ color: "#CF000F" }} />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </i>
+                </div>
+                <i
+                  className="hover:text-green-400"
+                  onClick={() => {
+                    navigator.share({
+                      title: `Spreading the Vibes: Check Out My Latest Socialite Post! @${postedby?.username}`,
+                      text: "Embark on a journey through elegance and excitement! My newest post on Socialite App is here to dazzle your feed. Swipe up to experience the glitz, glamour, and all things fabulous!",
+                      url: `${window.location.origin}/profile/${postedby?.username}/${post?.postid}`,
+                    });
+                  }}
+                >
+                  <ShareIcon />
                 </i>
               </div>
+
+              <i
+                onClick={() => {
+                  if (!auth.currentUser) return;
+
+                  const updatedSaved = userdata?.saved.filter(
+                    (savedpost) => post?.postid !== savedpost?.postedby
+                  );
+
+                  if (
+                    userdata?.saved.some(
+                      (savedpost) => post?.postid === savedpost?.postid
+                    )
+                  ) {
+                    setuserdata((prev) => ({
+                      ...prev,
+                      saved: updatedSaved,
+                    }));
+                    toast.success("Removed from your Bookmark");
+                  } else {
+                    setuserdata((prev) => ({
+                      ...prev,
+                      saved: [
+                        ...prev?.saved,
+                        {
+                          postedby: post?.postedby,
+                          postid: post?.postid,
+                        },
+                      ],
+                    }));
+                    toast.success("Added to your Bookmark");
+                  }
+
+                  setactive("");
+                }}
+              >
+                {userdata?.saved.some(
+                  (savedpost) => post?.postid === savedpost?.postid
+                ) ? (
+                  <BookmarkIcon />
+                ) : (
+                  <BookmarkBorderIcon />
+                )}
+              </i>
+
               {/* 
             <div className="flex space-x-1 hover:text-green-900" onClick={() => {
               post?.comments.length > -1 && handelactive('repost')
@@ -321,79 +395,31 @@ export const Post = ({ postdata, popup = true }) => {
               <label className='text-gray-400' >{post?.repost?.length}</label>
               <i className=''><CropIcon /></i>
             </div> */}
-
-              <div className="flex text-gray-500 space-x-1 text-base  hover:text-red-900 ">
-                {post?.likes?.length > 0 && (
-                  <label
-                    onClick={() => {
-                      setactive("like");
-                    }}
-                    className=" m-auto  "
-                  >
-                    {post?.likes?.length}
-                  </label>
-                )}
-                <i
-                  onClick={() => {
-                    handal_like();
-                  }}
-                  className=""
-                >
-                  {post?.likes?.includes(userdata?.uid) ? (
-                    <FavoriteIcon style={{ color: "#CF000F" }} />
-                  ) : (
-                    <FavoriteBorderIcon />
-                  )}
-                </i>
-              </div>
-
-              <i
-                className="hover:text-green-400"
-                onClick={() => {
-                  navigator.share({
-                    title:
-                      "Spreading the Vibes: Check Out My Latest Socialite Post! ",
-                    text: "Embark on a journey through elegance and excitement! My newest post on [Socialite App] is here to dazzle your feed. Swipe up to experience the glitz, glamour, and all things fabulous!",
-                    url: `${window.location.origin}/profile/${postedby?.username}/${post?.postid}`,
-                  });
-                }}
-              >
-                <ShareIcon />
-              </i>
             </div>
           </div>
         </div>
       )}
 
       {hide && (
-        <div className="flex w-full sm:px-5 shadow-md  align-middle shadow-black space-x-2">
-          <i className="text-gray-500 my-auto w-20 mr-auto">
-            <VisibilityOffIcon />
-          </i>
-          <div className="flex align-middle w-full mr-auto ">
-            <div className="flex capitalize w-full text-sm space-y-2 flex-col">
-              <div className="my-2">
-                <label className="font-semibold text-base my-1">
-                  Post hidden
-                </label>
-                <p>you'ill see less from this page </p>
-              </div>
-
-              <button className="w-40 px-4 p-2 capitalize rounded-full text-base  hover:bg-gray-950 bg-gray-900 text-white">
-                report this post
-              </button>
-            </div>
-
-            <button
-              onClick={() => {
-                sethide(false);
-                setactive("");
-              }}
-              className="px-8 capitalize m-auto p-2 rounded-full hover:bg-gray-950 bg-gray-900 text-white"
-            >
-              undo
-            </button>
+        <div className="flex w-full sm:px-5 border-y-2 border-gray-950 rounded-3xl p-2 justify-around align-middle ">
+          <div className="flex mx-5 w-full sm:space-x-5 space-x-2">
+            <i className="text-gray-500 my-auto px-3 ">
+              <VisibilityOffIcon />
+            </i>
+            <label className="font-semibold text-gray-400  m-auto text-base ">
+              Post hidden
+            </label>
           </div>
+
+          <button
+            onClick={() => {
+              sethide(false);
+              setactive("");
+            }}
+            className="px-8 capitalize mr-auto sm:mx-5 p-2 rounded-full text-sm sm:text-base text-gray-400 hover:bg-gray-950 bg-gray-900"
+          >
+            undo
+          </button>
         </div>
       )}
       {active === "like" && (
@@ -497,7 +523,7 @@ export const Post = ({ postdata, popup = true }) => {
       {popup && (
         <>
           {active === "comment" && (
-            <>
+            
               <Popupitem
                 closefunction={() => {
                   setactive("");
@@ -506,7 +532,7 @@ export const Post = ({ postdata, popup = true }) => {
                 <Post postdata={post} popup={false} />
                 <Addcomment cuupost={post} cuusetpost={setpost} />
               </Popupitem>
-            </>
+            
           )}
         </>
       )}
