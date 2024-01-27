@@ -13,7 +13,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 
 export default function Reply({ reply, setcommentpost }) {
-
   const { userdata, defaultprofileimage } = useuserdatacontext();
   const [commentby, setcommentby] = useState(null);
   const [loadingimg, setloadingimg] = useState(true);
@@ -60,8 +59,6 @@ export default function Reply({ reply, setcommentpost }) {
         }));
   };
 
-  
-
   const delcomment = () => {
     setcommentpost((pre) => ({
       ...pre,
@@ -73,7 +70,7 @@ export default function Reply({ reply, setcommentpost }) {
     return <></>;
   }
   return (
-    <div className=" w-4/11 ml-auto text-xs sm:text-sm  ">
+    <section className=" w-4/11 ml-auto text-xs sm:text-sm  ">
       {!delet && (
         <div className="capitalize flex w-full  sm:space-x-2 ">
           <img
@@ -89,7 +86,7 @@ export default function Reply({ reply, setcommentpost }) {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={50}
+                    width={window.innerWidth >= 400 ? 100 : 50}
                   />
                 )}
               </label>
@@ -105,7 +102,7 @@ export default function Reply({ reply, setcommentpost }) {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={50}
+                    width={window.innerWidth >= 400 ? 100 : 50}
                   />
                 )}
               </label>
@@ -165,8 +162,8 @@ export default function Reply({ reply, setcommentpost }) {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="rectangular"
-                    width={400}
-                    height={250}
+                    width={window.innerWidth >= 400 ? 200 : 100}
+                    height={window.innerWidth >= 400 ? 200 : 100}
                   />
                 )}
                 {comment?.image && (
@@ -182,7 +179,6 @@ export default function Reply({ reply, setcommentpost }) {
                   />
                 )}
               </div>
-..
               <div className="flex mr-auto my-2 text-gray-400 space-x-1  ">
                 <label className=" text-sm my-auto">
                   {comment.likes.length}
@@ -260,6 +256,6 @@ export default function Reply({ reply, setcommentpost }) {
           comment deleted
         </p>
       )}
-    </div>
+    </section>
   );
 }

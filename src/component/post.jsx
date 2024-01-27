@@ -93,7 +93,7 @@ export const Post = ({ postdata, popup = true }) => {
     return <></>;
   }
   return (
-    <div className="md:my-4 my-2 p-1 text-lg flex flex-col">
+    <section className="md:my-4 my-2 p-1 text-lg flex flex-col">
       {!hide && !postdelete && (
         <div className="flex w-full align-middle space-x-2 ">
           <img
@@ -114,7 +114,7 @@ export const Post = ({ postdata, popup = true }) => {
                       animation="wave"
                       sx={{ bgcolor: "grey.900" }}
                       variant="text"
-                      width={200}
+                      width={window.innerWidth >= 400 ? 200 : 100}
                     />
                   )}
                 </label>
@@ -125,19 +125,12 @@ export const Post = ({ postdata, popup = true }) => {
                       animation="wave"
                       sx={{ bgcolor: "grey.900" }}
                       variant="text"
-                      width={150}
+                      width={window.innerWidth >= 400 ? 200 : 100}
                     />
                   )}
                 </label>
                 <label className="text-gray-500 text-xs max-w-10 sm:max-w-full m-auto sm:text-sm ">
-                  {Time(post?.postedat?.toJSON().seconds) || (
-                    <Skeleton
-                      animation="wave"
-                      sx={{ bgcolor: "grey.900" }}
-                      variant="text"
-                      width={200}
-                    />
-                  )}
+                  {Time(post?.postedat?.toJSON().seconds)}
                 </label>
               </div>
               <div
@@ -179,7 +172,7 @@ export const Post = ({ postdata, popup = true }) => {
                       if (!auth.currentUser) return;
 
                       const updatedSaved = userdata?.saved.filter(
-                        (savedpost) => post?.postid !== savedpost?.postedby
+                        (savedpost) => post?.postid !== savedpost?.postid
                       );
 
                       if (
@@ -268,8 +261,8 @@ export const Post = ({ postdata, popup = true }) => {
                   animation="wave"
                   sx={{ bgcolor: "grey.900" }}
                   variant="rectangular"
-                  width={280}
-                  height={250}
+                  width={window.innerWidth >= 400 ? 500 : 300}
+                  height={window.innerWidth >= 400 ? 550 : 350}
                 />
               )}
               {post?.img && (
@@ -294,9 +287,7 @@ export const Post = ({ postdata, popup = true }) => {
                 <div
                   className="flex space-x-1 hover:text-sky-900"
                   onClick={() => {
-                    
-                      popup &&
-                      handelactive("comment");
+                    popup && handelactive("comment");
                   }}
                 >
                   <label className="text-gray-500">
@@ -347,11 +338,6 @@ export const Post = ({ postdata, popup = true }) => {
               <i
                 onClick={() => {
                   if (!auth.currentUser) return;
-
-                  const updatedSaved = userdata?.saved.filter(
-                    (savedpost) => post?.postid !== savedpost?.postedby
-                  );
-
                   if (
                     userdata?.saved.some(
                       (savedpost) => post?.postid === savedpost?.postid
@@ -359,7 +345,9 @@ export const Post = ({ postdata, popup = true }) => {
                   ) {
                     setuserdata((prev) => ({
                       ...prev,
-                      saved: updatedSaved,
+                      saved: prev?.saved.filter(
+                        (savedpost) => post?.postid !== savedpost?.postid
+                      ),
                     }));
                     toast.success("Removed from your Bookmark");
                   } else {
@@ -387,14 +375,6 @@ export const Post = ({ postdata, popup = true }) => {
                   <BookmarkBorderIcon />
                 )}
               </i>
-
-              {/* 
-            <div className="flex space-x-1 hover:text-green-900" onClick={() => {
-              post?.comments.length > -1 && handelactive('repost')
-            }}>
-              <label className='text-gray-400' >{post?.repost?.length}</label>
-              <i className=''><CropIcon /></i>
-            </div> */}
             </div>
           </div>
         </div>
@@ -523,16 +503,14 @@ export const Post = ({ postdata, popup = true }) => {
       {popup && (
         <>
           {active === "comment" && (
-            
-              <Popupitem
-                closefunction={() => {
-                  setactive("");
-                }}
-              >
-                <Post postdata={post} popup={false} />
-                <Addcomment cuupost={post} cuusetpost={setpost} />
-              </Popupitem>
-            
+            <Popupitem
+              closefunction={() => {
+                setactive("");
+              }}
+            >
+              <Post postdata={post} popup={false} />
+              <Addcomment cuupost={post} cuusetpost={setpost} />
+            </Popupitem>
           )}
         </>
       )}
@@ -541,6 +519,6 @@ export const Post = ({ postdata, popup = true }) => {
           post deleted
         </p>
       )}
-    </div>
+    </section>
   );
 };

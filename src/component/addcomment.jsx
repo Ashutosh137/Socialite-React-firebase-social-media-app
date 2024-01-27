@@ -11,23 +11,22 @@ import { Getimagedownloadlink } from "../service/Auth/database";
 export default function Addcomment({ cuupost, cuusetpost }) {
   const { userdata, defaultprofileimage } = useuserdatacontext();
   const progress = new ProgressBar();
-  const [post, setpost] = useState(cuupost || null)
+  const [post, setpost] = useState(cuupost || null);
   const [commentfile, setcommentfile] = useState(null);
   const [active, setactive] = useState("comment");
-  console.log("ashutosh",post,cuupost);
+  console.log("ashutosh", post, cuupost);
 
   const [commenttext, setcommenttext] = useState("");
-  useEffect(()=>{
-    const data=()=>{
-      cuusetpost(post)
-    }
-    data()
-
-  },[post])
+  useEffect(() => {
+    const data = () => {
+      cuusetpost(post);
+    };
+    data();
+  }, [post]);
   const handelcomment = async () => {
+    progress.start();
     const url = await Getimagedownloadlink(commentfile, userdata?.uid);
     if (active === "comment") {
-      progress.start();
       setpost((prev) => ({
         ...prev,
         comments: [
@@ -65,6 +64,8 @@ export default function Addcomment({ cuupost, cuusetpost }) {
       setpost((prev) => ({ ...prev, comments: newcomment }));
       setactive("comment");
     }
+
+    setcommentfile(null);
 
     progress.finish();
   };

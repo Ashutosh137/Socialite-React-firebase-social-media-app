@@ -18,10 +18,10 @@ export default function Setting() {
   const [report, setreport] = useState("");
   const navigate = useNavigate();
   return (
-    <div className="flex w-full justify-around max-h-screen  overflow-y-scroll scroll-hidden my-5 ">
+    <div className="flex w-full justify-around  scroll-hidden my-5 ">
       <Navbar />
 
-      <section className="flex border-gray-800  text-center capitalize text-base border-x-2  w-full sm:mx-3">
+      <section className="flex border-gray-800  text-center capitalize text-base border-x-2  w-full">
         <div
           className={`px-3 flex-col w-full sm:w-auto ${
             active === "" ? "flex" : "hidden"
@@ -58,6 +58,17 @@ export default function Setting() {
               </i>
             </div>
 
+            <div
+              onClick={() => {
+                navigate("/lists");
+              }}
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
+            >
+              <h1 className="m-auto w-full">bookmark collection</h1>
+              <i className="ml-auto">
+                <KeyboardArrowRightIcon />
+              </i>
+            </div>
             <div
               onClick={() => {
                 active === "block" ? setactive("") : setactive("block");
@@ -111,14 +122,11 @@ export default function Setting() {
             {active === "block" && <Block />}
 
             {active === "report" && (
-              <div className="w-full  p-2 text-sm sm:text-base text-left capitalize">
+              <section className="w-full  p-2 text-sm sm:text-base text-left capitalize">
                 <h1 className="text-center text-xl">report a problem</h1>
                 <div className="my-5 flex flex-col justify-center space-y-3">
                   <div className="flex-col flex space-y-1">
-                    <label className=" p-2 mx-3 ">
-                      {" "}
-                      report title
-                    </label>
+                    <label className=" p-2 mx-3 "> report title</label>
                     <input
                       type="text"
                       name="name"
@@ -130,10 +138,7 @@ export default function Setting() {
                     ></input>
                   </div>
                   <div className="flex-col flex space-y-1">
-                    <label className="p-2 mx-3 ">
-                      {" "}
-                      discribe your problem
-                    </label>
+                    <label className="p-2 mx-3 "> discribe your problem</label>
 
                     <textarea
                       type="text"
@@ -160,7 +165,7 @@ export default function Setting() {
                     </button>
                   </div>
                 </div>
-              </div>
+              </section>
             )}
           </div>
         </div>

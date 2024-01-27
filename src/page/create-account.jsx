@@ -82,11 +82,10 @@ const CreateAccount = () => {
             placeholder="enter your unique uername ..."
             maxLength={20}
             value={formdata.username}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 w-80 md:w-2/5 md:text-lg text-sm p-2 border-3 border-black  rounded-2xl my-2 border text-black  "
+            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 w-80 md:w-2/5 md:text-lg text-sm p-2 border-3   rounded-2xl my-2"
             onChange={async (e) => {
               handelchange(e);
               const data = await check_username_is_exist(
-                
                 e.target.value.trim().toLowerCase()
               );
               const isValidInput = /^[a-zA-Z0-9_]+$/.test(
@@ -95,9 +94,7 @@ const CreateAccount = () => {
               if (data[0] || !isValidInput) {
                 setisusernameexist(true);
                 e.target.style.borderColor = "red";
-                
               } else {
-            
                 setisusernameexist(false);
                 e.target.style.borderColor = "black";
               }
@@ -128,7 +125,7 @@ const CreateAccount = () => {
             name="name"
             placeholder="full name..."
             value={formdata.name}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5 md:text-lg text-sm p-2 border-1 border-black  rounded-2xl my-2 border text-black  "
+            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5 md:text-lg text-sm p-2 border-1  rounded-2xl my-2   "
             onChange={handelchange}
             required
           ></input>
@@ -136,7 +133,6 @@ const CreateAccount = () => {
 
         <div className="flex-col flex my-2">
           <label className="md:text-xl text-base  font-sans p-1 mx-3 ">
-           
             date of birth
           </label>
           <input
@@ -146,7 +142,7 @@ const CreateAccount = () => {
               formdata.age > new Date() || formdata?.age < new Date("1970-1-1")
             }
             value={formdata.age}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1 border-black  rounded-2xl my-2 border text-black  "
+            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1   rounded-2xl my-2   "
             onChange={handelchange}
             required
           ></input>
@@ -163,7 +159,7 @@ const CreateAccount = () => {
             name="bio"
             placeholder="write about your exprience , your favirate topics and many more about you "
             value={formdata.bio}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1 border-black  rounded-2xl my-2 border text-black  "
+            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1   rounded-2xl my-2   "
             onChange={handelchange}
           ></textarea>
         </div>

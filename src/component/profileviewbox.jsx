@@ -3,6 +3,7 @@ import { useuserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import { get_userdata, get_userdatabyname } from "../service/Auth/database";
 import { Skeleton } from "@mui/material";
+import { auth } from "../service/Auth";
 export default function Profileviewbox({
   profile,
   bio = false,
@@ -10,7 +11,7 @@ export default function Profileviewbox({
 }) {
   const navigate = useNavigate();
   const [profileuserdata, setprofileuserdata] = useState(profile || null);
-  const { defaultprofileimage, userdata } = useuserdatacontext();
+  const { defaultprofileimage, userdata, setuserdata } = useuserdatacontext();
 
   useEffect(() => {
     const data = async () => {
@@ -22,16 +23,38 @@ export default function Profileviewbox({
     data();
   }, []);
 
+  const handelfollow = () => {
+    if (auth.currentUser && profileuserdata) {
+      profileuserdata?.follower?.includes(userdata?.uid)
+        ? setprofileuserdata((prev) => ({
+            ...prev,
+            follower: profileuserdata?.follower.filter(
+              (e) => e !== userdata?.uid
+            ),
+          }))
+        : setprofileuserdata((prev) => ({
+            ...prev,
+            follower: [...prev?.follower, userdata?.uid],
+          }));
+      !userdata?.following.includes(profileuserdata?.uid)
+        ? setuserdata((prev) => ({
+            ...prev,
+            following: [...prev.following, profileuserdata?.uid],
+          }))
+        : setuserdata((prev) => ({
+            ...prev,
+            following: userdata?.following.filter(
+              (e) => e !== profileuserdata?.uid
+            ),
+          }));
+    } else navigate("/login");
+  };
+
   if (profileuserdata?.block?.includes(userdata?.uid)) {
     return <></>;
   }
   return (
-    <div
-      onClick={() => {
-        navigate(`/profile/${profileuserdata?.username}`);
-      }}
-      className="flex  w-full  cursor-pointer p-2 align-middle "
-    >
+    <section className="flex w-full cursor-pointer p-2 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         className="rounded-full w-10 h-10 my-auto mx-1"
@@ -71,6 +94,7 @@ export default function Profileviewbox({
       </div>
       <div className="w-full px-4 my-auto ml-auto">
         <button
+          onClick={handelfollow}
           className="bg-white w-24 hover:bg-slate-200 rounded-full text-sm shadow-lg ml-auto font-medium text-black
      capitalize py-1 px-4 "
         >
@@ -79,6 +103,6 @@ export default function Profileviewbox({
             : "follow"}
         </button>
       </div>
-    </div>
+    </section>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 export const Popupitem = ({ children, closefunction }) => {
   return (
-    <div className="backdrop-blur-sm z-50 fixed left-0 top-0 w-screen h-screen ">
+    <section className="backdrop-blur-sm z-50 fixed left-0 top-0 w-screen h-screen ">
       <div className=" fixed shadow-gray-700 shadow-2xl rounded-3xl flex  border-2 border-gray-700 animinate left-1/4 top-16 bg-black text-white">
         <div className="text-4xl p-4 z-40">
           <button onClick={closefunction}>
@@ -20,6 +20,6 @@ export const Popupitem = ({ children, closefunction }) => {
         </div>
         <div className="w-full">{children}</div>
       </div>
-    </div>
+    </section>
   );
 };

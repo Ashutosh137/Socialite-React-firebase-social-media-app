@@ -74,9 +74,9 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
   return (
     <div className=" w-full ">
       {!delet && (
-        <div className="capitalize flex w-full  sm:space-x-2 ">
+        <div className="capitalize flex w-full space-x-2 ">
           <img
-            className="rounded-full mx-2 bg-gray-400 outline outline-neutral-800 w-5 sm:w-7 h-5 sm:h-7"
+            className="rounded-full bg-gray-400 outline outline-neutral-800 w-7 aspect-square  sm:w-9 h-7 "
             src={commentby?.profileImageURL || defaultprofileimage}
             alt={defaultprofileimage}
           />
@@ -88,7 +88,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={100}
+                    width={window.innerWidth >= 500 ? 200 : 100}
                   />
                 )}
               </label>
@@ -104,7 +104,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={100}
+                    width={window.innerWidth >= 500 ? 200 : 100}
                   />
                 )}
               </label>
@@ -114,7 +114,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="text"
-                    width={150}
+                    width={window.innerWidth >= 400 ? 100 : 50}
                   />
                 )}
               </label>
@@ -215,7 +215,6 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                       <ReplyIcon />
                     </i>
                   </div>
-                  -
                 </div>
               </div>
             </div>

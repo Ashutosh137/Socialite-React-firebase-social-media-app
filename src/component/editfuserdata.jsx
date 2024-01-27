@@ -25,10 +25,10 @@ export default function Editfuserdata({ toggle = () => {} }) {
   };
 
   return (
-    <div className="sm:p-8 p-5 w-full text-left text-base ">
-      <div className="text-center m-auto w-60 font-semibold text-xl capitalize  border-b-2 pb-2 rounded-md border-white">
+    <section className="sm:p-8 p-5 w-full text-left text-base ">
+      <header className="text-center m-auto w-60 font-semibold text-xl capitalize  border-b-2 pb-2 rounded-md border-white">
         <h2>edit profile data</h2>
-      </div>
+      </header>
       <form
         className="flex flex-col space-y-2 "
         onSubmit={async (e) => {
@@ -192,6 +192,6 @@ export default function Editfuserdata({ toggle = () => {} }) {
           </button>
         </div>
       </form>
-    </div>
+    </section>
   );
 }

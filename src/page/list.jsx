@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "../component/navbar";
 import { useuserdatacontext } from "../service/context/usercontext";
-import { Post } from "../component/post";
 import { useNavigate } from "react-router-dom";
 import Suggestion from "../component/suggestion";
 import Postidtopost from "../component/postidtopost";
@@ -13,8 +12,10 @@ export const List = () => {
   return (
     <div className="flex w-full ">
       <Navbar />
-      <div className="w-full">
-        <h1 className="text-3xl m-5 text-center capitalize ">saved post</h1>
+      <div className="w-full border-gray-600 border-x-2 sm:px-5 py-5">
+        <h1 className="sm:text-2xl text-xl p-2 sm:my-10  my-5 border-b-2 border-gray-500  text-left capitalize ">
+          bookmark collection
+        </h1>
 
         <div className="">
           {userdata?.saved.length > 0 ? (

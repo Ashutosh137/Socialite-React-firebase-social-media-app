@@ -90,7 +90,7 @@ export const Profile = ({ username }) => {
   };
 
   return (
-    <div className="scroll-hidden w-full p-2 sm:text-2xl text-lg capitalize">
+    <section className="scroll-hidden w-full p-2 sm:text-2xl text-lg capitalize">
       <div className="flex relative m-1 sm:m-2 ">
         <i
           onClick={() => {
@@ -224,10 +224,11 @@ export const Profile = ({ username }) => {
           <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
               onClick={() => {
-                (profileuserdata?.follower.length > 0 &&
-                  (profileuserdata.uid === userdata.uid) ||
+                ((profileuserdata?.follower.length > 0 &&
+                  profileuserdata.uid === userdata.uid) ||
                   (profileuserdata?.privacy &&
-                    profileuserdata?.follower.includes(userdata?.uid) || !profileuserdata?.privacy)) &&
+                    profileuserdata?.follower.includes(userdata?.uid)) ||
+                  !profileuserdata?.privacy) &&
                   setactive("followers");
               }}
             >
@@ -235,10 +236,11 @@ export const Profile = ({ username }) => {
             </label>
             <label
               onClick={() => {
-                (profileuserdata?.following.length > 0 &&
-                  (profileuserdata.uid === userdata.uid) ||
+                ((profileuserdata?.following.length > 0 &&
+                  profileuserdata.uid === userdata.uid) ||
                   (profileuserdata?.privacy &&
-                    profileuserdata?.follower.includes(userdata?.uid) || !profileuserdata?.privacy)) &&
+                    profileuserdata?.follower.includes(userdata?.uid)) ||
+                  !profileuserdata?.privacy) &&
                   setactive("following");
               }}
             >
@@ -484,8 +486,10 @@ export const Profile = ({ username }) => {
                 setactive("");
               }}
             >
-              <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-3xl my-5 ">followers</h2>
+              <div className="flex w-full flex-col justify-center align-middle space-y-3">
+                <h2 className="text-center text-xl sm:text-3xl my-5 ">
+                  followers
+                </h2>
                 {profileuserdata?.follower.map((profile) => {
                   return <Profileviewbox profileusername={profile} />;
                 })}
@@ -512,7 +516,9 @@ export const Profile = ({ username }) => {
               }}
             >
               <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-3xl my-5 ">following</h2>
+                <h2 className="text-center text-xl sm:text-3xl my-5 ">
+                  following
+                </h2>
                 {profileuserdata?.following.map((profile) => {
                   return <Profileviewbox profileusername={profile} />;
                 })}
@@ -553,6 +559,6 @@ export const Profile = ({ username }) => {
           </div>
         </Popupitem>
       )}
-    </div>
+    </section>
   );
 };

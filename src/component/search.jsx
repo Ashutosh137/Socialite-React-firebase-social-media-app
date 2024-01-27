@@ -14,7 +14,7 @@ export default function Search({ bio = false }) {
     data();
   }, [searchtext]);
   return (
-    <div className="my-2 w-full relative">
+    <section className="my-2 w-full relative">
       <div className="w-full">
         <div className="inline-flex focus:border-blue-800 px-4 align-middle  p-1 rounded-full border-gray-800 border-2 w-full justify-between">
           <i className="m-auto">
@@ -44,6 +44,6 @@ export default function Search({ bio = false }) {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }

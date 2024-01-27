@@ -20,7 +20,7 @@ export default function Suggestion() {
   }
 
   return (
-    <div className=" mx-2 w-full hidden md:block">
+    <section className=" mx-2 w-full hidden md:block">
       <div className="flex flex-col space-y-4">
         <div>
           <Search />
@@ -39,6 +39,6 @@ export default function Suggestion() {
           })}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

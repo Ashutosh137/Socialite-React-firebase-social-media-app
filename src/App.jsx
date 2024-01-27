@@ -22,16 +22,12 @@ function App() {
   const navigate = useNavigate();
   const [userdata, setuserdata] = useState(null);
 
- 
-
-  
-
   return (
     <UserDataProvider value={userdata}>
-      <div className=" mt-24 mb-16 md:mx-16 sm:mb-0 sm:mt-5">
+      <div className=" md:mx-16 mt-16 sm:mt-0">
         <ToastContainer
           position="top-center"
-          autoClose={300}
+          autoClose={400}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

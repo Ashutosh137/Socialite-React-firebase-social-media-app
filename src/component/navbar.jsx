@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CottageIcon from "@mui/icons-material/Cottage";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -21,16 +21,33 @@ import { Popupitem } from "../ui/popup";
 import { Createpost } from "./createpost";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { postpopup, userdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, defaultprofileimage } = useuserdatacontext();
   const [post, setpost] = useState(false);
+  const [navbar, setnavbar] = useState(true);
+
+  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setnavbar(prevScrollPos > currentScrollPos);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [prevScrollPos]);
 
   return (
     <>
-      <header className="p-2 hidden sm:block w-20 md:w-96   ">
-        <div className="fixed flex flex-col h-screen md:p-4 ">
-          <div className="text-2xl pt-16 py-5 first-letter:text-3xl  font-bold ">
+      <header className="p-2 hidden sm:block w-20 md:w-96">
+        <nav className="fixed flex flex-col h-screen md:p-4 ">
+          <h1 className="text-3xl title pt-16 py-5 first-letter:text-5xl font-bold ">
             Socialite
-          </div>
+          </h1>
           <nav className="flex my-auto align-middle text-xl justify-center capitalize flex-col">
             <Link to="/home">
               <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
@@ -121,7 +138,7 @@ const Navbar = () => {
               </span>
             )}
           </button>
-        </div>
+        </nav>
       </header>
 
       {post && (
@@ -143,8 +160,12 @@ const Navbar = () => {
       {/* mobile  */}
 
       <div>
-        <div className="sm:hidden z-40 fixed top-0 left-0  bg-neutral-900 w-full">
-          <div className="flex px-3 my-3  align-middle justify-between">
+        <nav
+          className={`sm:hidden z-40 fixed top-0 left-0 transition-opacity opacity-95 duration-100  bg-neutral-900 w-full ${
+            navbar ? "" : "hidden"
+          }`}
+        >
+          <header className="flex px-3 my-3  align-middle justify-between">
             <Link to={`/profile/${userdata?.username}`} className="mx-2">
               <img
                 className="w-10 h-10 aspect-square rounded-full border-gray-700 hover:border-gray-100 border-2 hover:p-1 "
@@ -153,7 +174,7 @@ const Navbar = () => {
               />
             </Link>
 
-            <h1 className="text-2xl m-auto capitalize">socialite</h1>
+            <h1 className="text-3xl m-auto capitalize title">socialite</h1>
 
             <Link
               className="border-gray-600 aspect-square hover:border-gray-100 border-2 rounded-3xl p-1  "
@@ -161,11 +182,15 @@ const Navbar = () => {
             >
               <SettingsIcon />
             </Link>
-          </div>
+          </header>
           <hr className="border-gray-500 rounded-md" />
-        </div>
+        </nav>
 
-        <div className="sm:hidden z-50 left-0 fixed bottom-0 w-full">
+        <div
+          className={`sm:hidden z-50 left-0 fixed bottom-0 w-full ${
+            navbar ? "" : "hidden"
+          }`}
+        >
           <hr className="border-gray-500" />
           <div className="flex py-3 rounded-sm bg-neutral-900">
             <Link

@@ -6,13 +6,10 @@ import Navbar from "./navbar";
 import { auth } from "../service/Auth";
 import Suggestion from "./suggestion";
 import ProgressBar from "@badrap/bar-of-progress";
-import { RotatingLines } from "react-loader-spinner";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import Addcomment from "./addcomment";
 
 export default function Seepost() {
-  console.log("ashutosh");
-
   const { username, postid } = useParams();
   const [post, setpost] = useState([]);
   const navigate = useNavigate();
@@ -47,22 +44,6 @@ export default function Seepost() {
   return (
     <div className="flex w-full justify-around h-screen scroll-hidden ">
       <Navbar />
-      {loader && (
-        <div className="absolute h-screen flex justify-center align-middle my-auto">
-          <RotatingLines
-            visible={true}
-            height="96"
-            width="96"
-            color="#1E90FF"
-            strokeWidth="4"
-            animationDuration="0.75"
-            ariaLabel="rotating-lines-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-          />
-        </div>
-      )}
-
       <div className="border-gray-800 p-2 sm:p-4 border-x-2 w-full">
         {post === undefined && (
           <div className="w-full capitalize text-center text-base flex flex-col h-screen ">

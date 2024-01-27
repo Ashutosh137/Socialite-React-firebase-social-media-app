@@ -8,7 +8,7 @@ export default function Aboutprofile({ profiledata, close }) {
 
   return (
     <Popupitem closefunction={close}>
-      <div className="sm:m-auto sm:w-96 w-full ">
+      <section className="sm:m-auto sm:w-96 w-full ">
         <h1 className="text-xl text-center w-full capitalize">
           about this profile
         </h1>
@@ -41,7 +41,7 @@ export default function Aboutprofile({ profiledata, close }) {
             close
           </button>
         </div>
-      </div>
+      </section>
     </Popupitem>
   );
 }

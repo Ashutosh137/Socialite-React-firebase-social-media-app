@@ -19,7 +19,7 @@ export default function Postidtopost({ postid, postedby }) {
   }, []);
 
   return (
-    <div className=" w-full ">
+    <section className=" w-full ">
       {post && <Post postdata={post} popup={true} />}
       {post === undefined && (
         <div className="w-full capitalize text-center shadow-xl text-base flex h-40 border-2 border-gray-700 rounded-3xl my-5 flex-col">
@@ -38,6 +38,6 @@ export default function Postidtopost({ postid, postedby }) {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 }
