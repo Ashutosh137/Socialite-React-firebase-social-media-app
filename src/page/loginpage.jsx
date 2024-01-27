@@ -9,6 +9,7 @@ export const Loginpage = () => {
     const data = await signinwithemail(email, pass);
     data && toast.success("login successfully ");
     data && navigate("/home");
+    !data && toast.error("user doesnot exist , or failed to login");
   };
   return (
     <div className="w-full flex p-2 capitalize">
