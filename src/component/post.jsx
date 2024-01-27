@@ -83,10 +83,44 @@ export const Post = ({ postdata, popup = true }) => {
           ...prev,
           likes: prev.likes.filter((e) => e !== userdata?.uid),
         }));
+
+    !auth?.currentUser && toast.error("Login required");
   };
 
   function handelactive(act) {
     active === act ? setactive("") : setactive(act);
+  }
+  function handelsave() {
+    if (!auth?.currentUser) {
+      toast.error("Login required");
+    } else {
+      const updatedSaved = userdata?.saved.filter(
+        (savedpost) => post?.postid !== savedpost?.postid
+      );
+      if (
+        userdata?.saved.some((savedpost) => post?.postid === savedpost?.postid)
+      ) {
+        setuserdata((prev) => ({
+          ...prev,
+          saved: updatedSaved,
+        }));
+        toast.success("Removed from your Bookmark");
+      } else {
+        setuserdata((prev) => ({
+          ...prev,
+          saved: [
+            ...prev?.saved,
+            {
+              postedby: post?.postedby,
+              postid: post?.postid,
+            },
+          ],
+        }));
+        toast.success("Added to your Bookmark");
+      }
+
+      setactive("");
+    }
   }
 
   if (postedby?.block?.includes(userdata?.uid)) {
@@ -129,7 +163,7 @@ export const Post = ({ postdata, popup = true }) => {
                     />
                   )}
                 </label>
-                <label className="text-gray-500 text-xs max-w-10 sm:max-w-full m-auto sm:text-sm ">
+                <label className="text-gray-500 text-xs m-auto sm:text-sm ">
                   {Time(post?.postedat?.toJSON().seconds)}
                 </label>
               </div>
@@ -144,9 +178,9 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
               {active === "menu" && (
-                <div className="absolute top-12 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
+                <div className="absolute top-12 z-40 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
                   <button
-                    className="w-40 p-1 rounded-full hover:bg-gray-950   capitalize"
+                    className="w-40 p-1 rounded-full hover:bg-gray-950 capitalize"
                     onClick={() => {
                       navigate(`/profile/${postedby?.username} `);
                       setactive("");
@@ -168,43 +202,11 @@ export const Post = ({ postdata, popup = true }) => {
 
                   <button
                     className="w-40 capitalize p-1 rounded-full hover:bg-gray-950 text-white"
-                    onClick={() => {
-                      if (!auth.currentUser) return;
-
-                      const updatedSaved = userdata?.saved.filter(
-                        (savedpost) => post?.postid !== savedpost?.postid
-                      );
-
-                      if (
-                        userdata?.saved.some(
-                          (savedpost) => post?.postid === savedpost?.postid
-                        )
-                      ) {
-                        setuserdata((prev) => ({
-                          ...prev,
-                          saved: updatedSaved,
-                        }));
-                        toast.success("Removed from your Bookmark");
-                      } else {
-                        setuserdata((prev) => ({
-                          ...prev,
-                          saved: [
-                            ...prev?.saved,
-                            {
-                              postedby: post?.postedby,
-                              postid: post?.postid,
-                            },
-                          ],
-                        }));
-                        toast.success("Added to your Bookmark");
-                      }
-
-                      setactive("");
-                    }}
+                    onClick={handelsave}
                   >
                     <i className="flex justify-center space-x-3">
                       <label>
-                        {userdata?.saved.some(
+                        {userdata?.saved?.some(
                           (savedpost) => post?.postid === savedpost?.postid
                         )
                           ? "Remove from bookmark"
@@ -335,39 +337,8 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
 
-              <i
-                onClick={() => {
-                  if (!auth.currentUser) return;
-                  if (
-                    userdata?.saved.some(
-                      (savedpost) => post?.postid === savedpost?.postid
-                    )
-                  ) {
-                    setuserdata((prev) => ({
-                      ...prev,
-                      saved: prev?.saved.filter(
-                        (savedpost) => post?.postid !== savedpost?.postid
-                      ),
-                    }));
-                    toast.success("Removed from your Bookmark");
-                  } else {
-                    setuserdata((prev) => ({
-                      ...prev,
-                      saved: [
-                        ...prev?.saved,
-                        {
-                          postedby: post?.postedby,
-                          postid: post?.postid,
-                        },
-                      ],
-                    }));
-                    toast.success("Added to your Bookmark");
-                  }
-
-                  setactive("");
-                }}
-              >
-                {userdata?.saved.some(
+              <i onClick={handelsave}>
+                {userdata?.saved?.some(
                   (savedpost) => post?.postid === savedpost?.postid
                 ) ? (
                   <BookmarkIcon />
@@ -489,7 +460,7 @@ export const Post = ({ postdata, popup = true }) => {
               <button
                 onClick={() => {
                   setactive("");
-                  toast.success("Report sucessfully");
+                  auth.currentUser && toast.success("Report sucessfully");
                 }}
                 className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-white"
               >

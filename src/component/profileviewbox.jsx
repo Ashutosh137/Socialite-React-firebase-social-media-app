@@ -54,10 +54,10 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex w-full cursor-pointer p-2 align-middle ">
+    <section className="flex m-auto w-80 cursor-pointer p-2 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
-        className="rounded-full w-10 h-10 my-auto mx-1"
+        className="rounded-full w-10 aspect-square h-10 my-auto mx-1"
       />
       <div
         className="flex w-full m-1 flex-col cursor-pointer"
@@ -98,7 +98,7 @@ export default function Profileviewbox({
           className="bg-white w-24 hover:bg-slate-200 rounded-full text-sm shadow-lg ml-auto font-medium text-black
      capitalize py-1 px-4 "
         >
-          {userdata?.following.includes(profileuserdata?.uid)
+          {userdata?.following?.includes(profileuserdata?.uid)
             ? "following"
             : "follow"}
         </button>

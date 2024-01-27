@@ -8,7 +8,7 @@ export default function Resetpassword({ toggle }) {
     !auth.currentUser.emailVerified &&
       sendEmailVerification(auth.currentUser) &&
       toast.success(
-        "sended a varification link to  your email address , please check your email "
+        "Sending a varification link to your email address , please check your email "
       );
   };
 

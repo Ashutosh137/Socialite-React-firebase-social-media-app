@@ -226,11 +226,14 @@ export const Profile = ({ username }) => {
           <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
               onClick={() => {
-                ((profileuserdata?.follower.length > 0 &&
-                  profileuserdata.uid === userdata.uid) ||
-                  (profileuserdata?.privacy &&
-                    profileuserdata?.follower.includes(userdata?.uid)) ||
+                ((profileuserdata?.privacy &&
+                  profileuserdata?.follower.includes(userdata?.uid)) ||
                   !profileuserdata?.privacy) &&
+                  profileuserdata?.follower.length > 0 &&
+                  setactive("followers");
+
+                profileuserdata?.username === userdata?.username &&
+                  profileuserdata?.follower.length > 0 &&
                   setactive("followers");
               }}
             >
@@ -238,11 +241,14 @@ export const Profile = ({ username }) => {
             </label>
             <label
               onClick={() => {
-                ((profileuserdata?.following.length > 0 &&
-                  profileuserdata.uid === userdata.uid) ||
-                  (profileuserdata?.privacy &&
-                    profileuserdata?.follower.includes(userdata?.uid)) ||
+                ((profileuserdata?.privacy &&
+                  profileuserdata?.follower.includes(userdata?.uid)) ||
                   !profileuserdata?.privacy) &&
+                  profileuserdata?.following.length > 0 &&
+                  setactive("following");
+
+                profileuserdata?.username === userdata?.username &&
+                  profileuserdata?.following.length > 0 &&
                   setactive("following");
               }}
             >
@@ -319,7 +325,7 @@ export const Profile = ({ username }) => {
                 return (
                   <div key={index} className="">
                     <Post index={index} postdata={item} popup={true} />
-                    <hr />
+                    <hr className="border-gray-700" />
                   </div>
                 );
               })}
@@ -347,7 +353,7 @@ export const Profile = ({ username }) => {
                         return (
                           <div key={index} className="">
                             <Post index={index} postdata={item} popup={true} />
-                            <hr />
+                            <hr className="border-gray-700" />
                           </div>
                         );
                       })}
@@ -371,7 +377,7 @@ export const Profile = ({ username }) => {
                 return (
                   <div key={index} className="">
                     <Post index={index} postdata={item} popup={true} />
-                    <hr />
+                    <hr className="border-gray-700" />
                   </div>
                 );
               })}
@@ -489,7 +495,7 @@ export const Profile = ({ username }) => {
               }}
             >
               <div className="flex w-full flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-3xl my-5 ">
+                <h2 className="text-center text-xl sm:text-2xl my-5 ">
                   followers
                 </h2>
                 {profileuserdata?.follower.map((profile) => {
@@ -518,7 +524,7 @@ export const Profile = ({ username }) => {
               }}
             >
               <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-3xl my-5 ">
+                <h2 className="text-center text-xl sm:text-2xl my-5 ">
                   following
                 </h2>
                 {profileuserdata?.following.map((profile) => {

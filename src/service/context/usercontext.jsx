@@ -12,16 +12,13 @@ export const UserDataProvider = ({ children, value }) => {
   const [userdata, setuserdata] = useState(value);
   const [defaultprofileimage, setdefaultprofileimage] = useState(image);
 
-  console.log("userdata getting", userdata);
-
   const navigate = useNavigate();
 
   useEffect(() => {
     const datalogin = async () => {
-      await auth.onAuthStateChanged(async (user) => {
+      auth.onAuthStateChanged(async (user) => {
         if (user) {
           let data = await get_userdata(user?.uid);
-          console.log("getting userdata from useeffect in authchage");
           if (data?.username) setuserdata(data);
           else {
             navigate("/create-account");

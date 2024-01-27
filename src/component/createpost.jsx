@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Createid from "../service/other/createid";
 import ProgressBar from "@badrap/bar-of-progress";
 
-export const Createpost = ({ toggle=()=>{} }) => {
+export const Createpost = ({ toggle = () => {} }) => {
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
   const [posttext, setposttext] = useState("");
   const [postmedia, setpostmedia] = useState(null);
@@ -16,7 +16,7 @@ export const Createpost = ({ toggle=()=>{} }) => {
   const progress = new ProgressBar();
 
   const handelpost = async () => {
-    if (auth.currentUser && posttext !== "") {
+    if (auth.currentUser) {
       progress.start();
       var url = await Getimagedownloadlink(postmedia);
       const id = Createid();
@@ -40,6 +40,8 @@ export const Createpost = ({ toggle=()=>{} }) => {
       progress.finish();
 
       toast.success("sucessfully posted");
+    } else {
+      toast.error("please login first");
     }
   };
 
@@ -48,7 +50,7 @@ export const Createpost = ({ toggle=()=>{} }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handelpost();
+          posttext.trim() !== "" && handelpost();
         }}
         className="flex flex-col text-xl space-y-4"
       >

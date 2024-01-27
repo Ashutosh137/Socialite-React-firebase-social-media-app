@@ -161,14 +161,19 @@ const Navbar = () => {
 
       <div>
         <nav
-          className={`sm:hidden z-40 fixed top-0 left-0 transition-opacity opacity-95 duration-100  bg-neutral-900 w-full ${
+          className={`sm:hidden z-40 fixed top-0 left-0 transition-opacity  duration-100  bg-black w-full ${
             navbar ? "" : "hidden"
           }`}
         >
-          <header className="flex px-3 my-3  align-middle justify-between">
-            <Link to={`/profile/${userdata?.username}`} className="mx-2">
+          <header className="flex px-3 my-4  align-middle justify-between">
+            <Link
+              to={`${
+                userdata?.username ? `/profile/${userdata?.username}` : "/login"
+              }`}
+              className="mx-2"
+            >
               <img
-                className="w-10 h-10 aspect-square rounded-full border-gray-700 hover:border-gray-100 border-2 hover:p-1 "
+                className="w-10 h-10 aspect-square rounded-full hover:border-gray-100 = "
                 src={userdata?.profileImageURL || defaultprofileimage}
                 alt={defaultprofileimage}
               />
@@ -178,7 +183,9 @@ const Navbar = () => {
 
             <Link
               className="border-gray-600 aspect-square hover:border-gray-100 border-2 rounded-3xl p-1  "
-              to="/setting"
+              to={`${
+                userdata?.username ? `/setting` : "/login"
+              }`}
             >
               <SettingsIcon />
             </Link>
@@ -192,7 +199,7 @@ const Navbar = () => {
           }`}
         >
           <hr className="border-gray-500" />
-          <div className="flex py-3 rounded-sm bg-neutral-900">
+          <div className="flex py-3 rounded-sm bg-black">
             <Link
               to="/home"
               className="mx-5 border-gray-700 hover:border-gray-100 border-2 rounded-3xl p-2  m-auto"
@@ -227,7 +234,9 @@ const Navbar = () => {
               <NotificationsIcon />
             </Link>
             <Link
-              to={`/profile/${userdata?.username}`}
+              to={`${
+                userdata?.username ? `/profile/${userdata?.username}` : "/login"
+              }`}
               className="mx-5 border-gray-700 hover:border-gray-100 border-2 rounded-3xl p-2  m-auto"
             >
               <PersonIcon />

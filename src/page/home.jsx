@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../component/navbar";
-import { useuserdatacontext } from "../service/context/usercontext";
-import { auth } from "../service/Auth";
-import { Popupitem } from "../ui/popup";
-import {
-  createnewpost,
-  get_userdata,
-  getallpost,
-  getallprofile,
-} from "../service/Auth/database";
+import { getallpost } from "../service/Auth/database";
 import { Createpost } from "../component/createpost";
-import Profileviewbox from "../component/profileviewbox";
 import { Post } from "../component/post";
 import Suggestion from "../component/suggestion";
 export const Home = () => {
@@ -36,9 +27,9 @@ export const Home = () => {
           <Createpost />
         </div>
         <hr className="border-gray-700 w-full" />
-        <div className="sm:mx-3 mx-1">
+        <div className="sm:mx-3 mx-2">
           {allpostdata.map((postarray, index) => {
-            return <Post postdata={postarray} popup={true} />;
+            return <Post postdata={postarray} index={index} popup={true} />;
           })}
         </div>
       </div>

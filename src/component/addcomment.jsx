@@ -7,6 +7,7 @@ import Createid from "../service/other/createid";
 import { useuserdatacontext } from "../service/context/usercontext";
 import { auth } from "../service/Auth";
 import { Getimagedownloadlink } from "../service/Auth/database";
+import { toast } from "react-toastify";
 
 export default function Addcomment({ cuupost, cuusetpost }) {
   const { userdata, defaultprofileimage } = useuserdatacontext();
@@ -14,7 +15,6 @@ export default function Addcomment({ cuupost, cuusetpost }) {
   const [post, setpost] = useState(cuupost || null);
   const [commentfile, setcommentfile] = useState(null);
   const [active, setactive] = useState("comment");
-  console.log("ashutosh", post, cuupost);
 
   const [commenttext, setcommenttext] = useState("");
   useEffect(() => {
@@ -91,9 +91,8 @@ export default function Addcomment({ cuupost, cuusetpost }) {
         onSubmit={async (e) => {
           e.preventDefault();
           auth?.currentUser &&
-            commenttext.trim() !== "" &&
-            (await handelcomment());
-          setcommenttext("");
+            commenttext.trim() !== "" && auth?.currentUser && await handelcomment()
+            !auth?.currentUser && toast.error('Login required')
         }}
         className="flex w-full my-2 sm:p-4 p-2 border rounded-xl border-gray-500 justify-around"
       >

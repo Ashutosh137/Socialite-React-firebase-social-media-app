@@ -16,9 +16,11 @@ export const Popupitem = ({ children, closefunction }) => {
       {/* mobile */}
       <div className="p-5 absolute sm:hidden overflow-y-scroll scroll-hidden h-screen w-screen left-0 top-0 bg-black text-white">
         <div className="text-base fixed p-2 border aspect-square z-50 bg-transparent border-gray-400 rounded-3xl">
-          <button onClick={closefunction}><CloseFullscreenIcon/></button>
+          <button onClick={closefunction}>
+            <CloseFullscreenIcon />
+          </button>
         </div>
-        <div className="w-full">{children}</div>
+        <div className="w-full pt-16">{children}</div>
       </div>
     </section>
   );

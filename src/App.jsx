@@ -1,30 +1,25 @@
 import "./App.css";
-import Navbar from "./component/navbar";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Home } from "./page/home";
-import { auth } from "./service/Auth";
 import signuppage from "./page/signuppage";
 import { Loginpage } from "./page/loginpage";
 import CreateAccount from "./page/create-account";
-import { get_userdata, getallpost } from "./service/Auth/database";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserDataProvider } from "./service/context/usercontext";
 import Setting from "./page/setting";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Profile } from "./component/profile";
 import { Profilepage } from "./page/profilepage";
 import { List } from "./page/list";
 import Seepost from "./component/seepost";
 import Search from "./page/search";
 
 function App() {
-  const navigate = useNavigate();
-  const [userdata, setuserdata] = useState(null);
+  const [userdata] = useState(null);
 
   return (
     <UserDataProvider value={userdata}>
-      <div className=" md:mx-16 mt-16 sm:mt-0">
+      <div className=" md:mx-16 mt-20 sm:mt-5">
         <ToastContainer
           position="top-center"
           autoClose={400}
