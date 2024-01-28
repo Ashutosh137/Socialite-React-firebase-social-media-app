@@ -9,7 +9,7 @@ const Signuppage = () => {
 
   const handelsubmit = async (email, pass) => {
     const sigup = await signupwithemail(email, pass);
-    signup && toast.success('signup successfully ')
+    sigup && toast.success('signup successfully ')
     sigup && navigate("/create-account");
 
   };

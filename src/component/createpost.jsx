@@ -63,13 +63,13 @@ export const Createpost = ({ toggle = () => {} }) => {
           <textarea
             autoFocus
             value={posttext}
-            rows={2}
+            rows={(posttext.match(/\n/g) || []).length + 1}
             onChange={(e) => {
               setposttext(e.target.value);
             }}
             type="text"
             placeholder="What is Happening?!"
-            className="px-5 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll bg-black focus:outline-none  placeholder:text-neutral-500 md:text-2xl p-2 "
+            className="px-5 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll bg-black focus:outline-none  placeholder:text-neutral-500 md:text-xl p-2 "
           />
         </div>
         {postmedia && (

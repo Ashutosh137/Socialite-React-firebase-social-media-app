@@ -6,7 +6,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Popupitem } from "../ui/popup";
 import { useuserdatacontext } from "../service/context/usercontext";
 import {
-  check_username_is_exist,
   get_userdatabyname,
   updateprofileuserdata,
 } from "../service/Auth/database";
@@ -15,7 +14,6 @@ import { Skeleton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
 import { Createpost } from "./createpost";
-import { Getimagedownloadlink } from "../service/Auth/database";
 import Editfuserdata from "./editfuserdata";
 import { auth } from "../service/Auth";
 import Profileviewbox from "./profileviewbox";
@@ -57,7 +55,7 @@ export const Profile = ({ username }) => {
       setactive("");
     };
     data();
-    window.title = profileuserdata?.username;
+    document.title = `${profileuserdata?.name}   ( ${profileuserdata?.username} )`;
   }, [username]);
 
   if (profileuserdata?.block?.includes(userdata?.uid)) {

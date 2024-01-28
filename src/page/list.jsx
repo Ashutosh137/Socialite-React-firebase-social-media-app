@@ -12,8 +12,8 @@ export const List = () => {
   return (
     <div className="flex w-full ">
       <Navbar />
-      <div className="w-full border-gray-600 border-x-2 sm:px-5 py-5">
-        <h1 className="sm:text-2xl text-xl p-2 sm:my-10  my-5 border-b-2 border-gray-500  text-left capitalize ">
+      <div className="w-full border-gray-600 border-x-2 sm:px-5 py-5 sm:py-0">
+        <h1 className="sm:text-2xl text-xl p-2 sm:py-0  my-5 border-b-2 border-gray-500  text-left capitalize ">
           bookmark collection
         </h1>
 

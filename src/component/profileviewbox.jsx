@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useuserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
-import { get_userdata, get_userdatabyname } from "../service/Auth/database";
+import { get_userdata, updateprofileuserdata } from "../service/Auth/database";
 import { Skeleton } from "@mui/material";
 import { auth } from "../service/Auth";
 export default function Profileviewbox({
@@ -21,7 +21,22 @@ export default function Profileviewbox({
       }
     };
     data();
-  }, []);
+  }, [profile, profileusername]);
+
+
+  useEffect(()=>{
+    const data = async () => {
+      if (profileuserdata) {
+        await updateprofileuserdata(profileuserdata,profileuserdata?.username);
+      }
+    };
+    data();
+  },[profileuserdata])
+
+
+
+
+  console.log(profileuserdata)
 
   const handelfollow = () => {
     if (auth.currentUser && profileuserdata) {
@@ -87,7 +102,7 @@ export default function Profileviewbox({
           )}
         </label>
         {bio && (
-          <pre className="font-sans w-full text-start top-3 text-sm relative text-white">
+          <pre className="font-sans w-full text-start top-3 text-sm relative text-gray-200">
             {profileuserdata?.bio}
           </pre>
         )}

@@ -1,9 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap");
 .animinate {
   animation: animinate-bounce 300ms ease-in-out;
   width: 700px;
 }
-textarea::-webkit-scrollbar, body::-webkit-scrollbar {
+textarea::-webkit-scrollbar,
+body::-webkit-scrollbar {
   display: none;
 }
 .scroll-hidden::-webkit-scrollbar {
@@ -28,6 +29,6 @@ textarea {
     transform: translateY(0);
   }
 }
-.title{
-  font-family: 'Dancing Script', cursive;
+.title {
+  font-family: "Dancing Script", cursive;
 }

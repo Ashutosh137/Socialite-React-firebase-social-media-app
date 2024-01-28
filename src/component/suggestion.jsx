@@ -3,14 +3,13 @@ import Profileviewbox from "./profileviewbox";
 import Search from "./search";
 import { getallprofile } from "../service/Auth/database";
 import { useuserdatacontext } from "../service/context/usercontext";
-export default function Suggestion() {
+export default function Suggestion({ bio = false }) {
   const [alluser, setalluser] = useState([null]);
   const { userdata } = useuserdatacontext();
   useEffect(() => {
     const dataforallusers = async () => {
       const alluser = await getallprofile();
       setalluser(alluser);
-      console.log(alluser);
     };
     dataforallusers();
   }, []);
@@ -20,7 +19,7 @@ export default function Suggestion() {
   }
 
   return (
-    <section className=" mx-2 w-full hidden md:block">
+    <section className=" mx-2 w-full">
       <div className="flex flex-col space-y-4">
         <div>
           <Search />
@@ -33,7 +32,7 @@ export default function Suggestion() {
           {alluser.map((proflie, index) => {
             return (
               proflie?.username !== userdata?.username && (
-                <Profileviewbox index={index} profile={proflie} />
+                <Profileviewbox bio={bio} index={index} profile={proflie} />
               )
             );
           })}
