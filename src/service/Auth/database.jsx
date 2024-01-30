@@ -33,6 +33,7 @@ export const Create_Account = async ({
       restricted: false,
       privacy: false,
       profileImageURL: profileimg,
+      notification:[],
       createdAt: new Date(),
       follower: [],
       following: [],

@@ -51,7 +51,6 @@ export const Post = ({ postdata, popup = true }) => {
         await updateprofileuserdata(postedby, postedby?.username);
       }
     };
-    return;
     data();
   }, [postedby]);
 
@@ -66,9 +65,9 @@ export const Post = ({ postdata, popup = true }) => {
 
   const deletepost = async () => {
     progress.start();
-    if (auth.currentUser && userdata?.username === postedby?.username) {
+    if (userdata?.username === postedby?.username) {
       const newposts = await postedby?.post.filter(
-        (item) => item.postid !== post.postid
+        (item) => item.postid !== post?.postid
       );
       setpostedby((prev) => ({ ...prev, post: newposts }));
     }
@@ -78,7 +77,17 @@ export const Post = ({ postdata, popup = true }) => {
 
   const handal_like = () => {
     auth?.currentUser && !post?.likes.includes(userdata?.uid)
-      ? setpost((prev) => ({ ...prev, likes: [...prev.likes, userdata?.uid] }))
+      ? () => {
+          setpost((prev) => ({
+            ...prev,
+            likes: [...prev.likes, userdata?.uid],
+          }));
+          setpostedby((prev) => ({
+            ...prev,
+            notification: [{ cause: "post like" ,
+          likeby:userdata?.name}]
+          }));
+        }
       : setpost((prev) => ({
           ...prev,
           likes: prev.likes.filter((e) => e !== userdata?.uid),

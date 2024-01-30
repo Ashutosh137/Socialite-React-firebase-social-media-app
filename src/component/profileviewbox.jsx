@@ -33,11 +33,6 @@ export default function Profileviewbox({
     data();
   },[profileuserdata])
 
-
-
-
-  console.log(profileuserdata)
-
   const handelfollow = () => {
     if (auth.currentUser && profileuserdata) {
       profileuserdata?.follower?.includes(userdata?.uid)
@@ -72,6 +67,7 @@ export default function Profileviewbox({
     <section className="flex m-auto w-80 cursor-pointer p-2 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
+        alt={defaultprofileimage}
         className="rounded-full w-10 aspect-square h-10 my-auto mx-1"
       />
       <div

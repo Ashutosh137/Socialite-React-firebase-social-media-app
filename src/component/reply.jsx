@@ -70,7 +70,7 @@ export default function Reply({ reply, setcommentpost }) {
     return <></>;
   }
   return (
-    <section className=" w-4/11 ml-auto text-xs sm:text-sm  ">
+    <section className="  ml-auto text-xs sm:text-sm  ">
       {!delet && (
         <div className="capitalize flex w-full  sm:space-x-2 ">
           <img

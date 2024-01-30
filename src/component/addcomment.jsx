@@ -66,6 +66,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
     }
 
     setcommentfile(null);
+    setcommenttext("");
 
     progress.finish();
   };
@@ -91,8 +92,10 @@ export default function Addcomment({ cuupost, cuusetpost }) {
         onSubmit={async (e) => {
           e.preventDefault();
           auth?.currentUser &&
-            commenttext.trim() !== "" && auth?.currentUser && await handelcomment()
-            !auth?.currentUser && toast.error('Login required')
+            commenttext.trim() !== "" &&
+            auth?.currentUser &&
+            (await handelcomment());
+          !auth?.currentUser && toast.error("Login required");
         }}
         className="flex w-full my-2 sm:p-4 p-2 border rounded-xl border-gray-500 justify-around"
       >

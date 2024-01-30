@@ -48,14 +48,12 @@ export const Profile = ({ username }) => {
       if (username === userdata?.username) setprofileuserdata(userdata);
       else {
         const profile = await get_userdatabyname(username);
-
         setprofileuserdata(profile);
       }
       progress.finish();
       setactive("");
     };
     data();
-    document.title = `${profileuserdata?.name}   ( ${profileuserdata?.username} )`;
   }, [username]);
 
   if (profileuserdata?.block?.includes(userdata?.uid)) {

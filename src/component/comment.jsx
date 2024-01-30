@@ -219,10 +219,11 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
               </div>
             </div>
             {active === "reply" && (
-              <div>
-                {comment?.reply?.map((reply) => {
+              <div className="w-96 ml-auto ">
+                {comment?.reply?.map((reply, index) => {
                   return (
                     <Reply
+                      index={index}
                       cuutcomment={comment}
                       reply={reply}
                       setcommentpost={setcomment}
