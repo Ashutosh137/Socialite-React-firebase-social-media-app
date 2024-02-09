@@ -82,11 +82,6 @@ export const Post = ({ postdata, popup = true }) => {
             ...prev,
             likes: [...prev.likes, userdata?.uid],
           }));
-          setpostedby((prev) => ({
-            ...prev,
-            notification: [{ cause: "post like" ,
-          likeby:userdata?.name}]
-          }));
         }
       : setpost((prev) => ({
           ...prev,
