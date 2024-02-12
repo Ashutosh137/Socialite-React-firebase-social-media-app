@@ -26,7 +26,6 @@ export default function Search({ bio = false }) {
     data();
   }, [searchtext]);
 
-  console.log(relaventusers);
   return (
     <section className="m-2 w-full">
       <div className="w-full">

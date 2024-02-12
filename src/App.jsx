@@ -13,6 +13,7 @@ import { Profilepage } from "./page/profilepage";
 import { List } from "./page/list";
 import Seepost from "./component/seepost";
 import Search from "./page/search";
+import Messages from "./page/message";
 
 function App() {
   const [userdata] = useState(null);
@@ -39,6 +40,7 @@ function App() {
           <Route exect path="/create-account" Component={CreateAccount} />
           <Route exect path="/login" Component={Loginpage} />
           <Route exect path="/setting" Component={Setting} />
+          <Route exect path="/message" Component={Messages} />
           <Route exect path="/search" Component={Search} />
           <Route exect path="/profile/:username" Component={Profilepage} />
           <Route exect path="/profile/:username/:postid" Component={Seepost} />

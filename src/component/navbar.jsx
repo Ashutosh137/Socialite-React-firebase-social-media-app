@@ -67,7 +67,7 @@ const Navbar = () => {
                 <label className="md:block hidden mx-2">Notifications</label>
               </span>
             </Link>
-            <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
+            <Link to={`${userdata?.username ? `/message` : "/login"}`}>
               <span className="flex hover:bg-gray-700  p-2 px-5 m-auto rounded-full justify-center md:justify-start">
                 <MessageIcon />
                 <label className="md:block hidden mx-2">Message</label>

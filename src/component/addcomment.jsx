@@ -15,14 +15,15 @@ export default function Addcomment({ cuupost, cuusetpost }) {
   const [post, setpost] = useState(cuupost || null);
   const [commentfile, setcommentfile] = useState(null);
   const [active, setactive] = useState("comment");
-
   const [commenttext, setcommenttext] = useState("");
+
   useEffect(() => {
     const data = () => {
       cuusetpost(post);
     };
     data();
   }, [post]);
+
   const handelcomment = async () => {
     progress.start();
     const url = await Getimagedownloadlink(commentfile, userdata?.uid);

@@ -39,7 +39,7 @@ export const Profile = ({ username }) => {
         setuserdata(profileuserdata);
       }
     };
-    data();
+    data()
   }, [profileuserdata]);
 
   useEffect(() => {
