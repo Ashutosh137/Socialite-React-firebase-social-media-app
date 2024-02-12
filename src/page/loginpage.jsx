@@ -12,7 +12,7 @@ export const Loginpage = () => {
     !data && toast.error("user doesnot exist , or failed to login");
   };
   return (
-    <div className="w-full flex p-2 capitalize">
+    <div className="w-full  -mt-16 sm:mt-5 flex p-2 capitalize">
       <div className=" m-auto outline xl:block hidden outline-gray-900">
         <img
           className="w-80"
@@ -21,7 +21,7 @@ export const Loginpage = () => {
         />
       </div>
       <div>
-        <h1 className="text-6xl text-left  font-bold ">login </h1>
+        <h1 className="text-6xl text-left my-3  font-bold ">login </h1>
         <Login onenter={handelsubmit} role="login" />
       </div>
     </div>

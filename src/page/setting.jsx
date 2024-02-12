@@ -93,8 +93,8 @@ export default function Setting() {
             </div>
             <div
               onClick={() => {
-                auth.signOut();
                 navigate("/login");
+                auth.signOut();
               }}
               className="p-3 justify-center border-gray-700 border-2 text-red-400 hover:text-white transition-colors ease-in-out duration-400 font-semibold m-3 rounded-3xl w-72 flex"
             >

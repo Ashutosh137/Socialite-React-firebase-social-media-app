@@ -369,14 +369,27 @@ export const Profile = ({ username }) => {
             </>
           ) : (
             <>
-              {profileuserdata?.post?.map((item, index) => {
-                return (
-                  <div key={index} className="">
-                    <Post index={index} postdata={item} popup={true} />
-                    <hr className="border-gray-700" />
-                  </div>
-                );
-              })}
+              {profileuserdata?.post?.length === 0 ? (
+                    <div className="w-full my-12 flex flex-col justify-center">
+                      <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
+                        <CameraEnhanceIcon />
+                      </i>
+                      <h1 className="text-3xl font-bold text-center my-2">
+                        no post yet
+                      </h1>
+                    </div>
+                  ) : (
+                    <>
+                      {profileuserdata?.post?.map((item, index) => {
+                        return (
+                          <div key={index} className="">
+                            <Post index={index} postdata={item} popup={true} />
+                            <hr className="border-gray-700" />
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
             </>
           )}
         </>

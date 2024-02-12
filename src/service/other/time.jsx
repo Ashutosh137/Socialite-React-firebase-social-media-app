@@ -5,13 +5,13 @@ const Time = (seconds) => {
     if (differenceInSeconds < 10) {
       return "Just now";
     } else if (differenceInSeconds < 60) {
-      return `${differenceInSeconds} sec ago`;
+      return `${differenceInSeconds} sec`;
     } else if (differenceInSeconds < 3600) {
       const minutes = Math.floor(differenceInSeconds / 60);
-      return `${minutes} min${minutes > 1 ? "s" : ""} ago`;
+      return `${minutes} min${minutes > 1 ? "s" : ""}`;
     } else if (differenceInSeconds < 86400) {
       const hours = Math.floor(differenceInSeconds / 3600);
-      return `${hours} hr${hours > 1 ? "s" : ""} ago`;
+      return `${hours} hr${hours > 1 ? "s" : ""}`;
     } else {
       const dateObject = new Date(seconds * 1000);
 

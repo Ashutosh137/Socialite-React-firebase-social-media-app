@@ -15,7 +15,7 @@ const Signuppage = () => {
   };
 
   return (
-    <div className="w-full flex  p-2 capitalize">
+    <div className="w-full flex  -mt-16 sm:mt-5 p-2 capitalize">
       <div className=" m-auto outline xl:block hidden  outline-gray-900">
         <img
           className="w-80"
@@ -24,7 +24,7 @@ const Signuppage = () => {
         />
       </div>
       <div>
-        <h1 className="text-6xl text-left font-bold ">happening now </h1>
+        <h1 className="text-5xl mx-1 text-left font-bold  ">happening now </h1>
         <Login onenter={handelsubmit} role="signup" />
       </div>
     </div>

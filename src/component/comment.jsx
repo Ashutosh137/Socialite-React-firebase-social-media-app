@@ -72,7 +72,12 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
   }
 
   return (
-    <div className=" w-full ">
+    <div
+      onClick={() => {
+        setactive("");
+      }}
+      className=" w-full "
+    >
       {!delet && (
         <div className="capitalize flex w-full space-x-2 ">
           <img
@@ -81,7 +86,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
             alt={defaultprofileimage}
           />
           <div className="flex w-full space-y-1 sm:mx-3 flex-col">
-            <div className="flex relative text-sm">
+            <div className="flex relative text-sm sm:text-base">
               <label className="font-semibold ">
                 {commentby?.name || (
                   <Skeleton
@@ -93,7 +98,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 )}
               </label>
               <label
-                className="text-gray-500 mx-2 flex space-x-3 text-sm"
+                className="text-gray-500 mx-2 flex space-x-3 text-sm sm:text-base"
                 onClick={() => {
                   navigate(`/profile/${commentby?.username} `);
                 }}
@@ -120,7 +125,8 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
               </label>
               <label
                 className="ml-auto mx-2"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   active === "menu" ? setactive("") : setactive("menu");
                 }}
               >
@@ -170,8 +176,8 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     animation="wave"
                     sx={{ bgcolor: "grey.900" }}
                     variant="rectangular"
-                    width={400}
-                    height={250}
+                    width={150}
+                    height={225}
                   />
                 )}
                 {comment?.image && (

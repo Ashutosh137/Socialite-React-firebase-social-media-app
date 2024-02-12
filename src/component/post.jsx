@@ -23,18 +23,16 @@ import ProgressBar from "@badrap/bar-of-progress";
 import Time from "../service/other/time";
 import Addcomment from "./addcomment";
 export const Post = ({ postdata, popup = true }) => {
-  const [active, setactive] = useState("");
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
-
+  
+  const [active, setactive] = useState("");
   const [post, setpost] = useState(postdata || null);
   const [hide, sethide] = useState(false);
-  const progress = new ProgressBar();
-
   const [postdelete, setpostdelete] = useState(false);
-
   const [postedby, setpostedby] = useState(null);
-  const navigate = useNavigate();
   const [loadingimg, setloadingimg] = useState(true);
+  const navigate = useNavigate();
+  const progress = new ProgressBar();
 
   useEffect(() => {
     const data = async () => {
@@ -77,12 +75,11 @@ export const Post = ({ postdata, popup = true }) => {
 
   const handal_like = () => {
     auth?.currentUser && !post?.likes.includes(userdata?.uid)
-      ? () => {
-          setpost((prev) => ({
+      ? setpost((prev) => ({
             ...prev,
             likes: [...prev.likes, userdata?.uid],
-          }));
-        }
+          }))
+        
       : setpost((prev) => ({
           ...prev,
           likes: prev.likes.filter((e) => e !== userdata?.uid),
@@ -131,7 +128,7 @@ export const Post = ({ postdata, popup = true }) => {
     return <></>;
   }
   return (
-    <section className="md:my-4 my-2 p-1 text-lg flex flex-col">
+    <section onClick={()=>{setactive('')}} className="md:my-4 my-2 p-1 text-lg flex flex-col">
       {!hide && !postdelete && (
         <div className="flex w-full align-middle space-x-2 ">
           <img
@@ -141,7 +138,8 @@ export const Post = ({ postdata, popup = true }) => {
           <div className="flex w-full m-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm sm:text-base  align-middle">
               <div
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation()
                   navigate(`/profile/${postedby?.username}`);
                 }}
                 className="flex text-sm sm:text-base justify-start w-full capitalize space-x-2 sm:space-x-3"
@@ -172,7 +170,8 @@ export const Post = ({ postdata, popup = true }) => {
                 </label>
               </div>
               <div
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation()
                   active === "menu" ? setactive("") : setactive("menu");
                 }}
                 className="ml-auto"
@@ -289,10 +288,11 @@ export const Post = ({ postdata, popup = true }) => {
             </div>
 
             <div className="flex text-lg mt-5 text-gray-400 space-x-3 m-2 justify-between px-2 sm:px-5">
-              <div className="flex align-middle w-full justify-between space-x-2">
+              <div className="flex align-middle w-full text=sm sm:text-base justify-between space-x-2">
                 <div
                   className="flex space-x-1 hover:text-sky-900"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation()
                     popup && handelactive("comment");
                   }}
                 >
@@ -303,7 +303,7 @@ export const Post = ({ postdata, popup = true }) => {
                     <InsertCommentIcon />
                   </i>
                 </div>
-                <div className="flex text-gray-500 space-x-1 text-base  ">
+                <div className="flex text-gray-500 space-x-1   ">
                   {post?.likes?.length > 0 && (
                     <label
                       onClick={() => {
@@ -318,7 +318,7 @@ export const Post = ({ postdata, popup = true }) => {
                     onClick={() => {
                       handal_like();
                     }}
-                    className="hover:text-red-900 "
+                    className="hover:text-red-900 drop-shadow"
                   >
                     {post?.likes?.includes(userdata?.uid) ? (
                       <FavoriteIcon style={{ color: "#CF000F" }} />

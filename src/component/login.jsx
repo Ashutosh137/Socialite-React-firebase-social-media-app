@@ -30,10 +30,10 @@ const Login = ({ onenter, role }) => {
 
     return () => unsubscribe();
   }, []);
-  
+
   return (
     <section className="flex flex-col sm:w-3/4 sm:my-5 p-4 w-full">
-      <h3 className="text-3xl my-2 font-bold "> join now . </h3>
+      <h3 className="text-3xl my-2 font-bold "> join now </h3>
       <div className=" my-5 sm: bg-white text-black text-center hover:scale-105 transition-all ease font-semibold outline rounded-2xl ">
         <button
           className="m-auto capitalize flex p-2 px-6 text-base sm:text-xl "
@@ -87,16 +87,15 @@ const Login = ({ onenter, role }) => {
           {role === "login" ? "login" : "sign-up"}
         </button>
       </form>
-      {role === "signup" && (
-        <div className="my-3  capitalize text-xl flex flex-col ">
+      {role === "signup" ? (
+        <div className="my-3  capitalize text-base sm:text-xl flex flex-col ">
           <label className="my-3">already have an account ? </label>
           <button className="my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize">
             <Link to="/login">sign-in</Link>{" "}
           </button>
         </div>
-      )}
-      {role === "login" && (
-        <div className="my-2  capitalize text-xl flex flex-col ">
+      ) : (
+        <div className="my-2  capitalize text-base sm:text-xl flex flex-col ">
           <label className="my-3">don't have an account ? </label>
           <button className="my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize">
             <Link to="/">sign-up</Link>{" "}
