@@ -29,9 +29,9 @@ export default function Search({ bio = false }) {
   }, [searchtext]);
 
   return (
-    <section className="m-2 w-full">
+    <section className="p-2  w-full">
       <div className="w-full">
-        <div className="inline-flex focus:border-blue-800 px-4 align-middle p-1 rounded-full border-gray-800 border-2 w-full justify-between">
+        <div className="inline-flex focus:border-blue-800 sm:px-4 align-middle p-1 rounded-full border-gray-800 border-2 w-full justify-between">
           <i className="m-auto">
             <SearchIcon />
           </i>
@@ -50,11 +50,11 @@ export default function Search({ bio = false }) {
 
       {searchtext !== "" && (
         <div className="bg-black overflow-y-scroll scroll-hidden shadow-zinc-500 shadow-sm w-full rounded-xl py-5  max-h-72 flex flex-col  space-y-1 z-50 ">
-          <label className="text-gray-500 capitalize text-center">
+          <label className="text-gray-500 p-2 capitalize text-center">
             Try searching for people using their names or username
           </label>
-          {relaventusers?.length===0 && searchtext!=='' && <Link to={`/profile/${searchtext} `} className="capitalize text-base sm:text-lg text-left mx-3">try search for <b className="font-semibold border-b-2"> {searchtext}</b></Link>}
-          <div className="">
+          {relaventusers?.length===0 && searchtext!=='' && <Link to={`/profile/${searchtext} `} className="capitalize text-sm sm:text-base text-left mx-3">try search for <b className="font-semibold border-b-2"> {searchtext}</b></Link>}
+          <div className="flex flex-col justify-center space-y-5">
             {relaventusers?.map((profile) => {
               return <Profileviewbox profile={profile} bio={bio} />;
             })}

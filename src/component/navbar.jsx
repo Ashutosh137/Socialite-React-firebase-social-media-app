@@ -43,12 +43,12 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="p-2 post hidden sm:block w-20 md:w-96">
-        <nav className="fixed flex flex-col h-screen md:p-1 ">
-          <h1 className="text-3xl title pt-16 py-5 first-letter:text-5xl font-bold ">
+      <header className="p-2 hidden sm:block w-20 md:w-96">
+        <nav className="fixed flex flex-col h-screen  md:p-1 ">
+          <h1 className="text-3xl title py-5 first-letter:text-5xl font-bold ">
             Socialite
           </h1>
-          <nav className="flex my-auto align-middle text-xl justify-center capitalize flex-col">
+          <nav className="flex align-middle text-xl justify-center  capitalize flex-col">
             <Link to="/home">
               <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
                 <CottageIcon />
@@ -105,7 +105,7 @@ const Navbar = () => {
               onClick={() => {
                 setpost(true);
               }}
-              className="bg-blue-500 mr-auto my-5 text-white text-center md:px-5 p-2 capitalize rounded-full m-auto  md:w-40"
+              className="bg-blue-500 mr-auto my-5 text-white text-center mt-8 md:px-5 p-2 capitalize rounded-full m-auto  md:w-40"
             >
               <span className="flex justify-center space-x-2 ">
                 <AddIcon />
@@ -114,7 +114,7 @@ const Navbar = () => {
             </button>
           </nav>
 
-          <button className="bg-blue-500 text-white text-xl text-center p-2 md:px-5 my-5  capitalize md:w-40 m-auto rounded-full">
+          <button className="bg-blue-500 text-white text-xl text-center p-2 md:px-5 mt-5  capitalize md:w-40 m-auto rounded-full">
             {auth.currentUser ? (
               <span
                 className="flex space-x-2  justify-center"
@@ -161,7 +161,7 @@ const Navbar = () => {
 
       <div>
         <nav
-          className={`sm:hidden z-40 fixed top-0 left-0 transition-opacity  duration-100  bg-black w-full ${
+          className={`sm:hidden z-40 post fixed top-0 left-0 transition-opacity  duration-100  bg-black w-full ${
             navbar ? "" : "hidden"
           }`}
         >
@@ -183,9 +183,7 @@ const Navbar = () => {
 
             <Link
               className="border-gray-600 aspect-square hover:border-gray-100 border-2 rounded-3xl p-1  "
-              to={`${
-                userdata?.username ? `/setting` : "/login"
-              }`}
+              to={`${userdata?.username ? `/setting` : "/login"}`}
             >
               <SettingsIcon />
             </Link>

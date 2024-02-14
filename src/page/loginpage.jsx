@@ -21,7 +21,7 @@ export const Loginpage = () => {
         />
       </div>
       <div>
-        <h1 className="text-6xl text-left my-3  font-bold ">login </h1>
+        <h1 className="text-5xl text-left my-3  font-bold ">login </h1>
         <Login onenter={handelsubmit} role="login" />
       </div>
     </div>

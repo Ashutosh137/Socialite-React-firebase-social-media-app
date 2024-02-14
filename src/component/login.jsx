@@ -32,7 +32,7 @@ const Login = ({ onenter, role }) => {
   }, []);
 
   return (
-    <section className="flex post flex-col sm:w-3/4 sm:my-5 p-4 w-full">
+    <section className="flex post flex-col sm:w-3/4  p-4 w-full">
       <h3 className="text-3xl my-2 font-bold "> join now </h3>
       <div className=" my-5 sm: bg-white text-black text-center hover:scale-105 transition-all ease font-semibold outline rounded-2xl ">
         <button
@@ -90,16 +90,22 @@ const Login = ({ onenter, role }) => {
       {role === "signup" ? (
         <div className="my-3  capitalize text-base sm:text-xl flex flex-col ">
           <label className="my-3">already have an account ? </label>
-          <button className="my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize">
-            <Link to="/login">sign-in</Link>{" "}
-          </button>
+          <Link
+            to="/login"
+            className="my-3 w-80 mx-auto border-1 rounded-2xl text-center border font-semibold py-1 text-sky-600 capitalize"
+          >
+            sign-in
+          </Link>
         </div>
       ) : (
         <div className="my-2  capitalize text-base sm:text-xl flex flex-col ">
           <label className="my-3">don't have an account ? </label>
-          <button className="my-3 w-80 mx-auto border-1 rounded-2xl border font-semibold py-1 text-sky-600 capitalize">
-            <Link to="/">sign-up</Link>{" "}
-          </button>
+          <Link
+            to="/"
+            className="my-3 w-80 mx-auto border-1 rounded-2xl border text-center font-semibold py-1 text-sky-600 capitalize"
+          >
+            sign-up
+          </Link>
         </div>
       )}
     </section>

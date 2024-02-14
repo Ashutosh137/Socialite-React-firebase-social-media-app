@@ -88,16 +88,10 @@ export const Profile = ({ username }) => {
   };
 
   return (
-    <section
-      onClick={() => {
-        setactive("");
-      }}
-      className=" postanimiate post will-change-transform scroll-hidden w-full p-2 sm:text-2xl text-lg capitalize"
-    >
-      <div className="flex relative m-1 sm:m-2 ">
+    <div className=" postanimiate post  w-full p-2 sm:text-2xl text-lg capitalize">
+      <div className="flex  relative m-1 sm:m-2 ">
         <i
           onClick={(e) => {
-            e.stopPropagation();
             navigate("/home");
           }}
         >
@@ -121,7 +115,6 @@ export const Profile = ({ username }) => {
         <i
           className="ml-auto"
           onClick={(e) => {
-            e.stopPropagation();
             active === "setting" ? setactive("") : setactive("setting");
           }}
         >
@@ -132,7 +125,6 @@ export const Profile = ({ username }) => {
             <button
               className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
               onClick={(e) => {
-                e.stopPropagation();
                 navigator.share({
                   title:
                     "Spreading the Vibes: Check Out My Latest Socialite Post! ",
@@ -147,7 +139,6 @@ export const Profile = ({ username }) => {
             <button
               className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
               onClick={(e) => {
-                e.stopPropagation();
                 setactive("about");
               }}
             >
@@ -166,7 +157,6 @@ export const Profile = ({ username }) => {
                 <button
                   className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 text-red-500 "
                   onClick={(e) => {
-                    e.stopPropagation();
                     auth.currentUser &&
                       !userdata?.block?.includes(profileuserdata?.uid) &&
                       setactive("block");
@@ -189,7 +179,6 @@ export const Profile = ({ username }) => {
                 <button
                   className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
                   onClick={(e) => {
-                    e.stopPropagation();
                     navigate("/setting");
                   }}
                 >
@@ -200,7 +189,7 @@ export const Profile = ({ username }) => {
           </div>
         )}
       </div>
-      <div className="flex">
+      <div className="flex post">
         <div className="sm:my-10 sm:space-y-3 aspect-square space-y-1 flex flex-col text-left sm:m-5 m-3">
           <img
             src={profileuserdata?.profileImageURL || defaultprofileimage}
@@ -232,7 +221,7 @@ export const Profile = ({ username }) => {
           <pre className=" text-sm sm:text-base">{profileuserdata?.bio}</pre>
           <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
-              onClick={() => {
+              onClick={(e) => {
                 ((profileuserdata?.privacy &&
                   profileuserdata?.follower.includes(userdata?.uid)) ||
                   !profileuserdata?.privacy) &&
@@ -247,7 +236,7 @@ export const Profile = ({ username }) => {
               {profileuserdata?.follower?.length} follower
             </label>
             <label
-              onClick={() => {
+              onClick={(e) => {
                 ((profileuserdata?.privacy &&
                   profileuserdata?.follower.includes(userdata?.uid)) ||
                   !profileuserdata?.privacy) &&
@@ -272,7 +261,6 @@ export const Profile = ({ username }) => {
             <button
               title="edit profile"
               onClick={(e) => {
-                e.stopPropagation();
                 active === "edit" ? setactive("") : setactive("edit");
               }}
               className="bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto  "
@@ -459,7 +447,7 @@ export const Profile = ({ username }) => {
                       report: [...prev?.report, userdata?.uid],
                     }));
                   }}
-                  className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-base font-semibold text-white"
+                  className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-600 bg-red-500 text-base font-semibold text-white"
                 >
                   report
                 </button>
@@ -508,24 +496,18 @@ export const Profile = ({ username }) => {
       )}
 
       {active === "followers" && (
-        <div>
-          {
-            <Popupitem
-              closefunction={() => {
-                setactive("");
-              }}
-            >
-              <div className="flex w-full flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-2xl my-5 ">
-                  followers
-                </h2>
-                {profileuserdata?.follower.map((profile) => {
-                  return <Profileviewbox profileusername={profile} />;
-                })}
-              </div>
-            </Popupitem>
-          }
-        </div>
+        <Popupitem
+          closefunction={() => {
+            setactive("");
+          }}
+        >
+          <div className="flex w-full flex-col justify-center align-middle space-y-3">
+            <h2 className="text-center text-xl sm:text-2xl my-5 ">followers</h2>
+            {profileuserdata?.follower.map((profile) => {
+              return <Profileviewbox profileusername={profile} />;
+            })}
+          </div>
+        </Popupitem>
       )}
       {active === "about" && (
         <Aboutprofile
@@ -558,19 +540,17 @@ export const Profile = ({ username }) => {
       )}
 
       {active === "edit" && (
-        <div>
-          <Popupitem
-            closefunction={() => {
+        <Popupitem
+          closefunction={() => {
+            setactive("");
+          }}
+        >
+          <Editfuserdata
+            toggle={() => {
               setactive("");
             }}
-          >
-            <Editfuserdata
-              toggle={() => {
-                setactive("");
-              }}
-            />
-          </Popupitem>
-        </div>
+          />
+        </Popupitem>
       )}
 
       {active === "post" && (
@@ -588,6 +568,6 @@ export const Profile = ({ username }) => {
           </div>
         </Popupitem>
       )}
-    </section>
+    </div>
   );
 };

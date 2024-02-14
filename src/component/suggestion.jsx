@@ -19,23 +19,27 @@ export default function Suggestion({ bio = false }) {
   }
 
   return (
-    <section className=" mx-2 w-full">
+    <section className=" sm:mx-2 w-full">
       <div className="flex flex-col space-y-4">
         <div>
-          <Search />
+          <Search bio={bio} />
         </div>
-        <div className="">
+        <div className="flex justify-center flex-col">
           <h2 className="text-2xl text-center text-white capitalize my-3 font-semibold">
             who to follow
           </h2>
 
-          {alluser.map((proflie, index) => {
+          <div className="flex justify-center space-y-2 flex-col">
+
+          {alluser.map((proflie, index) => { 
             return (
               proflie?.username !== userdata?.username && (
                 <Profileviewbox bio={bio} index={index} profile={proflie} />
               )
             );
           })}
+          </div>
+
         </div>
       </div>
     </section>

@@ -23,40 +23,44 @@ export default function Profileviewbox({
     data();
   }, [profile, profileusername]);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const data = async () => {
       if (profileuserdata) {
-        await updateprofileuserdata(profileuserdata,profileuserdata?.username);
+        await updateprofileuserdata(profileuserdata, profileuserdata?.username);
       }
     };
     data();
-  },[profileuserdata])
+  }, [profileuserdata]);
 
   const handelfollow = () => {
     if (auth.currentUser && profileuserdata) {
-      profileuserdata?.follower?.includes(userdata?.uid)
-        ? setprofileuserdata((prev) => ({
-            ...prev,
-            follower: profileuserdata?.follower.filter(
-              (e) => e !== userdata?.uid
-            ),
-          }))
-        : setprofileuserdata((prev) => ({
-            ...prev,
-            follower: [...prev?.follower, userdata?.uid],
-          }));
-      !userdata?.following.includes(profileuserdata?.uid)
-        ? setuserdata((prev) => ({
-            ...prev,
-            following: [...prev.following, profileuserdata?.uid],
-          }))
-        : setuserdata((prev) => ({
-            ...prev,
-            following: userdata?.following.filter(
-              (e) => e !== profileuserdata?.uid
-            ),
-          }));
+      {
+        profileuserdata?.username !== userdata?.username &&
+        profileuserdata?.follower?.includes(userdata?.uid)
+          ? setprofileuserdata((prev) => ({
+              ...prev,
+              follower: profileuserdata?.follower.filter(
+                (e) => e !== userdata?.uid
+              ),
+            }))
+          : setprofileuserdata((prev) => ({
+              ...prev,
+              follower: [...prev?.follower, userdata?.uid],
+            }));
+        !userdata?.following.includes(profileuserdata?.uid)
+          ? setuserdata((prev) => ({
+              ...prev,
+              following: [...prev.following, profileuserdata?.uid],
+            }))
+          : setuserdata((prev) => ({
+              ...prev,
+              following: userdata?.following.filter(
+                (e) => e !== profileuserdata?.uid
+              ),
+            }));
+        
+      }
+    
     } else navigate("/login");
   };
 
@@ -64,7 +68,7 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex post m-auto w-80 cursor-pointer p-2 align-middle ">
+    <section className="flex post m-auto max-w-96 cursor-pointer sm:p-2 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         alt={defaultprofileimage}
@@ -98,7 +102,7 @@ export default function Profileviewbox({
           )}
         </label>
         {bio && (
-          <pre className="font-sans w-full text-start top-3 text-sm relative text-gray-200">
+          <pre className="font-sans sm:w-full text-start top-3 w-40  text-sm relative text-gray-200">
             {profileuserdata?.bio}
           </pre>
         )}
