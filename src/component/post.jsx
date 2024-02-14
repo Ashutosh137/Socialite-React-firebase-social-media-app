@@ -24,7 +24,7 @@ import Time from "../service/other/time";
 import Addcomment from "./addcomment";
 export const Post = ({ postdata, popup = true }) => {
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
-  
+
   const [active, setactive] = useState("");
   const [post, setpost] = useState(postdata || null);
   const [hide, sethide] = useState(false);
@@ -76,10 +76,9 @@ export const Post = ({ postdata, popup = true }) => {
   const handal_like = () => {
     auth?.currentUser && !post?.likes.includes(userdata?.uid)
       ? setpost((prev) => ({
-            ...prev,
-            likes: [...prev.likes, userdata?.uid],
-          }))
-        
+          ...prev,
+          likes: [...prev.likes, userdata?.uid],
+        }))
       : setpost((prev) => ({
           ...prev,
           likes: prev.likes.filter((e) => e !== userdata?.uid),
@@ -128,7 +127,12 @@ export const Post = ({ postdata, popup = true }) => {
     return <></>;
   }
   return (
-    <section onClick={()=>{setactive('')}} className="md:my-4 my-2 p-1 text-lg flex flex-col">
+    <section
+      onClick={() => {
+        setactive("");
+      }}
+      className="md:my-4 post my-2 p-1 text-lg flex flex-col"
+    >
       {!hide && !postdelete && (
         <div className="flex w-full align-middle space-x-2 ">
           <img
@@ -139,7 +143,7 @@ export const Post = ({ postdata, popup = true }) => {
             <div className="flex relative text-sm sm:text-base  align-middle">
               <div
                 onClick={(e) => {
-                  e.stopPropagation()
+                  e.stopPropagation();
                   navigate(`/profile/${postedby?.username}`);
                 }}
                 className="flex text-sm sm:text-base justify-start w-full capitalize space-x-2 sm:space-x-3"
@@ -171,7 +175,7 @@ export const Post = ({ postdata, popup = true }) => {
               </div>
               <div
                 onClick={(e) => {
-                  e.stopPropagation()
+                  e.stopPropagation();
                   active === "menu" ? setactive("") : setactive("menu");
                 }}
                 className="ml-auto"
@@ -184,7 +188,8 @@ export const Post = ({ postdata, popup = true }) => {
                 <div className="absolute top-12 z-40 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 capitalize"
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       navigate(`/profile/${postedby?.username} `);
                       setactive("");
                     }}
@@ -195,7 +200,8 @@ export const Post = ({ postdata, popup = true }) => {
                   {popup && (
                     <button
                       className="w-40 p-1 rounded-full capitalize hover:bg-gray-950"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setactive("comment");
                       }}
                     >
@@ -220,7 +226,8 @@ export const Post = ({ postdata, popup = true }) => {
 
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500 "
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       setactive("report");
                     }}
                   >
@@ -229,7 +236,9 @@ export const Post = ({ postdata, popup = true }) => {
                   {popup && userdata?.username !== postedby?.username && (
                     <button
                       className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
+
                         sethide(true);
                       }}
                     >
@@ -240,7 +249,8 @@ export const Post = ({ postdata, popup = true }) => {
                   {userdata?.username === postedby?.username && (
                     <button
                       className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         auth.currentUser && setactive("delete");
                       }}
                     >
@@ -288,15 +298,15 @@ export const Post = ({ postdata, popup = true }) => {
             </div>
 
             <div className="flex text-lg mt-5 text-gray-400 space-x-3 m-2 justify-between px-2 sm:px-5">
-              <div className="flex align-middle w-full text=sm sm:text-base justify-between space-x-2">
+              <div className="flex align-middle w-full text-sm sm:text-base justify-between space-x-2">
                 <div
-                  className="flex space-x-1 hover:text-sky-900"
+                  className="flex space-x-1 hover:text-[#464bf0]"
                   onClick={(e) => {
-                    e.stopPropagation()
+                    e.stopPropagation();
                     popup && handelactive("comment");
                   }}
                 >
-                  <label className="text-gray-500">
+                  <label className="text-gray-500 font-serif">
                     {post?.comments?.length > 0 ? post?.comments?.length : ""}
                   </label>
                   <i className="">
@@ -309,7 +319,7 @@ export const Post = ({ postdata, popup = true }) => {
                       onClick={() => {
                         setactive("like");
                       }}
-                      className=" m-auto  "
+                      className=" m-auto  font-serif"
                     >
                       {post?.likes?.length}
                     </label>
@@ -321,7 +331,7 @@ export const Post = ({ postdata, popup = true }) => {
                     className="hover:text-red-900 drop-shadow"
                   >
                     {post?.likes?.includes(userdata?.uid) ? (
-                      <FavoriteIcon style={{ color: "#CF000F" }} />
+                      <FavoriteIcon style={{ color: "rgb(249, 24, 128)",}} />
                     ) : (
                       <FavoriteBorderIcon />
                     )}
@@ -341,11 +351,11 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
 
-              <i onClick={handelsave}>
+              <i onClick={handelsave} className="hover:text-[#27cbf0]">
                 {userdata?.saved?.some(
                   (savedpost) => post?.postid === savedpost?.postid
                 ) ? (
-                  <BookmarkIcon />
+                  <BookmarkIcon style={{ color: "#37cbf0"}} />
                 ) : (
                   <BookmarkBorderIcon />
                 )}

@@ -32,7 +32,7 @@ const Login = ({ onenter, role }) => {
   }, []);
 
   return (
-    <section className="flex flex-col sm:w-3/4 sm:my-5 p-4 w-full">
+    <section className="flex post flex-col sm:w-3/4 sm:my-5 p-4 w-full">
       <h3 className="text-3xl my-2 font-bold "> join now </h3>
       <div className=" my-5 sm: bg-white text-black text-center hover:scale-105 transition-all ease font-semibold outline rounded-2xl ">
         <button

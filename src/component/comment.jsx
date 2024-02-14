@@ -76,7 +76,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
       onClick={() => {
         setactive("");
       }}
-      className=" w-full "
+      className=" w-full post"
     >
       {!delet && (
         <div className="capitalize flex w-full space-x-2 ">
@@ -113,7 +113,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                   />
                 )}
               </label>
-              <label className="text-gray-500 text-xs  sm:text-sm ">
+              <label className="text-gray-500 text-xs my-auto sm:text-sm ">
                 {Time(comment.postedat?.toJSON().seconds) || (
                   <Skeleton
                     animation="wave"

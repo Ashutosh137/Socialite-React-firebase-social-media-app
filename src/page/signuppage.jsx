@@ -15,7 +15,7 @@ const Signuppage = () => {
   };
 
   return (
-    <div className="w-full flex  -mt-16 sm:mt-5 p-2 capitalize">
+    <div className="w-full flex post -mt-16 sm:mt-5 p-2 capitalize">
       <div className=" m-auto outline xl:block hidden  outline-gray-900">
         <img
           className="w-80"

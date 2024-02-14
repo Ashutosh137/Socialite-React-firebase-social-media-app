@@ -18,7 +18,7 @@ export default function Block() {
   }, [privacy]);
 
   return (
-    <section className=" text-center p-2 text-sm sm:text-base sm:p-5 capitalize w-full ">
+    <section className="post text-center p-2 text-sm sm:text-base sm:p-5 capitalize w-full ">
       <h1 className="font-semibold text-xl">who can see your content</h1>
       <div className="my-8">
         <div className="flex justify-between">

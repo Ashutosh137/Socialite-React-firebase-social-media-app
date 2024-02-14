@@ -21,7 +21,7 @@ export default function Setting() {
     <div className="flex w-full justify-around  scroll-hidden my-5 ">
       <Navbar />
 
-      <section className="flex border-gray-800  text-center capitalize text-base border-x-2  w-full">
+      <section className="flex post border-gray-800  text-center capitalize text-base border-x-2  w-full">
         <div
           className={`px-3 flex-col w-full sm:w-auto ${
             active === "" ? "flex" : "hidden"

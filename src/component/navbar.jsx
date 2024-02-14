@@ -43,8 +43,8 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="p-2 hidden sm:block w-20 md:w-96">
-        <nav className="fixed flex flex-col h-screen md:p-4 ">
+      <header className="p-2 post hidden sm:block w-20 md:w-96">
+        <nav className="fixed flex flex-col h-screen md:p-1 ">
           <h1 className="text-3xl title pt-16 py-5 first-letter:text-5xl font-bold ">
             Socialite
           </h1>

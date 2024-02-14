@@ -72,7 +72,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
     progress.finish();
   };
   return (
-    <div className="flex flex-col ">
+    <div className="flex post flex-col ">
       {active !== "comment" && (
         <div className="flex space-x-3 m-1 justify-start align-middle w-full">
           <label className="text-sm capitalize my-auto text-left ">

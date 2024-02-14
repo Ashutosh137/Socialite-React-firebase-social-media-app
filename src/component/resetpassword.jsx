@@ -13,7 +13,7 @@ export default function Resetpassword({ toggle }) {
   };
 
   return (
-    <section className="text-sm sm:text-base sm:p-5 px-2 w-full capitalize flex flex-col space-y-4 text-left">
+    <section className="text-sm post sm:text-base sm:p-5 px-2 w-full capitalize flex flex-col space-y-4 text-left">
       <h1 className="text-2xl text-center p-2">reset your passward</h1>
       <div className="flex mx-2  justify-around">
         <label>email address </label>

@@ -64,7 +64,7 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex m-auto w-80 cursor-pointer p-2 align-middle ">
+    <section className="flex post m-auto w-80 cursor-pointer p-2 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         alt={defaultprofileimage}

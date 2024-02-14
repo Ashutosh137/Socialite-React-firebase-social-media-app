@@ -42,7 +42,7 @@ export default function Seepost() {
   }, [post]);
 
   return (
-    <div className="flex w-full justify-around h-screen scroll-hidden ">
+    <div className="flex postanimiate post w-full justify-around h-screen scroll-hidden ">
       <Navbar />
       <div className="border-gray-800 p-2 sm:p-4 border-x-2 w-full">
         {post === undefined && (

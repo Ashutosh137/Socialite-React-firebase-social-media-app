@@ -39,7 +39,7 @@ export const Profile = ({ username }) => {
         setuserdata(profileuserdata);
       }
     };
-    data()
+    data();
   }, [profileuserdata]);
 
   useEffect(() => {
@@ -88,10 +88,16 @@ export const Profile = ({ username }) => {
   };
 
   return (
-    <section className="scroll-hidden w-full p-2 sm:text-2xl text-lg capitalize">
+    <section
+      onClick={() => {
+        setactive("");
+      }}
+      className=" postanimiate post will-change-transform scroll-hidden w-full p-2 sm:text-2xl text-lg capitalize"
+    >
       <div className="flex relative m-1 sm:m-2 ">
         <i
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             navigate("/home");
           }}
         >
@@ -114,7 +120,8 @@ export const Profile = ({ username }) => {
         </div>
         <i
           className="ml-auto"
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             active === "setting" ? setactive("") : setactive("setting");
           }}
         >
@@ -124,7 +131,8 @@ export const Profile = ({ username }) => {
           <div className="absolute top-12 right-3  sm:right-8 px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-3  rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
             <button
               className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 navigator.share({
                   title:
                     "Spreading the Vibes: Check Out My Latest Socialite Post! ",
@@ -138,7 +146,8 @@ export const Profile = ({ username }) => {
             </button>
             <button
               className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 setactive("about");
               }}
             >
@@ -156,7 +165,8 @@ export const Profile = ({ username }) => {
                 </button>
                 <button
                   className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 text-red-500 "
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     auth.currentUser &&
                       !userdata?.block?.includes(profileuserdata?.uid) &&
                       setactive("block");
@@ -178,7 +188,8 @@ export const Profile = ({ username }) => {
               <>
                 <button
                   className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     navigate("/setting");
                   }}
                 >
@@ -260,7 +271,8 @@ export const Profile = ({ username }) => {
           >
             <button
               title="edit profile"
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 active === "edit" ? setactive("") : setactive("edit");
               }}
               className="bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto  "
@@ -370,26 +382,26 @@ export const Profile = ({ username }) => {
           ) : (
             <>
               {profileuserdata?.post?.length === 0 ? (
-                    <div className="w-full my-12 flex flex-col justify-center">
-                      <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
-                        <CameraEnhanceIcon />
-                      </i>
-                      <h1 className="text-3xl font-bold text-center my-2">
-                        no post yet
-                      </h1>
-                    </div>
-                  ) : (
-                    <>
-                      {profileuserdata?.post?.map((item, index) => {
-                        return (
-                          <div key={index} className="">
-                            <Post index={index} postdata={item} popup={true} />
-                            <hr className="border-gray-700" />
-                          </div>
-                        );
-                      })}
-                    </>
-                  )}
+                <div className="w-full my-12 flex flex-col justify-center">
+                  <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
+                    <CameraEnhanceIcon />
+                  </i>
+                  <h1 className="text-3xl font-bold text-center my-2">
+                    no post yet
+                  </h1>
+                </div>
+              ) : (
+                <>
+                  {profileuserdata?.post?.map((item, index) => {
+                    return (
+                      <div key={index} className="">
+                        <Post index={index} postdata={item} popup={true} />
+                        <hr className="border-gray-700" />
+                      </div>
+                    );
+                  })}
+                </>
+              )}
             </>
           )}
         </>

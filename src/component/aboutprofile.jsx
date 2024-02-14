@@ -8,7 +8,7 @@ export default function Aboutprofile({ profiledata, close }) {
 
   return (
     <Popupitem closefunction={close}>
-      <section className="sm:m-auto sm:w-96 w-full ">
+      <section className="post sm:m-auto sm:w-96 w-full ">
         <h1 className="text-xl text-center w-full capitalize">
           about this profile
         </h1>

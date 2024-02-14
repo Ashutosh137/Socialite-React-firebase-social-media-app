@@ -46,7 +46,7 @@ export const Createpost = ({ toggle = () => {} }) => {
   };
 
   return (
-    <section className="text-center mx-5 capitalize">
+    <section className="text-center post mx-5 capitalize">
       <form
         onSubmit={(e) => {
           e.preventDefault();

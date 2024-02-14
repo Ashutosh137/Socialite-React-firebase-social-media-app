@@ -14,21 +14,29 @@ textarea {
   height: inherit;
 }
 .h-postimg {
-  max-height: 34rem;
-  max-width: 30rem;
+  max-height: 40rem;
+  object-fit: scale-down;
+  max-width: 32rem;
 }
-.drop-shadow{
+.drop-shadow {
   animation: drop ease infinite;
 }
 .max-h-popup {
   max-height: 75vh;
 }
 
+.post {
+  animation: move 700ms ease-in-out;
+}
+.postanimiate {
+  animation: tras 500ms ease;
+}
+
 @keyframes drop {
-  0%{
+  0% {
     border: 20px solid red;
   }
-  50%{
+  50% {
     border: none;
   }
 }
@@ -42,4 +50,21 @@ textarea {
 }
 .title {
   font-family: "Dancing Script", cursive;
+}
+
+@keyframes move {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes tras {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
 }
