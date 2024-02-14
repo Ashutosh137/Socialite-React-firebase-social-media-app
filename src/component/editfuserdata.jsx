@@ -40,7 +40,7 @@ export default function Editfuserdata({ toggle = () => {} }) {
                 profileimage,
                 auth.currentUser.uid
               );
-iing              await seteditformdata((prevData) => ({
+              await seteditformdata((prevData) => ({
                 ...prevData,
                 profileImageURL: data,
               }));
