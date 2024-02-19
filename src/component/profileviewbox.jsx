@@ -35,7 +35,6 @@ export default function Profileviewbox({
   const handelfollow = () => {
     if (auth.currentUser && profileuserdata) {
       {
-        profileuserdata?.username !== userdata?.username &&
         profileuserdata?.follower?.includes(userdata?.uid)
           ? setprofileuserdata((prev) => ({
               ...prev,
@@ -47,6 +46,7 @@ export default function Profileviewbox({
               ...prev,
               follower: [...prev?.follower, userdata?.uid],
             }));
+
         !userdata?.following.includes(profileuserdata?.uid)
           ? setuserdata((prev) => ({
               ...prev,
@@ -58,9 +58,7 @@ export default function Profileviewbox({
                 (e) => e !== profileuserdata?.uid
               ),
             }));
-        
       }
-    
     } else navigate("/login");
   };
 
@@ -68,14 +66,14 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex post m-auto max-w-96 cursor-pointer sm:p-2 align-middle ">
+    <section className="flex post m-auto w-full cursor-pointer p-1 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         alt={defaultprofileimage}
         className="rounded-full w-10 aspect-square h-10 my-auto mx-1"
       />
       <div
-        className="flex w-full m-1 flex-col cursor-pointer"
+        className="flex w-full m-1 overflow flex-col cursor-pointer"
         onClick={() => {
           navigate(`/profile/${profileuserdata?.username}`);
         }}
@@ -102,14 +100,16 @@ export default function Profileviewbox({
           )}
         </label>
         {bio && (
-          <pre className="font-sans sm:w-full text-start top-3 w-40  text-sm relative text-gray-200">
+          <pre className="font-sans sm:w-full text-start top-3 w-40 text-sm relative text-gray-200">
             {profileuserdata?.bio}
           </pre>
         )}
       </div>
       <div className="w-full px-4 my-auto ml-auto">
         <button
-          onClick={handelfollow}
+          onClick={() => {
+            profileuserdata?.username !== userdata?.username && handelfollow();
+          }}
           className="bg-white w-24 hover:bg-slate-200 rounded-full text-sm shadow-lg ml-auto font-medium text-black
      capitalize py-1 px-4 "
         >

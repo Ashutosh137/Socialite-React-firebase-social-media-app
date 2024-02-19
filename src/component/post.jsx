@@ -127,8 +127,7 @@ export const Post = ({ postdata, popup = true }) => {
     return <></>;
   }
   return (
-    <section className="md:my-4 post my-2 p-1 text-lg flex flex-col"
-    >
+    <section className="md:my-4 post my-2 p-1 text-lg flex flex-col">
       {!hide && !postdelete && (
         <div className="flex w-full align-middle space-x-2 ">
           <img
@@ -139,12 +138,11 @@ export const Post = ({ postdata, popup = true }) => {
             <div className="flex relative text-sm sm:text-base  align-middle">
               <div
                 onClick={(e) => {
-                 
                   navigate(`/profile/${postedby?.username}`);
                 }}
                 className="flex text-sm sm:text-base justify-start w-full capitalize space-x-2 sm:space-x-3"
               >
-                <label className="font-semibold my-auto">
+                <label className="font-semibold overflow my-auto">
                   {postedby?.name || (
                     <Skeleton
                       animation="wave"
@@ -154,7 +152,7 @@ export const Post = ({ postdata, popup = true }) => {
                     />
                   )}
                 </label>
-                <label className="text-gray-500 flex my-auto space-x-3">
+                <label className="text-gray-500 flex my-auto overflow space-x-3">
                   @
                   {postedby?.username || (
                     <Skeleton
@@ -171,7 +169,6 @@ export const Post = ({ postdata, popup = true }) => {
               </div>
               <div
                 onClick={(e) => {
-                 
                   active === "menu" ? setactive("") : setactive("menu");
                 }}
                 className="ml-auto"
@@ -181,11 +178,10 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
               {active === "menu" && (
-                <div className="absolute top-12 z-40 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
+                <div className="absolute top-12 z-40 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 capitalize"
                     onClick={(e) => {
-                     
                       navigate(`/profile/${postedby?.username} `);
                       setactive("");
                     }}
@@ -197,7 +193,6 @@ export const Post = ({ postdata, popup = true }) => {
                     <button
                       className="w-40 p-1 rounded-full capitalize hover:bg-gray-950"
                       onClick={(e) => {
-                       
                         setactive("comment");
                       }}
                     >
@@ -223,7 +218,6 @@ export const Post = ({ postdata, popup = true }) => {
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500 "
                     onClick={(e) => {
-                     
                       setactive("report");
                     }}
                   >
@@ -233,8 +227,6 @@ export const Post = ({ postdata, popup = true }) => {
                     <button
                       className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500"
                       onClick={(e) => {
-                       
-
                         sethide(true);
                       }}
                     >
@@ -246,7 +238,6 @@ export const Post = ({ postdata, popup = true }) => {
                     <button
                       className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
                       onClick={(e) => {
-                       
                         auth.currentUser && setactive("delete");
                       }}
                     >
@@ -298,7 +289,6 @@ export const Post = ({ postdata, popup = true }) => {
                 <div
                   className="flex space-x-1 hover:text-[#464bf0]"
                   onClick={(e) => {
-                   
                     popup && handelactive("comment");
                   }}
                 >
@@ -309,13 +299,13 @@ export const Post = ({ postdata, popup = true }) => {
                     <InsertCommentIcon />
                   </i>
                 </div>
-                <div className="flex text-gray-500 space-x-1   ">
+                <div className="flex text-gray-500 align-middle space-x-1   ">
                   {post?.likes?.length > 0 && (
                     <label
                       onClick={() => {
                         setactive("like");
                       }}
-                      className=" m-auto  font-serif"
+                      className=" my-auto  font-serif"
                     >
                       {post?.likes?.length}
                     </label>
@@ -392,10 +382,12 @@ export const Post = ({ postdata, popup = true }) => {
               }}
             >
               <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-3xl ">likes</h2>
-                {post?.likes.map((profile) => {
-                  return <Profileviewbox profileusername={profile} />;
-                })}
+                <h2 className="text-center text-xl sm:text-2xl capitalize my-3 ">likes</h2>
+                <div className="m-auto">
+                  {post?.likes.map((profile) => {
+                    return <Profileviewbox profileusername={profile} />;
+                  })}
+                </div>
               </div>
             </Popupitem>
           }

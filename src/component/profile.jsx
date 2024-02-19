@@ -26,6 +26,7 @@ export const Profile = ({ username }) => {
   const navigate = useNavigate();
   const { userdata, defaultprofileimage, setuserdata } = useuserdatacontext();
   const [active, setactive] = useState("");
+  const [mutual, setmutual] = useState([]);
 
   useEffect(() => {
     const data = async () => {
@@ -55,6 +56,18 @@ export const Profile = ({ username }) => {
     };
     data();
   }, [username]);
+
+  useEffect(() => {
+    const data = () => {
+      setmutual(
+        profileuserdata?.follower?.filter((pre) =>
+          userdata?.follower?.includes(pre)
+        )
+      );
+    };
+    data();
+    console.log(mutual, profileuserdata, userdata);
+  }, [userdata, profileuserdata]);
 
   if (profileuserdata?.block?.includes(userdata?.uid)) {
     setprofileuserdata(null);
@@ -121,9 +134,9 @@ export const Profile = ({ username }) => {
           <MoreVertIcon />
         </i>
         {active === "setting" && profileuserdata && (
-          <div className="absolute top-12 right-3  sm:right-8 px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-3  rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
+          <div className="absolute top-12 right-3  sm:right-8 px-8 sm:px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-2  rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
             <button
-              className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
+              className="sm:w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
               onClick={(e) => {
                 navigator.share({
                   title:
@@ -137,7 +150,7 @@ export const Profile = ({ username }) => {
               share profile{" "}
             </button>
             <button
-              className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
+              className="sm:w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
               onClick={(e) => {
                 setactive("about");
               }}
@@ -147,7 +160,7 @@ export const Profile = ({ username }) => {
             {profileuserdata?.username !== userdata?.username ? (
               <>
                 <button
-                  className="w-40 capitalize  p-1 rounded-full text-red-500 hover:bg-gray-950"
+                  className="sm:w-40 capitalize  p-1 rounded-full text-red-500 hover:bg-gray-950"
                   onClick={() => {
                     auth.currentUser && setactive("report");
                   }}
@@ -155,7 +168,7 @@ export const Profile = ({ username }) => {
                   report{" "}
                 </button>
                 <button
-                  className="w-40 capitalize  p-1 rounded-full hover:bg-gray-950 text-red-500 "
+                  className="sm:w-40 capitalize  p-1 rounded-full hover:bg-gray-950 text-red-500 "
                   onClick={(e) => {
                     auth.currentUser &&
                       !userdata?.block?.includes(profileuserdata?.uid) &&
@@ -209,16 +222,12 @@ export const Profile = ({ username }) => {
             <label className="flex text-lg  space-x-1 text-gray-400">
               @
               {profileuserdata?.username || (
-                <Skeleton
-                  animation="wave"
-                  sx={{ bgcolor: "grey.900" }}
-                  variant="text"
-                  width={150}
-                />
+               username
               )}
             </label>
           </div>
-          <pre className=" text-sm sm:text-base">{profileuserdata?.bio}</pre>
+          {profileuserdata?.bio && <pre className=" text-sm sm:text-base">{profileuserdata?.bio}</pre>}
+        
           <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
               onClick={(e) => {
@@ -251,6 +260,15 @@ export const Profile = ({ username }) => {
               {profileuserdata?.following?.length} following
             </label>
           </div>
+
+          {mutual?.length>0 && userdata?.username!==profileuserdata?.username && <div
+            onClick={() => {
+              setactive("mutual");
+            }}
+            className="text-neutral-400 cursor-pointer text-xs sm:text-sm text-left "
+          >
+            {mutual?.length} mutual friends
+          </div>}
         </div>
         {profileuserdata?.username === userdata?.username ? (
           <div
@@ -503,9 +521,29 @@ export const Profile = ({ username }) => {
         >
           <div className="flex w-full flex-col justify-center align-middle space-y-3">
             <h2 className="text-center text-xl sm:text-2xl my-5 ">followers</h2>
-            {profileuserdata?.follower.map((profile) => {
-              return <Profileviewbox profileusername={profile} />;
-            })}
+             <div className="m-auto">
+              {profileuserdata?.follower.map((profile) => {
+                return <Profileviewbox profileusername={profile} />;
+              })}
+            </div>
+          </div>
+        </Popupitem>
+      )}
+      {active === "mutual" && (
+        <Popupitem
+          closefunction={() => {
+            setactive("");
+          }}
+        >
+          <div className="flex w-full flex-col justify-center align-middle space-y-3">
+            <h2 className="text-center text-xl sm:text-2xl my-5 ">
+              mutual friends
+            </h2>
+            <div className="m-auto">
+              {mutual.map((profile) => {
+                return <Profileviewbox profileusername={profile} />;
+              })}
+            </div>
           </div>
         </Popupitem>
       )}
@@ -530,9 +568,11 @@ export const Profile = ({ username }) => {
                 <h2 className="text-center text-xl sm:text-2xl my-5 ">
                   following
                 </h2>
-                {profileuserdata?.following.map((profile) => {
-                  return <Profileviewbox profileusername={profile} />;
-                })}
+                <div className="m-auto">
+              {profileuserdata.following.map((profile) => {
+                return <Profileviewbox profileusername={profile} />;
+              })}
+            </div>
               </div>
             </Popupitem>
           }

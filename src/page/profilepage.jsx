@@ -1,7 +1,7 @@
 import React from "react";
 import { Profile } from "../component/profile";
 import Navbar from "../component/navbar";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Suggestion from "../component/suggestion";
 export const Profilepage = () => {
   const { username } = useParams();

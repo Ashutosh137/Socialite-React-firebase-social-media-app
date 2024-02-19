@@ -4,24 +4,29 @@ import { useuserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import Suggestion from "../component/suggestion";
 import Postidtopost from "../component/postidtopost";
-import BookmarkRemoveSharpIcon from '@mui/icons-material/BookmarkRemoveSharp';
+import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
 
 export const List = () => {
-  const { userdata,setuserdata } = useuserdatacontext();
+  const { userdata, setuserdata } = useuserdatacontext();
   const navigate = useNavigate();
 
   return (
-    <div className=" flex w-full ">
+    <div className="post flex w-full ">
       <Navbar />
       <div className="w-full post border-gray-600 border-x-2 sm:px-5 py-5 sm:py-0">
         <div className="flex">
-
-        <h1 className="sm:text-2xl text-xl p-2 sm:py-0  my-5 border-b-2 border-gray-500  text-left capitalize ">
-          bookmark collection
-        </h1>
-        <i title="delete all bookmark" className="my-auto ml-auto" onClick={()=>{
-          setuserdata(prev=>({...prev,saved:[]}))
-        }}><BookmarkRemoveSharpIcon/></i>
+          <h1 className="sm:text-2xl text-xl p-2 sm:py-0  my-5 border-b-2 border-gray-500  text-left capitalize ">
+            bookmark collection
+          </h1>
+          <i
+            title="delete all bookmark"
+            className="my-auto ml-auto"
+            onClick={() => {
+              setuserdata((prev) => ({ ...prev, saved: [] }));
+            }}
+          >
+            <BookmarkRemoveSharpIcon />
+          </i>
         </div>
 
         <div className="">

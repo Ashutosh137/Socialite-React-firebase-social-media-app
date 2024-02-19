@@ -147,7 +147,7 @@ const Navbar = () => {
             setpost(false);
           }}
         >
-          <div className="my-5">
+          <div className="my-5 post popup">
             <Createpost
               toggle={() => {
                 setpost(false);
@@ -192,7 +192,7 @@ const Navbar = () => {
         </nav>
 
         <div
-          className={`sm:hidden z-50 left-0 fixed bottom-0 w-full ${
+          className={`sm:hidden z-50 post left-0 fixed bottom-0 w-full ${
             navbar ? "" : "hidden"
           }`}
         >

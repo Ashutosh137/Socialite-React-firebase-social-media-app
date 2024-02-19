@@ -80,7 +80,7 @@ export default function Reply({ reply, setcommentpost }) {
           />
           <div className="flex w-full space-y-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm">
-              <label className="font-semibold ">
+              <label className="font-semibold overflow ">
                 {commentby?.name || (
                   <Skeleton
                     animation="wave"
@@ -91,7 +91,7 @@ export default function Reply({ reply, setcommentpost }) {
                 )}
               </label>
               <label
-                className="text-gray-500 mx-2 flex space-x-3 text-sm"
+                className="text-gray-500 overflow mx-2 flex space-x-3 text-sm"
                 onClick={() => {
                   navigate(`/profile/${commentby?.username} `);
                 }}
@@ -106,7 +106,7 @@ export default function Reply({ reply, setcommentpost }) {
                   />
                 )}
               </label>
-              <label className="text-gray-500 ">
+              <label className="text-gray-500 overflow-hidden ">
                 {Time(comment.postedat?.toJSON().seconds)}
               </label>
               <label
@@ -137,7 +137,7 @@ export default function Reply({ reply, setcommentpost }) {
                     Report
                   </button>
                   {(userdata?.username === commentby?.username ||
-                    post?.postedby === userdata?.uid) && (
+                    comment?.postedby === userdata?.uid) && (
                     <button
                       className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
                       onClick={() => {
@@ -186,7 +186,7 @@ export default function Reply({ reply, setcommentpost }) {
                 <div className="flex space-x-3">
                   <i onClick={handellike} className="hover:text-red-900">
                     {comment?.likes.includes(userdata?.uid) ? (
-                      <FavoriteIcon style={{ color: "#CF000F" }} />
+                      <FavoriteIcon style={{ color: "rgb(249, 24, 128)" }} />
                     ) : (
                       <FavoriteBorderIcon />
                     )}

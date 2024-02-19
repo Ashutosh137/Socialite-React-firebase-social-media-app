@@ -14,7 +14,7 @@ export const Home = () => {
   useEffect(() => {
     const dataforallpost = async () => {
       const allpost = await getallpost();
-      setallpostdata(allpost.flat());
+      setallpostdata(allpost.flat().sort(() => Math.random() - 0.5));
     };
     dataforallpost();
   }, []);

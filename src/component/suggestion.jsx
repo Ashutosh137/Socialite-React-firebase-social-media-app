@@ -29,7 +29,7 @@ export default function Suggestion({ bio = false }) {
             who to follow
           </h2>
 
-          <div className="flex justify-center space-y-2 flex-col">
+          <div className="flex justify-center w-80 m-auto space-y-1 flex-col">
 
           {alluser.map((proflie, index) => { 
             return (

@@ -72,12 +72,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
   }
 
   return (
-    <div
-      onClick={() => {
-        setactive("");
-      }}
-      className=" w-full post"
-    >
+    <div className=" w-full post">
       {!delet && (
         <div className="capitalize flex w-full space-x-2 ">
           <img
@@ -87,7 +82,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
           />
           <div className="flex w-full space-y-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm sm:text-base">
-              <label className="font-semibold ">
+              <label className="font-semibold overflow ">
                 {commentby?.name || (
                   <Skeleton
                     animation="wave"
@@ -98,7 +93,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 )}
               </label>
               <label
-                className="text-gray-500 mx-2 flex space-x-3 text-sm sm:text-base"
+                className="text-gray-500 mx-2 overflow flex space-x-3 text-sm sm:text-base"
                 onClick={() => {
                   navigate(`/profile/${commentby?.username} `);
                 }}
@@ -135,7 +130,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
               {active === "menu" && (
                 <div className="absolute top-5 right-7 sm:right-8 px-4 text-sm bg-black -my-5 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-1 sm:space-y-2  ">
                   <button
-                    className="sm:w-40 w-28 p-1 rounded-full text-white hover:bg-gray-950 "
+                    className="sm:w-40 w-28 p-1  rounded-full text-white hover:bg-gray-950 "
                     onClick={() => {
                       navigate(`/profile/${commentby?.username} `);
                     }}
@@ -201,7 +196,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 <div className="flex space-x-3">
                   <i onClick={handellike} className="hover:text-red-900">
                     {comment?.likes.includes(userdata?.uid) ? (
-                      <FavoriteIcon style={{ color: "#CF000F" }} />
+                      <FavoriteIcon style={{ color: "rgb(249, 24, 128)" }} />
                     ) : (
                       <FavoriteBorderIcon />
                     )}
@@ -225,7 +220,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
               </div>
             </div>
             {active === "reply" && (
-              <div className="w-96 ml-auto ">
+              <div className=" w-11/12  ml-auto ">
                 {comment?.reply?.map((reply, index) => {
                   return (
                     <Reply

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 export default function Search({ bio = false }) {
   const [searchtext, setsearchtext] = useState("");
-
   const [relaventusers, setrelaventusers] = useState([]);
 
   useEffect(() => {
@@ -49,12 +48,20 @@ export default function Search({ bio = false }) {
       </div>
 
       {searchtext !== "" && (
-        <div className="bg-black overflow-y-scroll scroll-hidden shadow-zinc-500 shadow-sm w-full rounded-xl py-5  max-h-72 flex flex-col  space-y-1 z-50 ">
+        <div className="bg-black overflow-y-scroll scroll-hidden shadow-zinc-300 shadow-md w-full rounded-xl py-5  max-h-72 flex flex-col  space-y-1 z-50 ">
           <label className="text-gray-500 p-2 capitalize text-center">
             Try searching for people using their names or username
           </label>
-          {relaventusers?.length===0 && searchtext!=='' && <Link to={`/profile/${searchtext} `} className="capitalize text-sm sm:text-base text-left mx-3">try search for <b className="font-semibold border-b-2"> {searchtext}</b></Link>}
-          <div className="flex flex-col justify-center space-y-5">
+          {relaventusers?.length === 0 && searchtext !== "" && (
+            <Link
+              to={`/profile/${searchtext} `}
+              className="capitalize text-sm sm:text-base text-left mx-3"
+            >
+              try search for{" "}
+              <b className="font-semibold border-b-2"> {searchtext}</b>
+            </Link>
+          )}
+          <div className="flex flex-col w-96 m-auto justify-center space-y-5">
             {relaventusers?.map((profile) => {
               return <Profileviewbox profile={profile} bio={bio} />;
             })}

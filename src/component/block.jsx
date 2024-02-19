@@ -36,7 +36,11 @@ export default function Block() {
             name="privacy"
           />
         </div>
-          <p className="text-xs my-4 mx-3 text-gray-300 w-full text-left">When your account is public, your profile and posts can be seen by anyone, on or off socialite, even if they don't have an socialite account.</p>
+        <p className="text-xs my-4  px-3 text-gray-300 w-full text-left">
+          When your account is public, your profile and posts can be seen by
+          anyone, on or off socialite, even if they don't have an socialite
+          account.
+        </p>
       </div>
       <div className="text-left flex flex-col my-10">
         <label>

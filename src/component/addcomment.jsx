@@ -112,7 +112,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
             value={commenttext}
             maxLength={50}
             type="text"
-            className=" w-full bg-black capitalize text-white text-sm sm:text-base border px-4 border-white rounded-xl "
+            className=" w-full bg-black capitalize text-white text-sm sm:text-base border px-2 sm:px-4 border-white rounded-xl "
             placeholder="write a comment .."
           />
           <button
