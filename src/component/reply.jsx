@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useuserdatacontext } from "../service/context/usercontext";
-import { get_userdata } from "../service/Auth/database";
+import { Create_notification, get_userdata } from "../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Time from "../service/other/time";
 import { Skeleton } from "@mui/material";
@@ -47,7 +47,7 @@ export default function Reply({ reply, setcommentpost }) {
     data();
   }, [comment]);
 
-  const handellike = () => {
+  const handellike = async () => {
     auth.currentUser && comment?.likes.includes(userdata?.uid)
       ? setcomment((prev) => ({
           ...prev,
@@ -57,6 +57,13 @@ export default function Reply({ reply, setcommentpost }) {
           ...prev,
           likes: [...prev.likes, userdata?.uid],
         }));
+
+    !comment?.likes.includes(userdata?.uid) &&
+      (await Create_notification(commentby?.uid, {
+        likeby: userdata?.uid,
+        type: "replylike",
+        postid: post?.postid,
+      }));
   };
 
   const delcomment = () => {

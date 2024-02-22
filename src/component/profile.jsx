@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Popupitem } from "../ui/popup";
 import { useuserdatacontext } from "../service/context/usercontext";
 import {
+  Create_notification,
   get_userdatabyname,
   updateprofileuserdata,
 } from "../service/Auth/database";
@@ -73,7 +74,7 @@ export const Profile = ({ username }) => {
     setprofileuserdata(null);
   }
 
-  const handelfollow = () => {
+  const handelfollow = async () => {
     if (auth.currentUser && profileuserdata) {
       profileuserdata?.follower?.includes(userdata?.uid)
         ? setprofileuserdata((prev) => ({
@@ -97,6 +98,11 @@ export const Profile = ({ username }) => {
               (e) => e !== profileuserdata?.uid
             ),
           }));
+      !profileuserdata?.follower?.includes(userdata?.uid) &&
+        (await Create_notification(profileuserdata?.uid, {
+          type: "follow",
+          likeby: userdata?.uid,
+        }));
     } else navigate("/login");
   };
 
@@ -220,14 +226,13 @@ export const Profile = ({ username }) => {
               )}
             </label>
             <label className="flex text-lg  space-x-1 text-gray-400">
-              @
-              {profileuserdata?.username || (
-               username
-              )}
+              @{profileuserdata?.username || username}
             </label>
           </div>
-          {profileuserdata?.bio && <pre className=" text-sm sm:text-base">{profileuserdata?.bio}</pre>}
-        
+          {profileuserdata?.bio && (
+            <pre className=" text-sm sm:text-base">{profileuserdata?.bio}</pre>
+          )}
+
           <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
               onClick={(e) => {
@@ -261,14 +266,17 @@ export const Profile = ({ username }) => {
             </label>
           </div>
 
-          {mutual?.length>0 && userdata?.username!==profileuserdata?.username && <div
-            onClick={() => {
-              setactive("mutual");
-            }}
-            className="text-neutral-400 cursor-pointer text-xs sm:text-sm text-left "
-          >
-            {mutual?.length} mutual friends
-          </div>}
+          {mutual?.length > 0 &&
+            userdata?.username !== profileuserdata?.username && (
+              <div
+                onClick={() => {
+                  setactive("mutual");
+                }}
+                className="text-neutral-400 cursor-pointer text-xs sm:text-sm text-left "
+              >
+                {mutual?.length} mutual friends
+              </div>
+            )}
         </div>
         {profileuserdata?.username === userdata?.username ? (
           <div
@@ -521,7 +529,7 @@ export const Profile = ({ username }) => {
         >
           <div className="flex w-full flex-col justify-center align-middle space-y-3">
             <h2 className="text-center text-xl sm:text-2xl my-5 ">followers</h2>
-             <div className="m-auto">
+            <div className="m-auto">
               {profileuserdata?.follower.map((profile) => {
                 return <Profileviewbox profileusername={profile} />;
               })}
@@ -569,10 +577,10 @@ export const Profile = ({ username }) => {
                   following
                 </h2>
                 <div className="m-auto">
-              {profileuserdata.following.map((profile) => {
-                return <Profileviewbox profileusername={profile} />;
-              })}
-            </div>
+                  {profileuserdata.following.map((profile,index) => {
+                    return <Profileviewbox index={index} profileusername={profile} />;
+                  })}
+                </div>
               </div>
             </Popupitem>
           }

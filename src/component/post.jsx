@@ -13,6 +13,7 @@ import { Popupitem } from "../ui/popup";
 import ShareIcon from "@mui/icons-material/Share";
 import { useuserdatacontext } from "../service/context/usercontext";
 import {
+  Create_notification,
   get_userdata,
   updatepost,
   updateprofileuserdata,
@@ -73,7 +74,7 @@ export const Post = ({ postdata, popup = true }) => {
     setpostdelete(true);
   };
 
-  const handal_like = () => {
+  const handal_like = async () => {
     auth?.currentUser && !post?.likes.includes(userdata?.uid)
       ? setpost((prev) => ({
           ...prev,
@@ -85,6 +86,16 @@ export const Post = ({ postdata, popup = true }) => {
         }));
 
     !auth?.currentUser && toast.error("Login required");
+
+    !post?.likes.includes(userdata?.uid) &&
+      postedby?.username !==
+        userdata?.username && (
+          await Create_notification(post?.postedby, {
+            likeby: userdata?.uid,
+            type: "postlike",
+            postid: post?.postid,
+          })
+        );
   };
 
   function handelactive(act) {
@@ -252,7 +263,7 @@ export const Post = ({ postdata, popup = true }) => {
               onClick={() => {
                 navigate(`/profile/${postedby?.username}/${post?.postid}`);
               }}
-              className="text-sm  whitespace-pre-wrap my-2 w-full sm:p-2 "
+              className="text-sm whitespace-pre-wrap my-2 w-full sm:p-2 "
             >
               {post?.content}
             </pre>
@@ -263,8 +274,8 @@ export const Post = ({ postdata, popup = true }) => {
                   animation="wave"
                   sx={{ bgcolor: "grey.900" }}
                   variant="rectangular"
-                  width={window.innerWidth >= 400 ? 500 : 300}
-                  height={window.innerWidth >= 400 ? 550 : 350}
+                  width={window.innerWidth >= 500 ? 500 : 300}
+                  height={window.innerWidth >= 500 ? 550 : 350}
                 />
               )}
               {post?.img && (
@@ -382,7 +393,9 @@ export const Post = ({ postdata, popup = true }) => {
               }}
             >
               <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-2xl capitalize my-3 ">likes</h2>
+                <h2 className="text-center text-xl sm:text-2xl capitalize my-3 ">
+                  likes
+                </h2>
                 <div className="m-auto">
                   {post?.likes.map((profile) => {
                     return <Profileviewbox profileusername={profile} />;

@@ -61,7 +61,7 @@ const Navbar = () => {
                 <label className="md:block hidden mx-2">explore</label>
               </span>
             </Link>
-            <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
+            <Link to={`${userdata?.username ? `/notification` : "/login"}`}>
               <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
                 <NotificationsIcon />
                 <label className="md:block hidden mx-2">Notifications</label>
@@ -226,7 +226,7 @@ const Navbar = () => {
             </button>
 
             <Link
-              to="/home"
+              to={`${userdata?.username ? `/notification` : "/login"}`}
               className="mx-5 border-gray-700 hover:border-gray-100 border-2 rounded-3xl p-2  m-auto"
             >
               <NotificationsIcon />

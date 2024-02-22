@@ -6,7 +6,10 @@ import ProgressBar from "@badrap/bar-of-progress";
 import Createid from "../service/other/createid";
 import { useuserdatacontext } from "../service/context/usercontext";
 import { auth } from "../service/Auth";
-import { Getimagedownloadlink } from "../service/Auth/database";
+import {
+  Create_notification,
+  Getimagedownloadlink,
+} from "../service/Auth/database";
 import { toast } from "react-toastify";
 
 export default function Addcomment({ cuupost, cuusetpost }) {
@@ -43,6 +46,11 @@ export default function Addcomment({ cuupost, cuusetpost }) {
           },
         ],
       }));
+      await Create_notification(post?.postedby, {
+        likeby: userdata?.uid,
+        type: "addcomment",
+        postid: post?.postid,
+      });
     } else {
       const newreply = {
         content: commenttext,
@@ -68,6 +76,12 @@ export default function Addcomment({ cuupost, cuusetpost }) {
 
     setcommentfile(null);
     setcommenttext("");
+
+    await Create_notification(post?.postedby, {
+      likeby: userdata?.uid,
+      type: "addreply",
+      postid: post?.postid,
+    });
 
     progress.finish();
   };

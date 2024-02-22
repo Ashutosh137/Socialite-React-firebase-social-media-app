@@ -1,19 +1,19 @@
-import { auth, app, firestore, storage } from ".";
+import { auth, firestore, storage } from ".";
 import {
   addDoc,
-  getDoc,
   collection,
   doc,
   query,
   where,
   getDocs,
   updateDoc,
-  setDoc,
+  orderBy,
 } from "firebase/firestore";
+
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { useuserdatacontext } from "../context/usercontext";
 
 const user = collection(firestore, "user");
+
 export const Create_Account = async ({
   email,
   uid,
@@ -30,10 +30,11 @@ export const Create_Account = async ({
       uid: uid,
       dateofbirth: age,
       bio: bio,
+      report: [],
       restricted: false,
       privacy: false,
       profileImageURL: profileimg,
-      notification:[],
+      notification: [],
       createdAt: new Date(),
       follower: [],
       following: [],
@@ -41,6 +42,18 @@ export const Create_Account = async ({
       saved: [],
       username: username,
       post: [],
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+export const Create_notification = async (uid, intent) => {
+  try {
+    console.log(uid, intent);
+    await addDoc(collection(firestore, "notification"), {
+      uid: uid,
+      intent: intent,
+      time: new Date(),
     });
   } catch (err) {
     console.error(err);
@@ -88,6 +101,26 @@ export const get_userdata = async (uid) => {
     });
 
     return res[0];
+  } catch (err) {
+    console.error(err);
+  }
+};
+export const Get_notification = async (uid) => {
+  try {
+    const q = await query(
+      collection(firestore, "notification"),
+      where("uid", "==", uid),
+      orderBy("time", "desc")
+    );
+    const doc_refs = await getDocs(q);
+    const res = [];
+    doc_refs.forEach((country) => {
+      res.push({
+        ...country.data(),
+      });
+    });
+
+    return res;
   } catch (err) {
     console.error(err);
   }

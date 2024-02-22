@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from "react";
 import { useuserdatacontext } from "../service/context/usercontext";
-import { get_userdata } from "../service/Auth/database";
+import { Create_notification, get_userdata } from "../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Time from "../service/other/time";
 import { Skeleton } from "@mui/material";
@@ -47,7 +47,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
     data();
   }, [comment]);
 
-  const handellike = () => {
+  const handellike = async () => {
     auth.currentUser && comment?.likes.includes(userdata?.uid)
       ? setcomment((prev) => ({
           ...prev,
@@ -57,6 +57,17 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
           ...prev,
           likes: [...prev.likes, userdata?.uid],
         }));
+
+    !comment?.likes.includes(userdata?.uid) &&
+      auth?.currentUser &&
+      commentby?.username !== userdata?.username &&
+      (await Create_notification(commentby?.uid, {
+        likeby: userdata?.uid,
+        type: "commentlike",
+        postid: post?.postid,
+      }));
+
+    !auth.currentUser && toast.error("Login requird");
   };
 
   const delcomment = () => {

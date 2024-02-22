@@ -9,13 +9,12 @@ const Signuppage = () => {
 
   const handelsubmit = async (email, pass) => {
     const sigup = await signupwithemail(email, pass);
-    sigup && toast.success('signup successfully ')
+    sigup && toast.success("signup successfully ");
     sigup && navigate("/create-account");
-
   };
 
   return (
-    <div className="w-full flex post -mt-16 sm:mt-5 p-2 capitalize">
+    <div className="w-full align-middle my-auto flex post sm:mt-5 p-2 capitalize">
       <div className=" m-auto outline xl:block hidden  outline-gray-900">
         <img
           className="w-80"

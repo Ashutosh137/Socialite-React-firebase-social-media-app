@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getpostdata, updatepost } from "../service/Auth/database";
 import { Post } from "./post";
 import Navbar from "./navbar";
-import { auth } from "../service/Auth";
 import Suggestion from "./suggestion";
 import ProgressBar from "@badrap/bar-of-progress";
 import ArrowBack from "@mui/icons-material/ArrowBack";
@@ -42,9 +41,9 @@ export default function Seepost() {
   }, [post]);
 
   return (
-    <div className="flex postanimiate post w-full justify-around h-screen scroll-hidden ">
+    <div className="flex  post w-full justify-around h-screen scroll-hidden ">
       <Navbar />
-      <div className="border-gray-800 p-2 sm:p-4 border-x-2 w-full">
+      <div className="border-gray-800 postanimiate p-2 sm:p-4 border-x-2 w-full">
         {post === undefined && (
           <div className="w-full capitalize text-center text-base flex flex-col h-screen ">
             <div className="my-auto ">

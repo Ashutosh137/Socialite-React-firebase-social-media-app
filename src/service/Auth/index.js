@@ -71,20 +71,6 @@ export const signupwithemail = async (email, pass) => {
       toast.error("invalid email id or passwaord");
   }
 };
-export const logout = async () => {
-  try {
-    await signOut(auth);
-  } catch (err) {
-    console.error(err);
-  }
-};
 
-export const resetpassward = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-  } catch (err) {
-    console.error(err);
-  }
-};
 
 export { auth, app, firestore, storage };

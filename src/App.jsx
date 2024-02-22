@@ -11,6 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Profilepage } from "./page/profilepage";
 import { List } from "./page/list";
+import Notification from "./page/notification";
 import Seepost from "./component/seepost";
 import Search from "./page/search";
 import Messages from "./page/message";
@@ -39,6 +40,7 @@ function App() {
           <Route exect path="/" Component={signuppage} />
           <Route exect path="/create-account" Component={CreateAccount} />
           <Route exect path="/login" Component={Loginpage} />
+          <Route exect path="/notification" Component={Notification} />
           <Route exect path="/setting" Component={Setting} />
           <Route exect path="/message" Component={Messages} />
           <Route exect path="/search" Component={Search} />
