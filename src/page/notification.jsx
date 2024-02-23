@@ -52,7 +52,7 @@ export default function Notification() {
           </div>
         )}
       </div>
-      <div className="hidden md:block">
+      <div className="w-1/4 hidden xl:block">
         <Suggestion />
       </div>
     </div>

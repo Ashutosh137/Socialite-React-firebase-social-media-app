@@ -59,6 +59,9 @@ export const Createpost = ({ toggle = () => {} }) => {
             className="rounded-full bg-gray-400 w-10 h-10"
             src={userdata?.profileImageURL || defaultprofileimage}
             alt={defaultprofileimage}
+            onError={(e) => {
+              e.target.src = defaultprofileimage;
+            }}
           />
           <textarea
             autoFocus

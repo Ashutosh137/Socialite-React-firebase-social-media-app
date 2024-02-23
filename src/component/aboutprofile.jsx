@@ -16,6 +16,7 @@ export default function Aboutprofile({ profiledata, close }) {
           <img
             className="rounded-full hover:scale-125 transition-all ease-in-out duration-300 m-auto w-20 h-20 "
             src={profiledata.profileImageURL || defaultprofileimage}
+            onError={(e)=>{e.target.src= defaultprofileimage}}
           />
           <h1 className="text-xl">{profiledata?.name}</h1>
           <h1 className="text-gray-300 text-sm  border-b-2 w-40 m-auto border-black pb-1 rounded-full hover:border-gray-400">

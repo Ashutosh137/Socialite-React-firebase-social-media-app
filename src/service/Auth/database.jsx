@@ -49,7 +49,6 @@ export const Create_Account = async ({
 };
 export const Create_notification = async (uid, intent) => {
   try {
-    console.log(uid, intent);
     await addDoc(collection(firestore, "notification"), {
       uid: uid,
       intent: intent,
@@ -135,7 +134,6 @@ export const get_userdatabyname = async (username) => {
         ...country.data(),
       });
     });
-
     return res[0];
   } catch (err) {
     console.error(err);
@@ -181,8 +179,6 @@ export const updateuserdata = async (userdata) => {
     });
 
     await updateDoc(doc(firestore, `user/${docid}`), userdata);
-
-    console.log("userdata updatee", userdata, " with ", docid);
   } catch (err) {
     console.error(err);
   }
@@ -197,8 +193,6 @@ export const updateprofileuserdata = async (userdata, username) => {
     });
 
     await updateDoc(doc(firestore, `user/${docid}`), userdata);
-
-    console.log("userdata updatee", userdata, " with ", docid);
   } catch (err) {
     console.error(err);
   }
@@ -259,10 +253,7 @@ export const Getimagedownloadlink = async (image, uid) => {
         const uploadTask = uploadBytesResumable(storageRef, image);
         uploadTask.on(
           "state_changed",
-          (snapshot) => {
-            // const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            // // setProgress(progress);
-          },
+          () => {},
           (error) => {
             console.error("Error during upload:", error);
             reject(error);
@@ -308,6 +299,6 @@ export const updatepost = async (post, postedby) => {
       });
     });
   } catch (err) {
-    console.log(err);
+    console.err(err);
   }
 };

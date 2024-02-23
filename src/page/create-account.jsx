@@ -91,7 +91,7 @@ const CreateAccount = () => {
               const isValidInput = /^[a-zA-Z0-9_]+$/.test(
                 e.target.value.trim().toLowerCase()
               );
-              if (data[0] || !isValidInput) {
+              if (data || !isValidInput) {
                 setisusernameexist(true);
                 e.target.style.borderColor = "red";
               } else {

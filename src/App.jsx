@@ -14,14 +14,13 @@ import { List } from "./page/list";
 import Notification from "./page/notification";
 import Seepost from "./component/seepost";
 import Search from "./page/search";
-import Messages from "./page/message";
 
 function App() {
   const [userdata] = useState(null);
 
   return (
     <UserDataProvider value={userdata}>
-      <div className=" md:mx-16 mt-20 sm:mt-5">
+      <div className=" xl:mx-16 mt-20 sm:mt-5">
         <ToastContainer
           position="top-center"
           autoClose={400}
@@ -42,7 +41,6 @@ function App() {
           <Route exect path="/login" Component={Loginpage} />
           <Route exect path="/notification" Component={Notification} />
           <Route exect path="/setting" Component={Setting} />
-          <Route exect path="/message" Component={Messages} />
           <Route exect path="/search" Component={Search} />
           <Route exect path="/profile/:username" Component={Profilepage} />
           <Route exect path="/profile/:username/:postid" Component={Seepost} />

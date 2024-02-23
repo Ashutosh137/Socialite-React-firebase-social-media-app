@@ -117,6 +117,9 @@ export default function Addcomment({ cuupost, cuusetpost }) {
         <img
           src={userdata?.profileImageURL || defaultprofileimage}
           className="w-10 h-10 bg-gray-400  rounded-full"
+          onError={(e) => {
+            e.target.src = defaultprofileimage;
+          }}
         />
         <div className="flex w-full mx-2 space-x-1">
           <input

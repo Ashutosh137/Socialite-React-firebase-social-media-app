@@ -40,15 +40,10 @@ export default function Editfuserdata({ toggle = () => {} }) {
                 profileimage,
                 auth.currentUser.uid
               );
-              await seteditformdata((prevData) => ({
-                ...prevData,
-                profileImageURL: data,
-              }));
-              console.log(editformdata, isusernameexist);
               if (!isusernameexist) {
-                setuserdata(editformdata);
+                setuserdata(() => ({ ...editformdata, profileImageURL: data }));
               }
-              setprofileimgurl(editformdata?.profileImageURL);
+              setprofileimgurl(data);
               toast.success("Updated successfully");
             } catch (error) {
               console.error("Error fetching image download link:", error);
@@ -70,6 +65,9 @@ export default function Editfuserdata({ toggle = () => {} }) {
             title="click to change the profile photo"
             className="w-28 object-fill h-28 opacity-90  m-auto rounded-full"
             src={profileimgurl}
+            onError={(e) => {
+              e.target.src = defaultprofileimage;
+            }}
           />
           <i
             onClick={() => {

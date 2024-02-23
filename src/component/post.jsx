@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import ProgressBar from "@badrap/bar-of-progress";
 import Time from "../service/other/time";
 import Addcomment from "./addcomment";
+
 export const Post = ({ postdata, popup = true }) => {
   const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
 
@@ -42,7 +43,7 @@ export const Post = ({ postdata, popup = true }) => {
     };
 
     data();
-  }, []);
+  }, [postdata]);
 
   useEffect(() => {
     const data = async () => {
@@ -88,14 +89,12 @@ export const Post = ({ postdata, popup = true }) => {
     !auth?.currentUser && toast.error("Login required");
 
     !post?.likes.includes(userdata?.uid) &&
-      postedby?.username !==
-        userdata?.username && (
-          await Create_notification(post?.postedby, {
-            likeby: userdata?.uid,
-            type: "postlike",
-            postid: post?.postid,
-          })
-        );
+      postedby?.username !== userdata?.username &&
+      (await Create_notification(post?.postedby, {
+        likeby: userdata?.uid,
+        type: "postlike",
+        postid: post?.postid,
+      }));
   };
 
   function handelactive(act) {
@@ -144,6 +143,9 @@ export const Post = ({ postdata, popup = true }) => {
           <img
             className="rounded-full border border-neutral-500 w-8 aspect-square sm:w-10 h-8 sm:h-10"
             src={postedby?.profileImageURL || defaultprofileimage}
+            onError={(e) => {
+              e.target.src = defaultprofileimage;
+            }}
           />
           <div className="flex w-full m-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm sm:text-base  align-middle">

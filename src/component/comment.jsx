@@ -90,6 +90,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
             className="rounded-full bg-gray-400 outline outline-neutral-800 w-7 aspect-square  sm:w-9 h-7 "
             src={commentby?.profileImageURL || defaultprofileimage}
             alt={defaultprofileimage}
+            onError={(e)=>{e.target.src= defaultprofileimage}}
           />
           <div className="flex w-full space-y-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm sm:text-base">

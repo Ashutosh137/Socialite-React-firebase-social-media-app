@@ -63,7 +63,7 @@ export const List = () => {
           )}
         </div>
       </div>
-      <div className="w-1/3 hidden sm:block">
+      <div className="w-1/4 hidden xl:block">
         <Suggestion />
       </div>
     </div>

@@ -43,46 +43,46 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="p-2 hidden sm:block w-20 md:w-96">
+      <header className="p-2 hidden md:block w-40 xl:w-96">
         <nav className="fixed flex flex-col h-screen  md:p-1 ">
-          <h1 className="text-3xl title py-5 first-letter:text-5xl font-bold ">
+          <h1 className="text-3xl title py-5 text-center xl:text-left first-letter:text-5xl font-bold ">
             Socialite
           </h1>
-          <nav className="flex align-middle text-xl justify-center  capitalize flex-col">
+          <nav className="flex align-middle my-auto text-xl justify-center capitalize flex-col">
             <Link to="/home">
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
+              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <CottageIcon />
-                <label className=" mx-2 md:block hidden">home</label>
+                <label className=" mx-2 xl:block hidden">home</label>
               </span>
             </Link>
             <Link to={`${userdata?.username ? `/search` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
+              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <SearchIcon />
-                <label className="md:block hidden mx-2">explore</label>
+                <label className="xl:block hidden mx-2">explore</label>
               </span>
             </Link>
             <Link to={`${userdata?.username ? `/notification` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
+              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <NotificationsIcon />
-                <label className="md:block hidden mx-2">Notifications</label>
+                <label className="xl:block hidden mx-2">Notifications</label>
               </span>
             </Link>
-            <Link to={`${userdata?.username ? `/message` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-2 px-5 m-auto rounded-full justify-center md:justify-start">
+            {/* <Link to={`${userdata?.username ? `/home` : "/login"}`}>
+              <span className="flex hover:bg-gray-700  p-2 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <MessageIcon />
-                <label className="md:block hidden mx-2">Message</label>
+                <label className="xl:block hidden mx-2">Message</label>
               </span>
-            </Link>
-            <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
+            </Link> */}
+            {/* <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
+              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <PeopleIcon />
-                <label className="md:block hidden mx-2">community</label>
+                <label className="xl:block hidden mx-2">community</label>
               </span>
-            </Link>
+            </Link> */}
             <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
+              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <BookmarksIcon />
-                <label className="md:block mx-2 hidden">lists</label>
+                <label className="xl:block mx-2 hidden">lists</label>
               </span>
             </Link>
             <Link
@@ -90,31 +90,31 @@ const Navbar = () => {
                 userdata?.username ? `/profile/${userdata?.username}` : "/login"
               }`}
             >
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center md:justify-start">
+              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <PersonIcon />
-                <label className="md:block mx-2 hidden">proflie</label>
+                <label className="xl:block mx-2 hidden">proflie</label>
               </span>
             </Link>
             <Link to={`${userdata?.username ? `/setting` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 md:px-5 m-auto rounded-full justify-center md:justify-start">
+              <span className="flex hover:bg-gray-700  p-3 md:px-5 m-auto rounded-full justify-center xl:justify-start">
                 <SettingsIcon />
-                <label className="md:block hidden mx-2">settings </label>
+                <label className="xl:block hidden mx-2">settings </label>
               </span>
             </Link>
             <button
               onClick={() => {
                 setpost(true);
               }}
-              className="bg-blue-500 mr-auto my-5 text-white text-center mt-8 md:px-5 p-2 capitalize rounded-full m-auto  md:w-40"
+              className="bg-blue-500 mr-auto my-5 text-white text-center mt-8 md:px-5 p-2 capitalize rounded-full m-auto  xl:w-40"
             >
               <span className="flex justify-center space-x-2 ">
                 <AddIcon />
-                <label className="md:block hidden">post</label>
+                <label className="xl:block hidden">post</label>
               </span>
             </button>
           </nav>
 
-          <button className="bg-blue-500 text-white text-xl text-center p-2 md:px-5 mt-5  capitalize md:w-40 m-auto rounded-full">
+          <button className="bg-blue-500 text-white text-xl text-center p-2 md:px-5 mt-5  capitalize xl:w-40 m-auto rounded-full">
             {auth.currentUser ? (
               <span
                 className="flex space-x-2  justify-center"
@@ -124,7 +124,7 @@ const Navbar = () => {
                 }}
               >
                 <LogoutIcon />
-                <label className="md:block hidden">sign out</label>
+                <label className="xl:block hidden">sign out</label>
               </span>
             ) : (
               <span
@@ -134,7 +134,7 @@ const Navbar = () => {
                 }}
               >
                 <LoginIcon />
-                <label className="md:block hidden">sign in</label>
+                <label className="xl:block hidden">sign in</label>
               </span>
             )}
           </button>
@@ -161,7 +161,7 @@ const Navbar = () => {
 
       <div>
         <nav
-          className={`sm:hidden z-40 post fixed top-0 left-0 transition-opacity  duration-100  bg-black w-full ${
+          className={`md:hidden z-40 post fixed top-0 left-0 transition-opacity  duration-100  bg-black w-full ${
             navbar ? "" : "hidden"
           }`}
         >
@@ -176,6 +176,9 @@ const Navbar = () => {
                 className="w-10 h-10 aspect-square rounded-full hover:border-gray-100 = "
                 src={userdata?.profileImageURL || defaultprofileimage}
                 alt={defaultprofileimage}
+                onError={(e) => {
+                  e.target.src = defaultprofileimage;
+                }}
               />
             </Link>
 

@@ -84,6 +84,7 @@ export default function Reply({ reply, setcommentpost }) {
             className="rounded-full mx-2 bg-gray-400 outline outline-neutral-800 w-5 sm:w-7 h-5 sm:h-7"
             src={commentby?.profileImageURL || defaultprofileimage}
             alt={defaultprofileimage}
+            onError={(e)=>{e.target.src= defaultprofileimage}}
           />
           <div className="flex w-full space-y-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm">

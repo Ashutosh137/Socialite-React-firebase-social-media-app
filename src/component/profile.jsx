@@ -67,7 +67,6 @@ export const Profile = ({ username }) => {
       );
     };
     data();
-    console.log(mutual, profileuserdata, userdata);
   }, [userdata, profileuserdata]);
 
   if (profileuserdata?.block?.includes(userdata?.uid)) {
@@ -212,6 +211,7 @@ export const Profile = ({ username }) => {
         <div className="sm:my-10 sm:space-y-3 aspect-square space-y-1 flex flex-col text-left sm:m-5 m-3">
           <img
             src={profileuserdata?.profileImageURL || defaultprofileimage}
+            onError={(e)=>{e.target.src= defaultprofileimage}}
             className="sm:w-28 sm:h-28 h-20 w-20  rounded-full  border-2 border-neutral-600"
           />
           <div className="flex flex-col ">

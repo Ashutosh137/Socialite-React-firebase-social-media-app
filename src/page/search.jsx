@@ -9,7 +9,7 @@ export default function Search() {
       <div className="w-full sm:px-10 pb-20">
         <Suggestion bio={true} />
       </div>
-      <div className="hidden md:block">
+      <div className="w-1/4 hidden xl:block">
         <Suggestion />
       </div>
     </div>

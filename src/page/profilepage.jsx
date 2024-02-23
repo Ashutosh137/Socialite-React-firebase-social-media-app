@@ -11,7 +11,7 @@ export const Profilepage = () => {
       <div className="border-x-2 w-full border-zinc-700">
         <Profile username={username} />
       </div>
-      <div className="w-1/3 hidden sm:block">
+      <div className="w-1/4 hidden xl:block">
         <Suggestion />
       </div>
     </div>
