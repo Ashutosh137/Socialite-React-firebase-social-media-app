@@ -190,36 +190,35 @@ export default function Notify({ notification }) {
         </div>
       )}
       {notification.intent.type === "follow" &&
-        !userdata?.privacy(
-          <div
-            className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
-            onClick={() => {
-              navigate(`/profile/${likeby?.username}`);
-            }}
-          >
-            <img
-              className="w-10 aspect-square m-2 rounded-full my-auto"
-              src={likeby?.profileImageURL || defaultprofileimage}
-            />
-            <span className=" text-base capitalize my-auto px-2 ">
-              <label className="px-1  font-semibold">
-                {" "}
-                {likeby?.username || (
-                  <Skeleton
-                    animation="wave"
-                    sx={{ bgcolor: "grey.900" }}
-                    variant="text"
-                    width={window.innerWidth >= 400 ? 200 : 100}
-                  />
-                )}
-              </label>
-              started following you
-            </span>
-            <label className="ml-auto my-auto text-xs sm:text-sm overflow text-gray-300 ">
-              {Time(notification?.time?.toJSON().seconds)}
+
+        <div
+          className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
+          onClick={() => {
+            navigate(`/profile/${likeby?.username}`);
+          }}
+        >
+          <img
+            className="w-10 aspect-square m-2 rounded-full my-auto"
+            src={likeby?.profileImageURL || defaultprofileimage}
+          />
+          <span className=" text-base capitalize my-auto px-2 ">
+            <label className="px-1  font-semibold">
+              {" "}
+              {likeby?.username || (
+                <Skeleton
+                  animation="wave"
+                  sx={{ bgcolor: "grey.900" }}
+                  variant="text"
+                  width={window.innerWidth >= 400 ? 200 : 100}
+                />
+              )}
             </label>
-          </div>
-        )}
+            started following you
+          </span>
+          <label className="ml-auto my-auto text-xs sm:text-sm overflow text-gray-300 ">
+            {Time(notification?.time?.toJSON().seconds)}
+          </label>
+        </div>}
     </div>
   );
 }

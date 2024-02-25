@@ -195,7 +195,7 @@ const Navbar = () => {
         </nav>
 
         <div
-          className={`sm:hidden z-50 post left-0 fixed bottom-0 w-full ${
+          className={`md:hidden z-50 post left-0 fixed bottom-0 w-full ${
             navbar ? "" : "hidden"
           }`}
         >

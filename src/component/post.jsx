@@ -43,7 +43,7 @@ export const Post = ({ postdata, popup = true }) => {
     };
 
     data();
-  }, [postdata]);
+  }, []);
 
   useEffect(() => {
     const data = async () => {
@@ -56,7 +56,7 @@ export const Post = ({ postdata, popup = true }) => {
 
   useEffect(() => {
     const data = async () => {
-      if (postedby !== null) {
+      if (post !== null) {
         await updatepost(post, postedby?.uid);
       }
     };
@@ -78,13 +78,13 @@ export const Post = ({ postdata, popup = true }) => {
   const handal_like = async () => {
     auth?.currentUser && !post?.likes.includes(userdata?.uid)
       ? setpost((prev) => ({
-          ...prev,
-          likes: [...prev.likes, userdata?.uid],
-        }))
+        ...prev,
+        likes: [...prev.likes, userdata?.uid],
+      }))
       : setpost((prev) => ({
-          ...prev,
-          likes: prev.likes.filter((e) => e !== userdata?.uid),
-        }));
+        ...prev,
+        likes: prev.likes.filter((e) => e !== userdata?.uid),
+      }));
 
     !auth?.currentUser && toast.error("Login required");
 
@@ -290,9 +290,8 @@ export const Post = ({ postdata, popup = true }) => {
                   onClick={() => {
                     navigate(`/profile/${postedby?.username}/${post?.postid}`);
                   }}
-                  className={`${
-                    loadingimg ? "hidden" : "block"
-                  } w-full h-full h-postimg  border-neutral-500 border-2 rounded-2xl`}
+                  className={`${loadingimg ? "hidden" : "block"
+                    } w-full h-full h-postimg  border-neutral-500 border-2 rounded-2xl`}
                 />
               )}
             </div>

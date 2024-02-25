@@ -299,6 +299,6 @@ export const updatepost = async (post, postedby) => {
       });
     });
   } catch (err) {
-    console.err(err);
+    console.log(err);
   }
 };
