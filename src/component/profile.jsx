@@ -320,7 +320,7 @@ export const Profile = ({ username }) => {
         )}
       </div>
 
-      <hr />
+      <hr className="my-5 border-gray-400"/>
 
       {profileuserdata?.uid === userdata?.uid ? (
         <>

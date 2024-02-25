@@ -37,27 +37,27 @@ export default function Profileviewbox({
       {
         profileuserdata?.follower?.includes(userdata?.uid)
           ? setprofileuserdata((prev) => ({
-              ...prev,
-              follower: profileuserdata?.follower.filter(
-                (e) => e !== userdata?.uid
-              ),
-            }))
+            ...prev,
+            follower: profileuserdata?.follower.filter(
+              (e) => e !== userdata?.uid
+            ),
+          }))
           : setprofileuserdata((prev) => ({
-              ...prev,
-              follower: [...prev?.follower, userdata?.uid],
-            }));
+            ...prev,
+            follower: [...prev?.follower, userdata?.uid],
+          }));
 
         !userdata?.following.includes(profileuserdata?.uid)
           ? setuserdata((prev) => ({
-              ...prev,
-              following: [...prev.following, profileuserdata?.uid],
-            }))
+            ...prev,
+            following: [...prev.following, profileuserdata?.uid],
+          }))
           : setuserdata((prev) => ({
-              ...prev,
-              following: userdata?.following.filter(
-                (e) => e !== profileuserdata?.uid
-              ),
-            }));
+            ...prev,
+            following: userdata?.following.filter(
+              (e) => e !== profileuserdata?.uid
+            ),
+          }));
       }
     } else navigate("/login");
   };
@@ -66,7 +66,7 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex post m-auto w-full cursor-pointer p-1 align-middle ">
+    <section className="flex post w-full cursor-pointer p-1 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         onError={(e) => {
@@ -103,7 +103,7 @@ export default function Profileviewbox({
           )}
         </label>
         {bio && (
-          <pre className="font-sans sm:w-full text-start top-3 w-40 text-sm relative text-gray-200">
+          <pre className="font-sans text-start top-3 text-sm relative text-gray-200">
             {profileuserdata?.bio}
           </pre>
         )}

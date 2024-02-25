@@ -23,9 +23,8 @@ export default function Setting() {
 
       <section className="flex post border-gray-800  text-center capitalize text-base border-x-2  w-full">
         <div
-          className={`px-3 flex-col w-full sm:w-auto ${
-            active === "" ? "flex" : "hidden"
-          } md:flex`}
+          className={`px-3 flex-col w-full sm:w-auto ${active === "" ? "flex" : "hidden"
+            } md:flex`}
         >
           <div className="flex my-5 w-full ">
             <i className=" ml-2 my-auto" onClick={() => navigate("/home")}>
@@ -104,9 +103,8 @@ export default function Setting() {
         </div>
 
         <div
-          className={`${
-            active !== "" ? "block" : "hidden"
-          } sm:bolck my-5 w-full`}
+          className={`${active !== "" ? "block" : "hidden"
+            } sm:bolck my-5 w-full`}
         >
           <div className="relative">
             <i

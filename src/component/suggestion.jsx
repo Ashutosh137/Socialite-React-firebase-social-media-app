@@ -29,15 +29,15 @@ export default function Suggestion({ bio = false }) {
             who to follow
           </h2>
 
-          <div className="flex justify-center w-80 m-auto space-y-1 flex-col">
+          <div className="flex justify-center w-96 m-auto space-y-2 flex-col">
 
-          {alluser.map((proflie, index) => { 
-            return (
-              proflie?.username !== userdata?.username && (
-                <Profileviewbox bio={bio} index={index} profile={proflie} />
-              )
-            );
-          })}
+            {alluser.map((proflie, index) => {
+              return (
+                proflie?.username !== userdata?.username && (
+                  <Profileviewbox bio={bio} index={index} profile={proflie} />
+                )
+              );
+            })}
           </div>
 
         </div>

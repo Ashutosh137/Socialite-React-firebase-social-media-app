@@ -20,7 +20,7 @@ function App() {
 
   return (
     <UserDataProvider value={userdata}>
-      <div className=" xl:mx-16 mt-20 sm:mt-5">
+      <div className=" xl:mx-16 mt-20 md:mt-5">
         <ToastContainer
           position="top-center"
           autoClose={400}

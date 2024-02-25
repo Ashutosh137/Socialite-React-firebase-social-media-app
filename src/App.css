@@ -1,21 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap");
+
 .animinate {
   animation: animinate-bounce 300ms ease-in-out;
   width: 700px;
 }
+
 textarea::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none;
 }
+
 .scroll-hidden::-webkit-scrollbar {
   display: none;
 }
+
 textarea {
   height: inherit;
 }
+
 .h-postimg {
   max-height: 40rem;
-  object-fit: scale-down;
+  object-fit: fill;
   max-width: 32rem;
 }
 
@@ -26,9 +31,11 @@ textarea {
 .post {
   animation: move 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .postanimiate {
   animation: tras 500ms ease;
 }
+
 .popup {
   animation: animinate-transform 200ms ease;
 }
@@ -36,6 +43,7 @@ textarea {
 .overflow {
   white-space: pre;
 }
+
 .title {
   font-family: "Dancing Script", cursive;
 }
@@ -44,6 +52,7 @@ textarea {
   0% {
     border: 20px solid red;
   }
+
   50% {
     border: none;
   }
@@ -53,6 +62,7 @@ textarea {
   0% {
     transform: translateY(500px);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -62,14 +72,17 @@ textarea {
   0% {
     opacity: 0.1;
   }
+
   100% {
     opacity: 1;
   }
 }
+
 @keyframes tras {
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(0%);
   }
