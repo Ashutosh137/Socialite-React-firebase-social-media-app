@@ -11,15 +11,14 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { toast } from "react-toastify";
-
 const firebaseConfig = {
-  apiKey: "AIzaSyDWMsQ_lIPutPYLWfsu0UBCipPyxwvVvwE",
-  authDomain: "shopiverse-33fbd.firebaseapp.com",
-  projectId: "shopiverse-33fbd",
-  storageBucket: "shopiverse-33fbd.appspot.com",
-  messagingSenderId: "1053419123694",
-  appId: "1:1053419123694:web:cb64b16a235d5461b514ff",
-  measurementId: "G-8G4FGM3JBM",
+  apiKey: import.meta.env.VITE_ApiKey,
+  authDomain: import.meta.env.VITE_AuthDomain,
+  projectId: import.meta.env.VITE_ProjectId,
+  storageBucket: import.meta.env.VITE_StorageBucket,
+  messagingSenderId: import.meta.env.VITE_MessagingSenderId,
+  appId: import.meta.env.VITE_AppId,
+  measurementId: import.meta.env.VITE_MeasurementId,
 };
 
 // Initialize Firebase
@@ -70,6 +69,13 @@ export const signupwithemail = async (email, pass) => {
       toast.error("invalid email id or passwaord");
   }
 };
-
+export const forget_password = async (email ) => {
+  try {
+    const data = await sendPasswordResetEmail(auth, email);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export { auth, app, firestore, storage };

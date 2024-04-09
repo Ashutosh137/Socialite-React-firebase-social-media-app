@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, signInWithGoogle } from "../service/Auth";
+import { auth, forget_password, signInWithGoogle } from "../service/Auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const Login = ({ onenter, role }) => {
   const [email, setemail] = useState("");
   const [pass, setpass] = useState("");
@@ -85,6 +87,21 @@ const Login = ({ onenter, role }) => {
           className="rounded-2xl w-80 my-4 text-xl p-1 capitalize bg-sky-600  m-auto hover:scale-105 transition-all ease"
         >
           {role === "login" ? "login" : "sign-up"}
+        </button>
+        <button
+          onClick={async () => {
+            if (email === "") toast.error("plase enter your email address");
+            else {
+              const data = await forget_password(email);
+              console.log(data);
+              if (!data) toast.error("Email not found");
+              else toast.success("Email sent , please check your mail box");
+            }
+          }}
+          className="mr-auto"
+          type="button"
+        >
+          Forget password ?
         </button>
       </form>
       {role === "signup" ? (

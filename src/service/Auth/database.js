@@ -14,6 +14,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const user = collection(firestore, "user");
 
+
 export const Create_Account = async ({
   email,
   uid,
