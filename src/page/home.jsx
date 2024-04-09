@@ -4,15 +4,15 @@ import { getallpost } from "../service/Auth/database";
 import { Createpost } from "../component/createpost";
 import { Post } from "../component/post";
 import { auth } from "../service/Auth";
+import {Helmet} from "react-helmet";
 import Suggestion from "../component/suggestion";
-import { useuserdatacontext } from "../service/context/usercontext";
-import { toast } from "react-toastify";
+import { useUserdatacontext } from "../service/context/usercontext";
 
 export const Home = () => {
   const [allpostdata, setallpostdata] = useState([]);
   const [active, setactive] = useState("");
   const [post, setpost] = useState([]);
-  const { userdata } = useuserdatacontext();
+  const { userdata } = useUserdatacontext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,8 +48,19 @@ export const Home = () => {
   return (
     <div className="flex w-full justify-around  ">
       <Navbar />
+      <Helmet>
+        <title>Home | socilaite</title>
+        <meta name="description" content="Home" />
+        <link rel="canonical" href="/Home" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="Home" />
+        <meta name="author" content="Home" />
+        <meta name="language" content="EN" />
+
+      </Helmet>
       <div className="flex border-gray-800   border-x-2  w-full sm:mx-3 flex-col ">
-        <div className="sticky bg-[rgb(0,0,0,0.6)] text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
+        <div className="sticky bg-[rgb(0,0,0,0.6)] z-50 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
           <div className="flex justify-evenly my-2 bg-transparent">
             <label
               onClick={() => handleTabChange("")}
@@ -72,8 +83,20 @@ export const Home = () => {
         <Createpost />
         <hr className="border-gray-700 w-full" />
         <div className="sm:mx-3 mx-2">
-          {post?.map((postarray) => (
-            <Post key={postarray.id} postdata={postarray} popup={true} />
+          {post?.length === 0 && (
+            <div className="flex items-center w-full h-96 justify-center">
+              <div
+                className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+                role="status"
+              >
+                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+                  Loading...
+                </span>
+              </div>
+            </div>
+          )}
+          {post?.map((postarray, index) => (
+            <Post key={index} postdata={postarray} popup={true} />
           ))}
         </div>
       </div>

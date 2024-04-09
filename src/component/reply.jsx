@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useuserdatacontext } from "../service/context/usercontext";
+import React, { useState, useEffect } from "react";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { Create_notification, get_userdata } from "../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Time from "../service/other/time";
 import { Skeleton } from "@mui/material";
 import { auth } from "../service/Auth";
-import ReplyIcon from "@mui/icons-material/Reply";
 import { toast } from "react-toastify";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Popupitem } from "../ui/popup";
@@ -13,7 +12,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 
 export default function Reply({ reply, setcommentpost }) {
-  const { userdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, defaultprofileimage } = useUserdatacontext();
   const [commentby, setcommentby] = useState(null);
   const [loadingimg, setloadingimg] = useState(true);
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ export default function Reply({ reply, setcommentpost }) {
       setcommentby(commentby);
     };
     data();
-  }, []);
+  }, [comment?.postedby]);
 
   useEffect(() => {
     const data = () => {
@@ -204,8 +203,8 @@ export default function Reply({ reply, setcommentpost }) {
             </div>
             {active === "reply" && (
               <div>
-                {comment?.reply.map((reply) => {
-                  return <Reply reply={reply} />;
+                {comment?.reply.map((reply,index ) => {
+                  return <Reply key={index} reply={reply} />;
                 })}
               </div>
             )}

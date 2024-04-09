@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import { get_userdata, updateprofileuserdata } from "../service/Auth/database";
 import { Skeleton } from "@mui/material";
@@ -11,7 +11,7 @@ export default function Profileviewbox({
 }) {
   const navigate = useNavigate();
   const [profileuserdata, setprofileuserdata] = useState(profile || null);
-  const { defaultprofileimage, userdata, setuserdata } = useuserdatacontext();
+  const { defaultprofileimage, userdata, setuserdata } = useUserdatacontext();
 
   useEffect(() => {
     const data = async () => {
@@ -66,7 +66,7 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex post w-full cursor-pointer p-1 align-middle ">
+    <section className="flex w-full post cursor-pointer justify-between p-1 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         onError={(e) => {
@@ -108,7 +108,7 @@ export default function Profileviewbox({
           </pre>
         )}
       </div>
-      <div className="w-full px-4 my-auto ml-auto">
+      <div className=" px-4 my-auto ">
         <button
           onClick={() => {
             profileuserdata?.username !== userdata?.username && handelfollow();

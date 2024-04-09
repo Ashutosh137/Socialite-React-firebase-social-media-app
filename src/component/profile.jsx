@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Post } from "./post";
 import EditIcon from "@mui/icons-material/Edit";
 import { Popupitem } from "../ui/popup";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import {
   Create_notification,
   get_userdatabyname,
@@ -25,7 +25,7 @@ export const Profile = ({ username }) => {
   const progress = new ProgressBar();
   const [profileuserdata, setprofileuserdata] = useState([]);
   const navigate = useNavigate();
-  const { userdata, defaultprofileimage, setuserdata } = useuserdatacontext();
+  const { userdata, defaultprofileimage, setuserdata } = useUserdatacontext();
   const [active, setactive] = useState("");
   const [mutual, setmutual] = useState([]);
 
@@ -42,7 +42,7 @@ export const Profile = ({ username }) => {
       }
     };
     data();
-  }, [profileuserdata]);
+  }, [profileuserdata, username]);
 
   useEffect(() => {
     const data = async () => {
@@ -56,6 +56,9 @@ export const Profile = ({ username }) => {
       setactive("");
     };
     data();
+    return () => {
+      progress.finish();
+    };
   }, [username]);
 
   useEffect(() => {
@@ -109,7 +112,7 @@ export const Profile = ({ username }) => {
     <div className=" postanimiate post  w-full p-2 sm:text-2xl text-lg capitalize">
       <div className="flex  relative m-1 sm:m-2 ">
         <i
-          onClick={(e) => {
+          onClick={() => {
             navigate("/home");
           }}
         >
@@ -132,7 +135,7 @@ export const Profile = ({ username }) => {
         </div>
         <i
           className="ml-auto"
-          onClick={(e) => {
+          onClick={() => {
             active === "setting" ? setactive("") : setactive("setting");
           }}
         >
@@ -142,7 +145,7 @@ export const Profile = ({ username }) => {
           <div className="absolute top-12 right-3  sm:right-8 px-8 sm:px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-2  rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
             <button
               className="sm:w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
-              onClick={(e) => {
+              onClick={() => {
                 navigator.share({
                   title:
                     "Spreading the Vibes: Check Out My Latest Socialite Post! ",
@@ -156,7 +159,7 @@ export const Profile = ({ username }) => {
             </button>
             <button
               className="sm:w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
-              onClick={(e) => {
+              onClick={() => {
                 setactive("about");
               }}
             >
@@ -174,7 +177,7 @@ export const Profile = ({ username }) => {
                 </button>
                 <button
                   className="sm:w-40 capitalize  p-1 rounded-full hover:bg-gray-950 text-red-500 "
-                  onClick={(e) => {
+                  onClick={() => {
                     auth.currentUser &&
                       !userdata?.block?.includes(profileuserdata?.uid) &&
                       setactive("block");
@@ -196,7 +199,7 @@ export const Profile = ({ username }) => {
               <>
                 <button
                   className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
-                  onClick={(e) => {
+                  onClick={() => {
                     navigate("/setting");
                   }}
                 >
@@ -211,7 +214,9 @@ export const Profile = ({ username }) => {
         <div className="sm:my-10 sm:space-y-3 aspect-square space-y-1 flex flex-col text-left sm:m-5 m-3">
           <img
             src={profileuserdata?.profileImageURL || defaultprofileimage}
-            onError={(e)=>{e.target.src= defaultprofileimage}}
+            onError={(e) => {
+              e.target.src = defaultprofileimage;
+            }}
             className="sm:w-28 sm:h-28 h-20 w-20  rounded-full  border-2 border-neutral-600"
           />
           <div className="flex flex-col ">
@@ -235,7 +240,7 @@ export const Profile = ({ username }) => {
 
           <div className="flex space-x-3 sm:text-lg text-base  text-gray-400">
             <label
-              onClick={(e) => {
+              onClick={() => {
                 ((profileuserdata?.privacy &&
                   profileuserdata?.follower.includes(userdata?.uid)) ||
                   !profileuserdata?.privacy) &&
@@ -250,7 +255,7 @@ export const Profile = ({ username }) => {
               {profileuserdata?.follower?.length} follower
             </label>
             <label
-              onClick={(e) => {
+              onClick={() => {
                 ((profileuserdata?.privacy &&
                   profileuserdata?.follower.includes(userdata?.uid)) ||
                   !profileuserdata?.privacy) &&
@@ -274,7 +279,8 @@ export const Profile = ({ username }) => {
                 }}
                 className="text-neutral-400 cursor-pointer text-xs sm:text-sm text-left "
               >
-                {mutual?.length} mutual friends
+                {mutual?.length} mutual friends also follow{" "}
+                {profileuserdata?.name}
               </div>
             )}
         </div>
@@ -286,7 +292,7 @@ export const Profile = ({ username }) => {
           >
             <button
               title="edit profile"
-              onClick={(e) => {
+              onClick={() => {
                 active === "edit" ? setactive("") : setactive("edit");
               }}
               className="bg-black border-2 relative top-1/3 sm:mr-10 text-xs sm:text-lg  border-sky-200 sm:px-3 p-2 font-semibold capitalize rounded-3xl ml-auto  "
@@ -320,7 +326,7 @@ export const Profile = ({ username }) => {
         )}
       </div>
 
-      <hr className="my-5 border-gray-400"/>
+      <hr className="my-5 border-gray-400" />
 
       {profileuserdata?.uid === userdata?.uid ? (
         <>
@@ -529,9 +535,9 @@ export const Profile = ({ username }) => {
         >
           <div className="flex w-full flex-col justify-center align-middle space-y-3">
             <h2 className="text-center text-xl sm:text-2xl my-5 ">followers</h2>
-            <div className="m-auto">
-              {profileuserdata?.follower.map((profile) => {
-                return <Profileviewbox profileusername={profile} />;
+            <div className="m-auto min-w-max">
+              {profileuserdata?.follower.map((profile, index) => {
+                return <Profileviewbox key={index} profileusername={profile} />;
               })}
             </div>
           </div>
@@ -548,8 +554,8 @@ export const Profile = ({ username }) => {
               mutual friends
             </h2>
             <div className="m-auto">
-              {mutual.map((profile) => {
-                return <Profileviewbox profileusername={profile} />;
+              {mutual.map((profile, index) => {
+                return <Profileviewbox key={index} profileusername={profile} />;
               })}
             </div>
           </div>
@@ -577,8 +583,10 @@ export const Profile = ({ username }) => {
                   following
                 </h2>
                 <div className="m-auto">
-                  {profileuserdata.following.map((profile,index) => {
-                    return <Profileviewbox index={index} profileusername={profile} />;
+                  {profileuserdata.following.map((profile, index) => {
+                    return (
+                      <Profileviewbox index={index} profileusername={profile} />
+                    );
                   })}
                 </div>
               </div>

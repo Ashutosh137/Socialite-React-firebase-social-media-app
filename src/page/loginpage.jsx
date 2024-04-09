@@ -1,5 +1,6 @@
 import React from "react";
 import Login from "../component/login";
+import {Helmet} from "react-helmet";
 import { signinwithemail } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,6 +14,18 @@ export const Loginpage = () => {
   };
   return (
     <div className="w-full post sm:mt-5 flex p-2 capitalize">
+      <Helmet>
+        <title>login | socilaite</title>
+        <meta name="description" content="login" />
+        <link rel="canonical" href="/login" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="login" />
+        <meta name="author" content="login" />
+        <meta name="language" content="EN" />
+
+      </Helmet>
+
       <div className=" m-auto outline xl:block hidden outline-gray-900">
         <img
           className="w-80"

@@ -7,6 +7,7 @@ import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Resetpassword from "../component/resetpassword";
+import {Helmet} from "react-helmet";
 import { toast } from "react-toastify";
 import Block from "../component/block";
 
@@ -20,11 +21,22 @@ export default function Setting() {
   return (
     <div className="flex w-full justify-around  scroll-hidden my-5 ">
       <Navbar />
+      <Helmet>
+        <title>setting | socilaite</title>
+        <meta name="description" content="setting" />
+        <link rel="canonical" href="/setting" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="setting" />
+        <meta name="author" content="setting" />
+        <meta name="language" content="EN" />
 
+      </Helmet>
       <section className="flex post border-gray-800  text-center capitalize text-base border-x-2  w-full">
         <div
-          className={`px-3 flex-col w-full sm:w-auto ${active === "" ? "flex" : "hidden"
-            } md:flex`}
+          className={`px-3 flex-col w-full sm:w-auto ${
+            active === "" ? "flex" : "hidden"
+          } md:flex`}
         >
           <div className="flex my-5 w-full ">
             <i className=" ml-2 my-auto" onClick={() => navigate("/home")}>
@@ -103,8 +115,9 @@ export default function Setting() {
         </div>
 
         <div
-          className={`${active !== "" ? "block" : "hidden"
-            } sm:bolck my-5 w-full`}
+          className={`${
+            active !== "" ? "block" : "hidden"
+          } sm:bolck my-5 w-full`}
         >
           <div className="relative">
             <i

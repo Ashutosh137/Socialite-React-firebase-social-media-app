@@ -2,12 +2,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { auth } from "../Auth";
 import { useNavigate } from "react-router-dom";
 import { get_userdata, updateuserdata } from "../Auth/database";
-import { toast } from "react-toastify";
 import image from "/src/assets/defaultprofileimage.png";
 
 export const UserDataContext = createContext();
 
-export const UserDataProvider = ({ children, value }) => {
+export const UserDataProvider = ({ children, value, setvalue }) => {
   const [postpopup, setpostpopup] = useState(false);
   const [userdata, setuserdata] = useState(value);
   const [defaultprofileimage, setdefaultprofileimage] = useState(image);
@@ -19,8 +18,10 @@ export const UserDataProvider = ({ children, value }) => {
       auth.onAuthStateChanged(async (user) => {
         if (user) {
           let data = await get_userdata(user?.uid);
-          if (data?.username) setuserdata(data);
-          else {
+          if (data?.username) {
+            setuserdata(data);
+            setvalue(data);
+          } else {
             navigate("/create-account");
           }
         }
@@ -54,7 +55,7 @@ export const UserDataProvider = ({ children, value }) => {
   );
 };
 
-export const useuserdatacontext = () => {
+export const useUserdatacontext = () => {
   const value = useContext(UserDataContext);
   return value;
 };

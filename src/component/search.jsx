@@ -62,8 +62,8 @@ export default function Search({ bio = false }) {
             </Link>
           )}
           <div className="flex flex-col w-96 m-auto justify-center space-y-5">
-            {relaventusers?.map((profile) => {
-              return <Profileviewbox profile={profile} bio={bio} />;
+            {relaventusers?.map((profile,index) => {
+              return <Profileviewbox key={index} profile={profile} bio={bio} />;
             })}
           </div>
         </div>

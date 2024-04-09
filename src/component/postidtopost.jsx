@@ -16,7 +16,10 @@ export default function Postidtopost({ postid, postedby }) {
       progress.finish();
     };
     data();
-  }, []);
+    return ()=>{
+      progress.finish()
+    }
+  }, [postedby, postid]);
 
   return (
     <section className=" w-full ">

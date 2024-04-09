@@ -1,18 +1,29 @@
 import React from "react";
 import Navbar from "../component/navbar";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import Suggestion from "../component/suggestion";
 import Postidtopost from "../component/postidtopost";
 import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
-
+import {Helmet} from "react-helmet";
 export const List = () => {
-  const { userdata, setuserdata } = useuserdatacontext();
+  const { userdata, setuserdata } = useUserdatacontext();
   const navigate = useNavigate();
 
   return (
     <div className="post flex w-full ">
       <Navbar />
+      <Helmet>
+        <title>Bookmark | socilaite</title>
+        <meta name="description" content="Bookmark" />
+        <link rel="canonical" href="/Bookmark" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="Bookmark" />
+        <meta name="author" content="Bookmark" />
+        <meta name="language" content="EN" />
+
+      </Helmet>
       <div className="w-full post border-gray-600 border-x-2 sm:px-5 py-5 sm:py-0">
         <div className="flex">
           <h1 className="sm:text-2xl text-xl p-2 sm:py-0  my-5 border-b-2 border-gray-500  text-left capitalize ">

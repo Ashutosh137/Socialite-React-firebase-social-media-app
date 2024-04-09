@@ -59,34 +59,6 @@ export const Create_notification = async (uid, intent) => {
   }
 };
 
-export const createnewpost = async (uid, text, image) => {
-  try {
-    var imgurl;
-    if (image !== null) {
-      const imageurl = await Getimagedownloadlink(image);
-      imgurl = imageurl;
-    }
-
-    var newpost = [
-      {
-        content: `${text}`,
-        likes: [],
-        comments: [],
-        shares: 0,
-        postedby: uid,
-        postedat: new Date(),
-        img: imgurl || null,
-      },
-      ...res.post,
-    ];
-
-    await updateDoc(doc(firestore, `user/${docid}`), {
-      post: newpost,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
 
 export const get_userdata = async (uid) => {
   try {
@@ -269,7 +241,7 @@ export const Getimagedownloadlink = async (image, uid) => {
           }
         );
       } catch (error) {
-        console.log(err0r);
+        console.log(error);
         resolve(null);
       }
     });

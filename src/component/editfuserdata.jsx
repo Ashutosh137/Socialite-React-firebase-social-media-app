@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { useuserdatacontext } from "../service/context/usercontext";
+import React, { useEffect, useState } from "react";
+import { useUserdatacontext } from "../service/context/usercontext";
 import ProgressBar from "@badrap/bar-of-progress";
 import LinkedCameraIcon from "@mui/icons-material/LinkedCamera";
 import { toast } from "react-toastify";
-import { Getimagedownloadlink } from "../service/Auth/database";
+import { Getimagedownloadlink, check_username_is_exist } from "../service/Auth/database";
 import { auth } from "../service/Auth";
 
 export default function Editfuserdata({ toggle = () => {} }) {
   const progress = new ProgressBar();
-  const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, setuserdata, defaultprofileimage } = useUserdatacontext();
   const [editformdata, seteditformdata] = useState(userdata);
   const [isusernameexist, setisusernameexist] = useState(false);
 
@@ -16,6 +16,12 @@ export default function Editfuserdata({ toggle = () => {} }) {
   const [profileimgurl, setprofileimgurl] = useState(
     userdata?.profileImageURL || defaultprofileimage
   );
+
+  useEffect(()=>{
+    return ()=>{
+      progress.finish()
+    }
+  },[])
 
   const handelchange = (e) => {
     const { name, value } = e.target;

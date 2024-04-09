@@ -2,26 +2,21 @@ import React, { useState, useEffect } from "react";
 import CottageIcon from "@mui/icons-material/Cottage";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import MessageIcon from "@mui/icons-material/Message";
-import PeopleIcon from "@mui/icons-material/People";
 import PersonIcon from "@mui/icons-material/Person";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import AddIcon from "@mui/icons-material/Add";
-import IosShareIcon from "@mui/icons-material/IosShare";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Link } from "react-router-dom";
-
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import { Popupitem } from "../ui/popup";
 import { Createpost } from "./createpost";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { userdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, defaultprofileimage } = useUserdatacontext();
   const [post, setpost] = useState(false);
   const [navbar, setnavbar] = useState(true);
 

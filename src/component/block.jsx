@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import Profileviewbox from "./profileviewbox";
 
 export default function Block() {
-  const { userdata, setuserdata } = useuserdatacontext();
+  const { userdata, setuserdata } = useUserdatacontext();
   const [privacy, setprivacy] = useState(userdata?.privacy ? 1 : 0);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function Block() {
       }));
     };
     data();
-  }, [privacy]);
+  }, [privacy,setuserdata]);
 
   return (
     <section className="post text-center p-2 text-sm sm:text-base sm:p-5 capitalize w-full ">

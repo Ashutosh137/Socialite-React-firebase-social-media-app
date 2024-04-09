@@ -1,5 +1,5 @@
-import React, { useState, useEffect, memo } from "react";
-import { useuserdatacontext } from "../service/context/usercontext";
+import React, { useState, useEffect } from "react";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { Create_notification, get_userdata } from "../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import Time from "../service/other/time";
@@ -13,8 +13,13 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import Reply from "./reply";
 
-export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
-  const { userdata, defaultprofileimage } = useuserdatacontext();
+export default Comment = ({
+  currentcomment,
+  setpost,
+  post,
+  setactivation,
+}) => {
+  const { userdata, defaultprofileimage } = useUserdatacontext();
   const [commentby, setcommentby] = useState(null);
 
   const [loadingimg, setloadingimg] = useState(true);
@@ -29,7 +34,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
       setcommentby(commentby);
     };
     data();
-  }, []);
+  }, [comment?.postedby]);
 
   useEffect(() => {
     const data = async () => {
@@ -90,7 +95,9 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
             className="rounded-full bg-gray-400 outline outline-neutral-800 w-7 aspect-square  sm:w-9 h-7 "
             src={commentby?.profileImageURL || defaultprofileimage}
             alt={defaultprofileimage}
-            onError={(e)=>{e.target.src= defaultprofileimage}}
+            onError={(e) => {
+              e.target.src = defaultprofileimage;
+            }}
           />
           <div className="flex w-full space-y-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm sm:text-base">
@@ -236,7 +243,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 {comment?.reply?.map((reply, index) => {
                   return (
                     <Reply
-                      index={index}
+                      key={index}
                       cuutcomment={comment}
                       reply={reply}
                       setcommentpost={setcomment}

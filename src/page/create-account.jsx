@@ -6,13 +6,14 @@ import {
   Create_Account,
   get_userdata,
 } from "../service/Auth/database";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import ProgressBar from "@badrap/bar-of-progress";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
-  const { setuserdata } = useuserdatacontext();
+  const { setuserdata } = useUserdatacontext();
   const pregress = new ProgressBar();
   const [isusernameexist, setisusernameexist] = useState(false);
 
@@ -20,10 +21,13 @@ const CreateAccount = () => {
     const data = async () => {
       if (await check_data_is_exist(auth?.currentUser?.uid)) {
         navigate("/home");
-        console.log("data already exist");
       }
+      data();
+
+      return () => {
+        progress.finish();
+      };
     };
-    data();
   });
 
   const [formdata, setformdata] = useState({
@@ -51,12 +55,21 @@ const CreateAccount = () => {
 
   const handelchange = (e) => {
     const { name, value } = e.target;
-    console.log(value);
     setformdata((prevData) => ({ ...prevData, [name]: value }));
   };
 
   return (
     <div className="capitalize sm:px-5 px-3">
+      <Helmet>
+        <title>Create account | socilaite</title>
+        <meta name="description" content="Create account" />
+        <link rel="canonical" href="/Create account" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="keywords" content="Create account" />
+        <meta name="author" content="Create account" />
+        <meta name="language" content="EN" />
+      </Helmet>
       <h1 className="text-4xl md:text-6xl sm:my-12 my-5 font-bold ">
         create an account with us{" "}
       </h1>
@@ -138,18 +151,23 @@ const CreateAccount = () => {
           <input
             type="date"
             name="age"
-            invalid={
-              formdata.age > new Date() || formdata?.age < new Date("1970-1-1")
-            }
             value={formdata.age}
             className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1   rounded-2xl my-2   "
-            onChange={handelchange}
+            onChange={(e) => {
+              handelchange(e);
+              if (
+                formdata.age > new Date() ||
+                formdata?.age < new Date("1970-1-1")
+              ) {
+                e.target.accepter = false;
+              }
+            }}
             required
           ></input>
         </div>
         <div className="flex-col flex my-2">
           <label className="md:text-xl text-base  font-sans p-1 mx-3 ">
-            about yourself{" "}
+            about yourself
           </label>
 
           <textarea

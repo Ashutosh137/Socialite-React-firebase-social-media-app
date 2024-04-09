@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AttachFileSharpIcon from "@mui/icons-material/AttachFileSharp";
 import CloseIcon from "@mui/icons-material/Close";
 import Comment from "./comment";
 import ProgressBar from "@badrap/bar-of-progress";
 import Createid from "../service/other/createid";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { auth } from "../service/Auth";
 import {
   Create_notification,
@@ -13,7 +13,7 @@ import {
 import { toast } from "react-toastify";
 
 export default function Addcomment({ cuupost, cuusetpost }) {
-  const { userdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, defaultprofileimage } = useUserdatacontext();
   const progress = new ProgressBar();
   const [post, setpost] = useState(cuupost || null);
   const [commentfile, setcommentfile] = useState(null);
@@ -25,7 +25,10 @@ export default function Addcomment({ cuupost, cuusetpost }) {
       cuusetpost(post);
     };
     data();
-  }, [post]);
+    return () => {
+      progress.finish()
+    };
+  }, [post,cuupost]);
 
   const handelcomment = async () => {
     progress.start();

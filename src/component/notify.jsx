@@ -1,13 +1,12 @@
-import ProgressBar from "@badrap/bar-of-progress";
 import React, { useState, useEffect } from "react";
-import { Get_notification, get_userdata } from "../service/Auth/database";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { get_userdata } from "../service/Auth/database";
+import { useUserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import Time from "./../service/other/time";
 import { Skeleton } from "@mui/material";
 
 export default function Notify({ notification }) {
-  const { userdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, defaultprofileimage } = useUserdatacontext();
 
   const navigate = useNavigate();
 
@@ -20,7 +19,7 @@ export default function Notify({ notification }) {
     };
 
     data();
-  }, []);
+  }, [notification?.intent?.likeby]);
 
   return (
     <div className="w-full post ">
@@ -189,8 +188,7 @@ export default function Notify({ notification }) {
           </label>
         </div>
       )}
-      {notification.intent.type === "follow" &&
-
+      {notification.intent.type === "follow" && (
         <div
           className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
           onClick={() => {
@@ -218,7 +216,8 @@ export default function Notify({ notification }) {
           <label className="ml-auto my-auto text-xs sm:text-sm overflow text-gray-300 ">
             {Time(notification?.time?.toJSON().seconds)}
           </label>
-        </div>}
+        </div>
+      )}
     </div>
   );
 }

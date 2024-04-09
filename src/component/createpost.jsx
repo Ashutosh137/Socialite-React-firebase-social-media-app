@@ -3,17 +3,23 @@ import { auth } from "../service/Auth";
 import LinkIcon from "@mui/icons-material/Link";
 import { Getimagedownloadlink } from "../service/Auth/database";
 import { toast } from "react-toastify";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import CloseIcon from "@mui/icons-material/Close";
 import Createid from "../service/other/createid";
 import ProgressBar from "@badrap/bar-of-progress";
 
 export const Createpost = ({ toggle = () => {} }) => {
-  const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
+  const { userdata, setuserdata, defaultprofileimage } = useUserdatacontext();
   const [posttext, setposttext] = useState("");
   const [postmedia, setpostmedia] = useState(null);
 
   const progress = new ProgressBar();
+
+  useEffect(()=>{
+    return ()=>{
+      progress.finish()
+    }
+  },[])
 
   const handelpost = async () => {
     if (auth.currentUser) {

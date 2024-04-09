@@ -29,7 +29,7 @@ export default function Seepost() {
     return () => {
       progress.finish();
     };
-  }, []);
+  }, [username,postid]);
 
   useEffect(() => {
     const data = async () => {

@@ -5,7 +5,6 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
-  signOut,
   sendEmailVerification,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";

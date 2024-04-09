@@ -11,7 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Skeleton } from "@mui/material";
 import { Popupitem } from "../ui/popup";
 import ShareIcon from "@mui/icons-material/Share";
-import { useuserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../service/context/usercontext";
 import {
   Create_notification,
   get_userdata,
@@ -25,8 +25,7 @@ import Time from "../service/other/time";
 import Addcomment from "./addcomment";
 
 export const Post = ({ postdata, popup = true }) => {
-  const { userdata, setuserdata, defaultprofileimage } = useuserdatacontext();
-
+  const { userdata, setuserdata, defaultprofileimage } = useUserdatacontext();
   const [active, setactive] = useState("");
   const [post, setpost] = useState(postdata || null);
   const [hide, sethide] = useState(false);
@@ -43,7 +42,10 @@ export const Post = ({ postdata, popup = true }) => {
     };
 
     data();
-  }, []);
+    return () => {
+      progress.finish()
+    };
+  }, [post?.postedby]);
 
   useEffect(() => {
     const data = async () => {
@@ -61,7 +63,7 @@ export const Post = ({ postdata, popup = true }) => {
       }
     };
     data();
-  }, [post]);
+  }, [post,postedby?.uid]);
 
   const deletepost = async () => {
     progress.start();
@@ -139,7 +141,7 @@ export const Post = ({ postdata, popup = true }) => {
   return (
     <section className="md:my-4 post my-2 p-1 text-lg flex flex-col">
       {!hide && !postdelete && (
-        <div className="flex w-full align-middle space-x-2 ">
+        <div className="flex w-full align-middle space-x-3 ">
           <img
             className="rounded-full border border-neutral-500 w-8 aspect-square sm:w-10 h-8 sm:h-10"
             src={postedby?.profileImageURL || defaultprofileimage}
@@ -150,7 +152,7 @@ export const Post = ({ postdata, popup = true }) => {
           <div className="flex w-full m-1 sm:mx-3 flex-col">
             <div className="flex relative text-sm sm:text-base  align-middle">
               <div
-                onClick={(e) => {
+                onClick={() => {
                   navigate(`/profile/${postedby?.username}`);
                 }}
                 className="flex text-sm sm:text-base justify-start w-full capitalize space-x-2 sm:space-x-3"
@@ -181,7 +183,7 @@ export const Post = ({ postdata, popup = true }) => {
                 </label>
               </div>
               <div
-                onClick={(e) => {
+                onClick={() => {
                   active === "menu" ? setactive("") : setactive("menu");
                 }}
                 className="ml-auto"
@@ -194,7 +196,7 @@ export const Post = ({ postdata, popup = true }) => {
                 <div className="absolute top-12 z-40 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 capitalize"
-                    onClick={(e) => {
+                    onClick={() => {
                       navigate(`/profile/${postedby?.username} `);
                       setactive("");
                     }}
@@ -205,7 +207,7 @@ export const Post = ({ postdata, popup = true }) => {
                   {popup && (
                     <button
                       className="w-40 p-1 rounded-full capitalize hover:bg-gray-950"
-                      onClick={(e) => {
+                      onClick={() => {
                         setactive("comment");
                       }}
                     >
@@ -230,7 +232,7 @@ export const Post = ({ postdata, popup = true }) => {
 
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500 "
-                    onClick={(e) => {
+                    onClick={() => {
                       setactive("report");
                     }}
                   >
@@ -239,7 +241,7 @@ export const Post = ({ postdata, popup = true }) => {
                   {popup && userdata?.username !== postedby?.username && (
                     <button
                       className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500"
-                      onClick={(e) => {
+                      onClick={() => {
                         sethide(true);
                       }}
                     >
@@ -250,7 +252,7 @@ export const Post = ({ postdata, popup = true }) => {
                   {userdata?.username === postedby?.username && (
                     <button
                       className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                      onClick={(e) => {
+                      onClick={() => {
                         auth.currentUser && setactive("delete");
                       }}
                     >
@@ -300,7 +302,7 @@ export const Post = ({ postdata, popup = true }) => {
               <div className="flex align-middle w-full text-sm sm:text-base justify-between space-x-2">
                 <div
                   className="flex space-x-1 hover:text-[#464bf0]"
-                  onClick={(e) => {
+                  onClick={() => {
                     popup && handelactive("comment");
                   }}
                 >
@@ -398,8 +400,8 @@ export const Post = ({ postdata, popup = true }) => {
                   likes
                 </h2>
                 <div className="m-auto">
-                  {post?.likes.map((profile) => {
-                    return <Profileviewbox profileusername={profile} />;
+                  {post?.likes.map((profile,index) => {
+                    return <Profileviewbox key={index} profileusername={profile} />;
                   })}
                 </div>
               </div>
