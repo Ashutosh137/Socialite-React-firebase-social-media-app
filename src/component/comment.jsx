@@ -13,12 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
 import Reply from "./reply";
 
-export default Comment = ({
-  currentcomment,
-  setpost,
-  post,
-  setactivation,
-}) => {
+export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
   const { userdata, defaultprofileimage } = useUserdatacontext();
   const [commentby, setcommentby] = useState(null);
 

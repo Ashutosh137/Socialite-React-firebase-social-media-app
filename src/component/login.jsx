@@ -88,7 +88,7 @@ const Login = ({ onenter, role }) => {
         >
           {role === "login" ? "login" : "sign-up"}
         </button>
-        <button
+        {role==="login"&&<button
           onClick={async () => {
             if (email === "") toast.error("plase enter your email address");
             else {
@@ -102,7 +102,7 @@ const Login = ({ onenter, role }) => {
           type="button"
         >
           Forget password ?
-        </button>
+        </button>}
       </form>
       {role === "signup" ? (
         <div className="my-3  capitalize text-base sm:text-xl flex flex-col ">

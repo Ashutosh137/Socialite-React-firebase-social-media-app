@@ -43,7 +43,7 @@ export const Post = ({ postdata, popup = true }) => {
 
     data();
     return () => {
-      progress.finish()
+      progress.finish();
     };
   }, [post?.postedby]);
 
@@ -63,7 +63,7 @@ export const Post = ({ postdata, popup = true }) => {
       }
     };
     data();
-  }, [post,postedby?.uid]);
+  }, [post, postedby?.uid]);
 
   const deletepost = async () => {
     progress.start();
@@ -80,13 +80,13 @@ export const Post = ({ postdata, popup = true }) => {
   const handal_like = async () => {
     auth?.currentUser && !post?.likes.includes(userdata?.uid)
       ? setpost((prev) => ({
-        ...prev,
-        likes: [...prev.likes, userdata?.uid],
-      }))
+          ...prev,
+          likes: [...prev.likes, userdata?.uid],
+        }))
       : setpost((prev) => ({
-        ...prev,
-        likes: prev.likes.filter((e) => e !== userdata?.uid),
-      }));
+          ...prev,
+          likes: prev.likes.filter((e) => e !== userdata?.uid),
+        }));
 
     !auth?.currentUser && toast.error("Login required");
 
@@ -263,14 +263,16 @@ export const Post = ({ postdata, popup = true }) => {
               )}
             </div>
 
-            <pre
-              onClick={() => {
-                navigate(`/profile/${postedby?.username}/${post?.postid}`);
-              }}
-              className="text-sm whitespace-pre-wrap my-2 w-full sm:p-2 "
-            >
-              {post?.content}
-            </pre>
+            {post?.content && (
+              <pre
+                onClick={() => {
+                  navigate(`/profile/${postedby?.username}/${post?.postid}`);
+                }}
+                className="text-sm whitespace-pre-wrap my-2 w-full sm:p-2 "
+              >
+                {post?.content}
+              </pre>
+            )}
 
             <div className="w-full">
               {loadingimg && post?.img && (
@@ -292,8 +294,9 @@ export const Post = ({ postdata, popup = true }) => {
                   onClick={() => {
                     navigate(`/profile/${postedby?.username}/${post?.postid}`);
                   }}
-                  className={`${loadingimg ? "hidden" : "block"
-                    } w-full h-full h-postimg  border-neutral-500 border-2 rounded-2xl`}
+                  className={`${
+                    loadingimg ? "hidden" : "block"
+                  } w-full h-full h-postimg  border-neutral-500 border rounded-xl sm:rounded-2xl`}
                 />
               )}
             </div>
@@ -400,8 +403,10 @@ export const Post = ({ postdata, popup = true }) => {
                   likes
                 </h2>
                 <div className="m-auto">
-                  {post?.likes.map((profile,index) => {
-                    return <Profileviewbox key={index} profileusername={profile} />;
+                  {post?.likes.map((profile, index) => {
+                    return (
+                      <Profileviewbox key={index} profileusername={profile} />
+                    );
                   })}
                 </div>
               </div>

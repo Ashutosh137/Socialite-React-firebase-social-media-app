@@ -6,11 +6,7 @@
 }
 
 textarea::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll-hidden::-webkit-scrollbar {
+body::-webkit-scrollbar,.scroll-hidden::-webkit-scrollbar {
   display: none;
 }
 
@@ -20,8 +16,8 @@ textarea {
 
 .h-postimg {
   max-height: 40rem;
-  object-fit: fill;
   max-width: 32rem;
+  object-fit: fill;
 }
 
 .max-h-popup {

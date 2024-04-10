@@ -17,6 +17,10 @@ body {
   body {
     padding: 0px;
   }
+  .overflow{
+    max-width: 100px;
+    overflow-x: hidden;
+  }
 }
 
 pre {

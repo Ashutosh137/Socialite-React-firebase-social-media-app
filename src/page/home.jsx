@@ -9,7 +9,7 @@ import Suggestion from "../component/suggestion";
 import { useUserdatacontext } from "../service/context/usercontext";
 
 export const Home = () => {
-  const [allpostdata, setallpostdata] = useState([]);
+  const [allpostdata, setallpostdata] = useState(null);
   const [active, setactive] = useState("");
   const [post, setpost] = useState([]);
   const { userdata } = useUserdatacontext();
@@ -60,7 +60,7 @@ export const Home = () => {
 
       </Helmet>
       <div className="flex border-gray-800   border-x-2  w-full sm:mx-3 flex-col ">
-        <div className="sticky bg-[rgb(0,0,0,0.6)] z-50 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
+        <div className="sticky bg-[rgb(0,0,0,0.6)] z-40 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
           <div className="flex justify-evenly my-2 bg-transparent">
             <label
               onClick={() => handleTabChange("")}

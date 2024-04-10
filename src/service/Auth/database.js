@@ -14,7 +14,6 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const user = collection(firestore, "user");
 
-
 export const Create_Account = async ({
   email,
   uid,
@@ -60,7 +59,6 @@ export const Create_notification = async (uid, intent) => {
   }
 };
 
-
 export const get_userdata = async (uid) => {
   try {
     const q = await query(user, where("uid", "==", uid));
@@ -71,7 +69,6 @@ export const get_userdata = async (uid) => {
         ...country.data(),
       });
     });
-
     return res[0];
   } catch (err) {
     console.error(err);
@@ -172,7 +169,7 @@ export const updateprofileuserdata = async (userdata, username) => {
 };
 export const getallpost = async () => {
   try {
-    const q = await query(user);
+    const q = await query(user, where("privacy", "==", false));
     const doc_refs = await getDocs(q);
     const res = [];
     doc_refs.forEach((country) => {

@@ -66,7 +66,7 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex w-full post cursor-pointer justify-between p-1 align-middle ">
+    <section className="flex justify-between  post cursor-pointer p-1 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         onError={(e) => {
@@ -76,12 +76,12 @@ export default function Profileviewbox({
         className="rounded-full w-10 aspect-square h-10 my-auto mx-1"
       />
       <div
-        className="flex w-full m-1 overflow flex-col cursor-pointer"
+        className="flex w-full m-1  flex-col cursor-pointer"
         onClick={() => {
           navigate(`/profile/${profileuserdata?.username}`);
         }}
       >
-        <label className="text-base w-full">
+        <label className="text-base overflow w-full">
           {profileuserdata?.name || (
             <Skeleton
               animation="wave"
@@ -91,7 +91,7 @@ export default function Profileviewbox({
             />
           )}
         </label>
-        <label className="text-sm text-gray-400 flex">
+        <label className="text-sm overflow text-gray-400 flex">
           @
           {profileuserdata?.username || (
             <Skeleton
@@ -108,7 +108,7 @@ export default function Profileviewbox({
           </pre>
         )}
       </div>
-      <div className=" px-4 my-auto ">
+      <div className="w-full px-4 my-auto ">
         <button
           onClick={() => {
             profileuserdata?.username !== userdata?.username && handelfollow();

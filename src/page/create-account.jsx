@@ -22,12 +22,8 @@ const CreateAccount = () => {
       if (await check_data_is_exist(auth?.currentUser?.uid)) {
         navigate("/home");
       }
-      data();
-
-      return () => {
-        progress.finish();
-      };
     };
+    data();
   });
 
   const [formdata, setformdata] = useState({

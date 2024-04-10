@@ -11,6 +11,7 @@ import {
   Getimagedownloadlink,
 } from "../service/Auth/database";
 import { toast } from "react-toastify";
+import comment from "./comment";
 
 export default function Addcomment({ cuupost, cuusetpost }) {
   const { userdata, defaultprofileimage } = useUserdatacontext();
@@ -26,9 +27,9 @@ export default function Addcomment({ cuupost, cuusetpost }) {
     };
     data();
     return () => {
-      progress.finish()
+      progress.finish();
     };
-  }, [post,cuupost]);
+  }, [post, cuupost]);
 
   const handelcomment = async () => {
     progress.start();
@@ -63,10 +64,12 @@ export default function Addcomment({ cuupost, cuusetpost }) {
         image: url,
         likes: [],
       };
+      let comment;
       const newcomment = post?.comments?.map((cuucomment) => {
         if (active?.commentid !== cuucomment?.commentid) {
           return cuucomment;
         } else {
+          comment = cuucomment;
           return {
             ...cuucomment,
             reply: [...cuucomment.reply, newreply],
@@ -80,7 +83,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
     setcommentfile(null);
     setcommenttext("");
 
-    await Create_notification(post?.postedby, {
+    await Create_notification(comment?.postedby, {
       likeby: userdata?.uid,
       type: "addreply",
       postid: post?.postid,

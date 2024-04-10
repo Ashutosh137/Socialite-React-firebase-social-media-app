@@ -31,7 +31,7 @@ export default function Search({ bio = false }) {
     <section className="p-2  w-full">
       <div className="w-full">
         <div className="inline-flex focus:border-blue-800 sm:px-4 align-middle p-1 rounded-full border-gray-800 border-2 w-full justify-between">
-          <i className="m-auto">
+          <i className="m-auto p-2">
             <SearchIcon />
           </i>
           <input
@@ -62,7 +62,7 @@ export default function Search({ bio = false }) {
             </Link>
           )}
           <div className="flex flex-col w-96 m-auto justify-center space-y-5">
-            {relaventusers?.map((profile,index) => {
+            {relaventusers?.map((profile, index) => {
               return <Profileviewbox key={index} profile={profile} bio={bio} />;
             })}
           </div>

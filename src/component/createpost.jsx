@@ -15,11 +15,11 @@ export const Createpost = ({ toggle = () => {} }) => {
 
   const progress = new ProgressBar();
 
-  useEffect(()=>{
-    return ()=>{
-      progress.finish()
-    }
-  },[])
+  useEffect(() => {
+    return () => {
+      progress.finish();
+    };
+  }, []);
 
   const handelpost = async () => {
     if (auth.currentUser) {
@@ -60,9 +60,9 @@ export const Createpost = ({ toggle = () => {} }) => {
         }}
         className="flex flex-col text-xl space-y-4"
       >
-        <div className="flex my-2 justify-cente align-middle">
+        <div className="flex my-2 justify-center align-middle">
           <img
-            className="rounded-full bg-gray-400 w-10 h-10"
+            className="rounded-full aspect-square bg-gray-400 w-10 h-10"
             src={userdata?.profileImageURL || defaultprofileimage}
             alt={defaultprofileimage}
             onError={(e) => {
@@ -86,7 +86,7 @@ export const Createpost = ({ toggle = () => {} }) => {
             <img
               src={URL.createObjectURL(postmedia)}
               alt={defaultprofileimage}
-              className="w-1/2 rounded-3xl"
+              className=" w-3/4 sm:w-1/2 rounded-xl sm:rounded-3xl"
             />
             <i
               onClick={() => {
@@ -119,7 +119,7 @@ export const Createpost = ({ toggle = () => {} }) => {
             </button>
           </div>
           <button
-            disabled={posttext === ""}
+            // disabled={posttext === ""}
             className="bg-blue-500 font-mono  text-white text-center p-2 capitalize  rounded-full my-10 px-12"
           >
             post
