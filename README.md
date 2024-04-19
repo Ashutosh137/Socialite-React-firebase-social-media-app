@@ -45,3 +45,11 @@ If you need to customize any environment variables or configurations, you can mo
     ```bash
     docker run -it -p 4000:5173 socialite-react
     ```
+
+
+
+or  
+
+
+
+just write "docker pull ashutosh136/socialite:latest" on cmd
