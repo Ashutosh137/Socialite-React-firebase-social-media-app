@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import { Post } from "./post";
@@ -42,7 +42,7 @@ export const Profile = ({ username }) => {
       }
     };
     data();
-  }, [profileuserdata, username]);
+  }, [profileuserdata, username, userdata, setuserdata]);
 
   useEffect(() => {
     const data = async () => {
@@ -59,7 +59,7 @@ export const Profile = ({ username }) => {
     return () => {
       progress.finish();
     };
-  }, [username]);
+  }, [username, userdata]);
 
   useEffect(() => {
     const data = () => {
@@ -87,7 +87,7 @@ export const Profile = ({ username }) => {
           }))
         : setprofileuserdata((prev) => ({
             ...prev,
-            follower: [...prev?.follower, userdata?.uid],
+            follower: [...prev.follower, userdata?.uid],
           }));
       !userdata?.following.includes(profileuserdata?.uid)
         ? setuserdata((prev) => ({
@@ -476,7 +476,7 @@ export const Profile = ({ username }) => {
                     toast.success("Report sucessfully");
                     setprofileuserdata((prev) => ({
                       ...prev,
-                      report: [...prev?.report, userdata?.uid],
+                      report: [...prev.report, userdata?.uid],
                     }));
                   }}
                   className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-600 bg-red-500 text-base font-semibold text-white"
@@ -585,7 +585,7 @@ export const Profile = ({ username }) => {
                 <div className="m-auto">
                   {profileuserdata.following.map((profile, index) => {
                     return (
-                      <Profileviewbox index={index} profileusername={profile} />
+                      <Profileviewbox key={index} profileusername={profile} />
                     );
                   })}
                 </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Profileviewbox from "./profileviewbox";
 import Search from "./search";
 import { getallprofile } from "../service/Auth/database";

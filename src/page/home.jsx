@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../component/navbar";
 import { getallpost } from "../service/Auth/database";
 import { Createpost } from "../component/createpost";
 import { Post } from "../component/post";
 import { auth } from "../service/Auth";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import Suggestion from "../component/suggestion";
 import { useUserdatacontext } from "../service/context/usercontext";
 
@@ -13,9 +13,11 @@ export const Home = () => {
   const [active, setactive] = useState("");
   const [post, setpost] = useState([]);
   const { userdata } = useUserdatacontext();
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      setloading(true);
       try {
         const allPosts = await getallpost();
         const sortedPosts = allPosts.flat().sort(() => Math.random() - 0.5);
@@ -24,6 +26,7 @@ export const Home = () => {
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
+      setloading(false);
     };
 
     fetchData();
@@ -57,7 +60,6 @@ export const Home = () => {
         <meta name="keywords" content="Home" />
         <meta name="author" content="Home" />
         <meta name="language" content="EN" />
-
       </Helmet>
       <div className="flex border-gray-800   border-x-2  w-full sm:mx-3 flex-col ">
         <div className="sticky bg-[rgb(0,0,0,0.6)] z-40 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
@@ -83,7 +85,7 @@ export const Home = () => {
         <Createpost />
         <hr className="border-gray-700 w-full" />
         <div className="sm:mx-3 mx-2">
-          {post?.length === 0 && (
+          {((post?.length === 0 && active !== "follow") || loading) && (
             <div className="flex items-center w-full h-96 justify-center">
               <div
                 className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
@@ -93,6 +95,11 @@ export const Home = () => {
                   Loading...
                 </span>
               </div>
+            </div>
+          )}
+          {post?.length === 0 && active === "follow" && (
+            <div className="flex capitalize items-center w-full h-80 justify-center">
+              no posts yet
             </div>
           )}
           {post?.map((postarray, index) => (

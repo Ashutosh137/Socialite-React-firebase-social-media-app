@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../service/Auth";
 import {
   check_data_is_exist,

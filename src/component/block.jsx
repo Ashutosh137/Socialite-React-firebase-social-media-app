@@ -45,12 +45,12 @@ export default function Block() {
       <div className="text-left flex flex-col my-10">
         <label>
           blocked accounts{" "}
-          <span className="font-semibold">( {userdata?.block.length} )</span>
+          <span className="font-semibold">( {userdata?.block?.length} )</span>
         </label>
-        {userdata.block.length > 0 && (
+        {userdata?.block?.length > 0 && (
           <div className="flex flex-col my-5 justify-between">
             <h1 className="text-lg m-auto">blocked account list </h1>
-            {userdata.block.map((profile, index) => {
+            {userdata?.block?.map((profile, index) => {
               return (
                 <div
                   key={index}
