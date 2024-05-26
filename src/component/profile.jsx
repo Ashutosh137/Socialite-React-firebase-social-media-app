@@ -26,27 +26,34 @@ export const Profile = ({ username }) => {
   const [profileuserdata, setprofileuserdata] = useState([]);
   const navigate = useNavigate();
   const { userdata, defaultprofileimage, setuserdata } = useUserdatacontext();
+  const [loading, setloading] = useState(false);
   const [active, setactive] = useState("");
   const [mutual, setmutual] = useState([]);
 
   useEffect(() => {
     const data = async () => {
-      if (
-        auth.currentUser &&
-        userdata?.username !== profileuserdata?.username &&
-        profileuserdata !== null
-      ) {
-        await updateprofileuserdata(profileuserdata, username);
-      } else if (userdata?.username === profileuserdata?.username) {
-        setuserdata(profileuserdata);
+      if (auth.currentUser) {
+        if (
+          userdata?.username !== profileuserdata?.username &&
+          profileuserdata
+        ) {
+          await updateprofileuserdata(profileuserdata, username);
+        }
       }
     };
     data();
-  }, [profileuserdata, username, userdata, setuserdata]);
+  }, [profileuserdata]);
+
+  useEffect(() => {
+    if (userdata?.uid === profileuserdata?.uid) {
+      setprofileuserdata(userdata);
+    }
+  }, [userdata]);
 
   useEffect(() => {
     const data = async () => {
       progress.start();
+      setloading(true);
       if (username === userdata?.username) setprofileuserdata(userdata);
       else {
         const profile = await get_userdatabyname(username);
@@ -54,12 +61,13 @@ export const Profile = ({ username }) => {
       }
       progress.finish();
       setactive("");
+      setloading(false);
     };
     data();
     return () => {
       progress.finish();
     };
-  }, [username, userdata]);
+  }, [username]);
 
   useEffect(() => {
     const data = () => {
@@ -427,9 +435,22 @@ export const Profile = ({ username }) => {
         </>
       )}
 
-      {!profileuserdata && (
+      {!profileuserdata && !loading && (
         <div className="text-center my-10 font-serif text-2xl border-b border-gray-500 p-5 mx-5  ">
           profile doesnot exist
+        </div>
+      )}
+
+      {loading && (
+        <div className="flex items-center w-full h-96 justify-center">
+          <div
+            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
+            role="status"
+          >
+            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+              Loading...
+            </span>
+          </div>
         </div>
       )}
 

@@ -1,8 +1,15 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { auth } from "../Auth";
 import { useNavigate } from "react-router-dom";
 import { get_userdata, updateuserdata } from "../Auth/database";
 import image from "/src/assets/defaultprofileimage.png";
+import { toast } from "react-toastify";
 
 export const UserDataContext = createContext();
 
@@ -10,6 +17,51 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
   const [postpopup, setpostpopup] = useState(false);
   const [userdata, setuserdata] = useState(value);
   const [defaultprofileimage, setdefaultprofileimage] = useState(image);
+
+  const delete_post = (postid) => {
+    if (userdata) {
+      setuserdata((prev) => ({
+        ...prev,
+        post: prev.post.filter((p) => {
+          return p.postid !== postid;
+        }),
+      }));
+      toast.success("Post Deleted");
+    }
+  };
+  const handlesave = useCallback(
+    (post) => {
+      if (!auth?.currentUser) {
+        toast.error("Login required");
+        return;
+      }
+
+      if (
+        userdata?.saved.some((savedpost) => post?.postid === savedpost?.postid)
+      ) {
+        setuserdata((prev) => ({
+          ...prev,
+          saved: prev.saved.filter(
+            (savedpost) => post?.postid !== savedpost?.postid
+          ),
+        }));
+        toast.success("Removed from your Bookmark");
+      } else {
+        setuserdata((prev) => ({
+          ...prev,
+          saved: [
+            ...prev.saved,
+            {
+              postedby: post?.postedby,
+              postid: post?.postid,
+            },
+          ],
+        }));
+        toast.success("Added to your Bookmark");
+      }
+    },
+    [auth, userdata]
+  );
 
   const navigate = useNavigate();
 
@@ -32,7 +84,7 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
 
   useEffect(() => {
     const data = async () => {
-      userdata !== null && (await updateuserdata(userdata));
+      userdata && (await updateuserdata(userdata));
     };
     data();
   }, [userdata]);
@@ -46,6 +98,8 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
         postpopup,
         defaultprofileimage,
         userdata,
+        handlesave,
+        delete_post,
         setuserdata,
         togglepost,
       }}

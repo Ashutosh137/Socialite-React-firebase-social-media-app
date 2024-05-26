@@ -135,7 +135,6 @@ export const getpostdatabyuid = async (uid, postid) => {
     });
     return res[0];
   } catch (err) {
-    console.error("Error: Post not found");
   }
 };
 
@@ -151,6 +150,7 @@ export const updateuserdata = async (userdata) => {
     await updateDoc(doc(firestore, `user/${docid}`), userdata);
   } catch (err) {
     console.error(err);
+    console.log("error in update userdata")
   }
 };
 export const updateprofileuserdata = async (userdata, username) => {
@@ -211,15 +211,14 @@ export const check_username_is_exist = async (username) => {
     console.error(err);
   }
 };
-export const Getimagedownloadlink = async (image, uid) => {
+export const Getimagedownloadlink = async (image) => {
   try {
-    // Use a promise to wait for the download URL
     if (image === null) {
       return null;
     }
     const imageUrl = await new Promise((resolve, reject) => {
       try {
-        const storageRef = ref(storage, `${uid}/${image.name}`);
+        const storageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
         const uploadTask = uploadBytesResumable(storageRef, image);
         uploadTask.on(
           "state_changed",
@@ -262,6 +261,7 @@ export const updatepost = async (post, postedby) => {
       postdata.map(async (currentpost, index) => {
         if (post.postid === currentpost.postid) {
           postdata[index] = post;
+          console.log("post updated successfully", post);
           await updateDoc(doc(firestore, `user/${docid}`), {
             post: postdata,
           });
@@ -269,6 +269,6 @@ export const updatepost = async (post, postedby) => {
       });
     });
   } catch (err) {
-    console.log(err);
+    console.log(err, "error in update data");
   }
 };

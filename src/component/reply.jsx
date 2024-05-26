@@ -17,7 +17,6 @@ export default function Reply({ reply, setcommentpost }) {
   const [loadingimg, setloadingimg] = useState(true);
   const navigate = useNavigate();
   const [active, setactive] = useState("");
-  const [delet, setdelet] = useState(false);
   const [comment, setcomment] = useState(reply || null);
 
   useEffect(() => {
@@ -29,12 +28,16 @@ export default function Reply({ reply, setcommentpost }) {
   }, [comment?.postedby]);
 
   useEffect(() => {
+    setcomment(reply);
+  }, [reply]);
+
+  useEffect(() => {
     const data = () => {
       if (comment && auth.currentUser) {
         setcommentpost((prev) => ({
           ...prev,
           reply: prev?.reply.map((repli) => {
-            if (repli.commentid === comment?.commentid) return comment;
+            if (repli.replyid === comment?.replyid) return comment;
             else {
               return repli;
             }
@@ -68,7 +71,7 @@ export default function Reply({ reply, setcommentpost }) {
   const delcomment = () => {
     setcommentpost((pre) => ({
       ...pre,
-      reply: pre?.reply?.filter((rep) => rep.commentid !== comment?.commentid),
+      reply: pre.reply.filter((rep) => rep.replyid !== comment?.replyid),
     }));
   };
 
@@ -76,193 +79,181 @@ export default function Reply({ reply, setcommentpost }) {
     return <></>;
   }
   return (
-    <section className="post  ml-auto text-xs sm:text-sm  ">
-      {!delet && (
-        <div className="capitalize flex w-full  sm:space-x-2 ">
-          <img
-            className="rounded-full mx-2 bg-gray-400 outline outline-neutral-800 w-5 sm:w-7 h-5 sm:h-7"
-            src={commentby?.profileImageURL || defaultprofileimage}
-            alt={defaultprofileimage}
-            onError={(e)=>{e.target.src= defaultprofileimage}}
-          />
-          <div className="flex w-full space-y-1 sm:mx-3 flex-col">
-            <div className="flex relative text-sm">
-              <label className="font-semibold overflow ">
-                {commentby?.name || (
-                  <Skeleton
-                    animation="wave"
-                    sx={{ bgcolor: "grey.900" }}
-                    variant="text"
-                    width={window.innerWidth >= 400 ? 100 : 50}
-                  />
-                )}
-              </label>
-              <label
-                className="text-gray-500 overflow mx-2 flex space-x-3 text-sm"
-                onClick={() => {
-                  navigate(`/profile/${commentby?.username} `);
-                }}
-              >
-                @
-                {commentby?.username || (
-                  <Skeleton
-                    animation="wave"
-                    sx={{ bgcolor: "grey.900" }}
-                    variant="text"
-                    width={window.innerWidth >= 400 ? 100 : 50}
-                  />
-                )}
-              </label>
-              <label className="text-gray-500 overflow-hidden ">
-                {Time(comment.postedat?.toJSON().seconds)}
-              </label>
-              <label
-                className="ml-auto mx-2"
-                onClick={() => {
-                  active === "menu" ? setactive("") : setactive("menu");
-                }}
-              >
-                <MoreVertIcon />
-              </label>
-              {active === "menu" && (
-                <div className="absolute top-5 right-3 sm:right-8 px-4 text-sm bg-black sm:-my-16 -my-5 py-5 p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2  ">
-                  <button
-                    className="w-40 p-1 rounded-full text-white hover:bg-gray-950 "
-                    onClick={() => {
-                      navigate(`/profile/${commentby?.username} `);
-                      toggle();
-                    }}
-                  >
-                    View profile
-                  </button>
+    <section className="post border border-gray-600 p-4 rounded-xl ml-auto text-xs sm:text-sm  ">
+      
+      <div className="capitalize flex w-full  sm:space-x-2 ">
+        <img
+          className="rounded-full mx-2 bg-gray-400 outline outline-neutral-800 w-5 sm:w-7 h-5 sm:h-7"
+          src={commentby?.profileImageURL || defaultprofileimage}
+          alt={defaultprofileimage}
+          onError={(e) => {
+            e.target.src = defaultprofileimage;
+          }}
+        />
+        <div className="flex w-full space-y-1 sm:mx-3 flex-col">
+          <div className="flex relative text-sm">
+            <label className="font-semibold overflow ">
+              {commentby?.name || (
+                <Skeleton
+                  animation="wave"
+                  sx={{ bgcolor: "grey.900" }}
+                  variant="text"
+                  width={window.innerWidth >= 400 ? 100 : 50}
+                />
+              )}
+            </label>
+            <label
+              className="text-gray-500 overflow mx-2 flex space-x-3 text-sm"
+              onClick={() => {
+                navigate(`/profile/${commentby?.username} `);
+              }}
+            >
+              @
+              {commentby?.username || (
+                <Skeleton
+                  animation="wave"
+                  sx={{ bgcolor: "grey.900" }}
+                  variant="text"
+                  width={window.innerWidth >= 400 ? 100 : 50}
+                />
+              )}
+            </label>
+            <label className="text-gray-500 ">
+              {Time(comment.postedat?.toJSON().seconds)}
+            </label>
+            <label
+              className="ml-auto mx-2"
+              onClick={() => {
+                active === "menu" ? setactive("") : setactive("menu");
+              }}
+            >
+              <MoreVertIcon />
+            </label>
+            {active === "menu" && (
+              <div className="absolute top-5 z-50 right-3 sm:right-8 px-4 text-sm bg-black sm:-my-16 -my-5 py-5 p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2  ">
+                <button
+                  className="w-40 p-1 rounded-full text-white hover:bg-gray-950 "
+                  onClick={() => {
+                    navigate(`/profile/${commentby?.username} `);
+                    toggle();
+                  }}
+                >
+                  View profile
+                </button>
+                <button
+                  className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
+                  onClick={() => {
+                    setactive("report");
+                  }}
+                >
+                  Report
+                </button>
+                {(userdata?.username === commentby?.username ||
+                  comment?.postedby === userdata?.uid) && (
                   <button
                     className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
                     onClick={() => {
-                      setactive("report");
+                      delcomment();
                     }}
                   >
-                    Report
+                    Delete
                   </button>
-                  {(userdata?.username === commentby?.username ||
-                    comment?.postedby === userdata?.uid) && (
-                    <button
-                      className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                      onClick={() => {
-                        setdelet(true);
-                        delcomment();
-                      }}
-                    >
-                      Delete
-                    </button>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div className="flex flex-col my-2">
-              <pre className="capitalize whitespace-pre-wrap my-1 text-sm font-sans text-left w-full ">
-                {comment?.content}
-              </pre>
-              <div className="">
-                {loadingimg && comment?.image && (
-                  <Skeleton
-                    animation="wave"
-                    sx={{ bgcolor: "grey.900" }}
-                    variant="rectangular"
-                    width={window.innerWidth >= 400 ? 200 : 100}
-                    height={window.innerWidth >= 400 ? 200 : 100}
-                  />
-                )}
-                {comment?.image && (
-                  <img
-                    onDoubleClick={handellike}
-                    onLoadCapture={() => {
-                      setloadingimg(false);
-                    }}
-                    src={comment?.image}
-                    className={`w-40 rounded-xl aspect-auto my-2 ${
-                      loadingimg ? "hidden" : "block"
-                    }  `}
-                  />
                 )}
               </div>
-              <div className="flex mr-auto my-2 text-gray-400 space-x-1  ">
-                <label className=" text-sm my-auto">
-                  {comment.likes.length}
-                </label>
-                <div className="flex space-x-3">
-                  <i onClick={handellike} className="hover:text-red-900">
-                    {comment?.likes.includes(userdata?.uid) ? (
-                      <FavoriteIcon style={{ color: "rgb(249, 24, 128)" }} />
-                    ) : (
-                      <FavoriteBorderIcon />
-                    )}
-                  </i>
-                </div>
-              </div>
-            </div>
-            {active === "reply" && (
-              <div>
-                {comment?.reply.map((reply,index ) => {
-                  return <Reply key={index} reply={reply} />;
-                })}
-              </div>
-            )}
-            {active === "report" && (
-              <Popupitem
-                closefunction={() => {
-                  setactive("");
-                }}
-              >
-                <div className="max-w-sm m-auto mb-10">
-                  <p className="text-xl text-center my-7 capitalize ">
-                    report this comment
-                  </p>
-                  <select className="mx-2 w-full my-8 p-3 bg-black capitalize text-white text-base border-2 px-4 border-white rounded-xl ">
-                    {" "}
-                    <option value="hateSpeech">Hate Speech</option>
-                    <option value="spam">Spam</option>
-                    <option value="harassment">Harassment</option>
-                    <option value="violence">Violence</option>
-                    <option value="falseInformation">False Information</option>
-                    <option value="inappropriateContent">
-                      Inappropriate Content
-                    </option>
-                    <option value="copyrightViolation">
-                      Copyright Violation
-                    </option>
-                    <option value="impersonation">Impersonation</option>
-                  </select>
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => {
-                        setactive("");
-                      }}
-                      className="px-8 outline outline-neutral-800 capitalize m-auto p-2 rounded-full hover:bg-gray-950 bg-gray-900 text-white"
-                    >
-                      cancel
-                    </button>
-                    <button
-                      onClick={() => {
-                        setactive("");
-                        toast.success("Report sucessfully");
-                      }}
-                      className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-white"
-                    >
-                      report
-                    </button>
-                  </div>
-                </div>
-              </Popupitem>
             )}
           </div>
+
+          <div className="flex flex-col my-2">
+            <pre className="capitalize whitespace-pre-wrap my-1 text-sm font-sans text-left w-full ">
+              {comment?.content}
+            </pre>
+            <div className="">
+              {loadingimg && comment?.image && (
+                <Skeleton
+                  animation="wave"
+                  sx={{ bgcolor: "grey.900" }}
+                  variant="rectangular"
+                  width={window.innerWidth >= 400 ? 200 : 100}
+                  height={window.innerWidth >= 400 ? 200 : 100}
+                />
+              )}
+              {comment?.image && (
+                <img
+                  onDoubleClick={handellike}
+                  onLoadCapture={() => {
+                    setloadingimg(false);
+                  }}
+                  src={comment?.image}
+                  className={`w-40 rounded-xl aspect-auto my-2 ${
+                    loadingimg ? "hidden" : "block"
+                  }  `}
+                />
+              )}
+            </div>
+            <div className="flex mr-auto my-2 text-gray-400 space-x-1  ">
+              <label className=" text-sm my-auto">{comment.likes.length}</label>
+              <div className="flex space-x-3">
+                <i onClick={handellike} className="hover:text-red-900">
+                  {comment?.likes.includes(userdata?.uid) ? (
+                    <FavoriteIcon style={{ color: "rgb(249, 24, 128)" }} />
+                  ) : (
+                    <FavoriteBorderIcon />
+                  )}
+                </i>
+              </div>
+            </div>
+          </div>
+        
+          {active === "report" && (
+            <Popupitem
+              closefunction={() => {
+                setactive("");
+              }}
+            >
+              <div className="max-w-sm m-auto mb-10">
+                <p className="text-xl text-center my-7 capitalize ">
+                  report this comment
+                </p>
+                <select className="mx-2 w-full my-8 p-3 bg-black capitalize text-white text-base border-2 px-4 border-white rounded-xl ">
+                  {" "}
+                  <option value="hateSpeech">Hate Speech</option>
+                  <option value="spam">Spam</option>
+                  <option value="harassment">Harassment</option>
+                  <option value="violence">Violence</option>
+                  <option value="falseInformation">False Information</option>
+                  <option value="inappropriateContent">
+                    Inappropriate Content
+                  </option>
+                  <option value="copyrightViolation">
+                    Copyright Violation
+                  </option>
+                  <option value="impersonation">Impersonation</option>
+                </select>
+                <div className="flex justify-between">
+                  <button
+                    onClick={() => {
+                      setactive("");
+                    }}
+                    className="px-8 outline outline-neutral-800 capitalize m-auto p-2 rounded-full hover:bg-gray-950 bg-gray-900 text-white"
+                  >
+                    cancel
+                  </button>
+                  <button
+                    onClick={() => {
+                      setactive("");
+                      toast.success("Report sucessfully");
+                    }}
+                    className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-white"
+                  >
+                    report
+                  </button>
+                </div>
+              </div>
+            </Popupitem>
+          )}
         </div>
-      )}
-      {delet && (
-        <p className="text-center text-sm capitalize text-zinc-600 ">
-          comment deleted
-        </p>
-      )}
+      </div>
+      
     </section>
   );
 }

@@ -56,7 +56,7 @@ export const Createpost = ({ toggle = () => {} }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          posttext.trim() !== "" && handelpost();
+          ((posttext.trim() !== "" ) || (postmedia && posttext.trim() === ""))&& handelpost();
         }}
         className="flex flex-col text-xl space-y-4"
       >
@@ -71,6 +71,7 @@ export const Createpost = ({ toggle = () => {} }) => {
           />
           <textarea
             autoFocus
+            maxLength={100}
             value={posttext}
             rows={(posttext.match(/\n/g) || []).length + 1}
             onChange={(e) => {
@@ -81,6 +82,13 @@ export const Createpost = ({ toggle = () => {} }) => {
             className="px-5 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll bg-black focus:outline-none  placeholder:text-neutral-500 md:text-xl p-2 "
           />
         </div>
+        <span
+          className={`text-left text-xs py-1 ${
+            posttext.length > 100 ? "text-red-300" : "text-green-300"
+          } ${posttext.length == 0 && "hidden"}`}
+        >
+          {posttext.length}
+        </span>
         {postmedia && (
           <div className="flex">
             <img
@@ -119,7 +127,7 @@ export const Createpost = ({ toggle = () => {} }) => {
             </button>
           </div>
           <button
-            // disabled={posttext === ""}
+          type="submit"
             className="bg-blue-500 font-mono  text-white text-center p-2 capitalize  rounded-full my-10 px-12"
           >
             post

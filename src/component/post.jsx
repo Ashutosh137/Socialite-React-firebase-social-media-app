@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { auth } from "../service/Auth";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -25,12 +25,14 @@ import Time from "../service/other/time";
 import Addcomment from "./addcomment";
 
 export const Post = ({ postdata, popup = true }) => {
-  const { userdata, setuserdata, defaultprofileimage } = useUserdatacontext();
+  const { userdata, handlesave, delete_post, defaultprofileimage } =
+    useUserdatacontext();
   const [active, setactive] = useState("");
   const [post, setpost] = useState(postdata || null);
   const [hide, sethide] = useState(false);
-  const [postdelete, setpostdelete] = useState(false);
+
   const [postedby, setpostedby] = useState(null);
+
   const [loadingimg, setloadingimg] = useState(true);
   const navigate = useNavigate();
   const progress = new ProgressBar();
@@ -48,91 +50,57 @@ export const Post = ({ postdata, popup = true }) => {
   }, [post?.postedby]);
 
   useEffect(() => {
+    setpost(postdata);
+  }, [postdata]);
+
+  useEffect(() => {
     const data = async () => {
-      if (postedby) {
-        await updateprofileuserdata(postedby, postedby?.username);
-      }
+      await updateprofileuserdata(postedby, postedby?.username);
     };
     data();
   }, [postedby]);
 
   useEffect(() => {
     const data = async () => {
-      if (post !== null) {
+      if (post) {
         await updatepost(post, postedby?.uid);
       }
     };
     data();
-  }, [post, postedby?.uid]);
+  }, [post]);
 
-  const deletepost = async () => {
-    progress.start();
-    if (userdata?.username === postedby?.username) {
-      const newposts = await postedby?.post.filter(
-        (item) => item.postid !== post?.postid
-      );
-      setpostedby((prev) => ({ ...prev, post: newposts }));
+  const handleLike = useCallback(async () => {
+    if (!auth?.currentUser) {
+      toast.error("Login required");
+      return;
     }
-    progress.finish();
-    setpostdelete(true);
-  };
 
-  const handal_like = async () => {
-    auth?.currentUser && !post?.likes.includes(userdata?.uid)
-      ? setpost((prev) => ({
-          ...prev,
-          likes: [...prev.likes, userdata?.uid],
-        }))
-      : setpost((prev) => ({
-          ...prev,
-          likes: prev.likes.filter((e) => e !== userdata?.uid),
-        }));
+    if (post?.likes.includes(userdata?.uid)) {
+      setpost((prev) => ({
+        ...prev,
+        likes: prev.likes.filter((e) => e !== userdata?.uid),
+      }));
+    } else {
+      setpost((prev) => ({
+        ...prev,
+        likes: [...prev.likes, userdata?.uid],
+      }));
+    }
 
-    !auth?.currentUser && toast.error("Login required");
-
-    !post?.likes.includes(userdata?.uid) &&
-      postedby?.username !== userdata?.username &&
-      (await Create_notification(post?.postedby, {
+    if (
+      !post?.likes.includes(userdata?.uid) &&
+      postedby?.username !== userdata?.username
+    ) {
+      await Create_notification(post?.postedby, {
         likeby: userdata?.uid,
         type: "postlike",
         postid: post?.postid,
-      }));
-  };
+      });
+    }
+  }, [auth, post, userdata, postedby]);
 
   function handelactive(act) {
     active === act ? setactive("") : setactive(act);
-  }
-  function handelsave() {
-    if (!auth?.currentUser) {
-      toast.error("Login required");
-    } else {
-      const updatedSaved = userdata?.saved.filter(
-        (savedpost) => post?.postid !== savedpost?.postid
-      );
-      if (
-        userdata?.saved.some((savedpost) => post?.postid === savedpost?.postid)
-      ) {
-        setuserdata((prev) => ({
-          ...prev,
-          saved: updatedSaved,
-        }));
-        toast.success("Removed from your Bookmark");
-      } else {
-        setuserdata((prev) => ({
-          ...prev,
-          saved: [
-            ...prev?.saved,
-            {
-              postedby: post?.postedby,
-              postid: post?.postid,
-            },
-          ],
-        }));
-        toast.success("Added to your Bookmark");
-      }
-
-      setactive("");
-    }
   }
 
   if (postedby?.block?.includes(userdata?.uid)) {
@@ -140,7 +108,7 @@ export const Post = ({ postdata, popup = true }) => {
   }
   return (
     <section className="md:my-4 post my-2 p-1 text-lg flex flex-col">
-      {!hide && !postdelete && (
+      {!hide && (
         <div className="flex w-full align-middle space-x-3 ">
           <img
             className="rounded-full border border-neutral-500 w-8 aspect-square sm:w-10 h-8 sm:h-10"
@@ -193,7 +161,7 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
               {active === "menu" && (
-                <div className="absolute top-12 z-40 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
+                <div className="absolute top-12 z-50 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
                   <button
                     className="w-40 p-1 rounded-full hover:bg-gray-950 capitalize"
                     onClick={() => {
@@ -217,7 +185,9 @@ export const Post = ({ postdata, popup = true }) => {
 
                   <button
                     className="w-40 capitalize p-1 rounded-full hover:bg-gray-950 text-white"
-                    onClick={handelsave}
+                    onClick={() => {
+                      handlesave(post);
+                    }}
                   >
                     <i className="flex justify-center space-x-3">
                       <label>
@@ -268,13 +238,13 @@ export const Post = ({ postdata, popup = true }) => {
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}/${post?.postid}`);
                 }}
-                className="text-sm whitespace-pre-wrap my-2 w-full sm:p-2 "
+                className="text-sm w-full my-2 "
               >
                 {post?.content}
               </pre>
             )}
 
-            <div className="w-full">
+            <div className="w-full my-5">
               {loadingimg && post?.img && (
                 <Skeleton
                   animation="wave"
@@ -286,7 +256,7 @@ export const Post = ({ postdata, popup = true }) => {
               )}
               {post?.img && (
                 <img
-                  onDoubleClick={handal_like}
+                  onDoubleClick={handleLike}
                   onLoadCapture={() => {
                     setloadingimg(false);
                   }}
@@ -329,7 +299,7 @@ export const Post = ({ postdata, popup = true }) => {
                   )}
                   <i
                     onClick={() => {
-                      handal_like();
+                      handleLike();
                     }}
                     className="hover:text-red-900 drop-shadow"
                   >
@@ -354,7 +324,12 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
 
-              <i onClick={handelsave} className="hover:text-[#27cbf0]">
+              <i
+                onClick={() => {
+                  handlesave(post);
+                }}
+                className="hover:text-[#27cbf0]"
+              >
                 {userdata?.saved?.some(
                   (savedpost) => post?.postid === savedpost?.postid
                 ) ? (
@@ -436,7 +411,7 @@ export const Post = ({ postdata, popup = true }) => {
               </button>
               <button
                 onClick={() => {
-                  deletepost();
+                  delete_post(post.postid);
                   setactive("");
                 }}
                 className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-white"
@@ -507,11 +482,6 @@ export const Post = ({ postdata, popup = true }) => {
             </Popupitem>
           )}
         </>
-      )}
-      {postdelete && (
-        <p className="text-center text-xl capitalize text-zinc-600 ">
-          post deleted
-        </p>
       )}
     </section>
   );

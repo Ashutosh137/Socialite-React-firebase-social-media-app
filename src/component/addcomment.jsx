@@ -22,14 +22,11 @@ export default function Addcomment({ cuupost, cuusetpost }) {
   const [commenttext, setcommenttext] = useState("");
 
   useEffect(() => {
-    const data = () => {
-      cuusetpost(post);
-    };
-    data();
+    cuusetpost(post);
     return () => {
       progress.finish();
     };
-  }, [post, cuupost]);
+  }, [post]);
 
   const handelcomment = async () => {
     progress.start();
@@ -50,11 +47,12 @@ export default function Addcomment({ cuupost, cuusetpost }) {
           },
         ],
       }));
-      await Create_notification(post?.postedby, {
-        likeby: userdata?.uid,
-        type: "addcomment",
-        postid: post?.postid,
-      });
+      userdata?.uid !== post.postedby &&
+        (await Create_notification(post?.postedby, {
+          likeby: userdata?.uid,
+          type: "addcomment",
+          postid: post?.postid,
+        }));
     } else {
       const newreply = {
         content: commenttext,
@@ -76,19 +74,17 @@ export default function Addcomment({ cuupost, cuusetpost }) {
           };
         }
       });
+      console.log(newcomment)
       setpost((prev) => ({ ...prev, comments: newcomment }));
-      setactive("comment");
+      userdata?.uid !== post.postedby &&
+        (await Create_notification(comment?.postedby, {
+          likeby: userdata?.uid,
+          type: "addreply",
+          postid: post?.postid,
+        }));
     }
-
     setcommentfile(null);
     setcommenttext("");
-
-    await Create_notification(comment?.postedby, {
-      likeby: userdata?.uid,
-      type: "addreply",
-      postid: post?.postid,
-    });
-
     progress.finish();
   };
   return (

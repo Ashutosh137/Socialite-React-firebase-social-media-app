@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import CottageIcon from "@mui/icons-material/Cottage";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -37,7 +37,7 @@ const Navbar = () => {
   }, [prevScrollPos]);
 
   return (
-    <>
+    <Fragment>
       <header className="p-2 hidden md:block w-40 xl:w-96">
         <nav className="fixed flex flex-col h-screen  md:p-1 ">
           <h1 className="text-3xl title py-5 text-center xl:text-left first-letter:text-5xl font-bold ">
@@ -154,7 +154,7 @@ const Navbar = () => {
 
       {/* mobile  */}
 
-      <div>
+      <Fragment>
         <nav
           className={`md:hidden z-40 post fixed top-0 left-0 transition-opacity  duration-100  bg-black w-full ${
             navbar ? "" : "hidden"
@@ -190,7 +190,7 @@ const Navbar = () => {
         </nav>
 
         <div
-          className={`md:hidden z-50 post left-0 fixed bottom-0 w-full ${
+          className={`md:hidden z-40 post left-0 fixed bottom-0 w-full ${
             navbar ? "" : "hidden"
           }`}
         >
@@ -239,8 +239,8 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-      </div>
-    </>
+      </Fragment>
+    </Fragment>
   );
 };
 export default Navbar;

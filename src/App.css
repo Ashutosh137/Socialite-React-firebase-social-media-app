@@ -44,6 +44,13 @@ textarea {
   font-family: "Dancing Script", cursive;
 }
 
+@media screen and (maxwidth:650px) {
+  .overflow{
+    max-width: 100px;
+  }
+  
+}
+
 @keyframes drop {
   0% {
     border: 20px solid red;

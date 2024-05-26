@@ -30,7 +30,7 @@ export const Home = () => {
     };
 
     fetchData();
-  }, []);
+  }, [20000]);
 
   useEffect(() => {
     if (active === "follow" && userdata?.following) {
@@ -85,7 +85,7 @@ export const Home = () => {
         <Createpost />
         <hr className="border-gray-700 w-full" />
         <div className="sm:mx-3 mx-2">
-          {((post?.length === 0 && active !== "follow") || loading) && (
+          {loading && (
             <div className="flex items-center w-full h-96 justify-center">
               <div
                 className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
@@ -97,7 +97,7 @@ export const Home = () => {
               </div>
             </div>
           )}
-          {post?.length === 0 && active === "follow" && (
+          {post?.length === 0 && !loading && (
             <div className="flex capitalize items-center w-full h-80 justify-center">
               no posts yet
             </div>
