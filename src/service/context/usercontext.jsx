@@ -7,7 +7,12 @@ import {
 } from "react";
 import { auth } from "../Auth";
 import { useNavigate } from "react-router-dom";
-import { get_userdata, updateuserdata } from "../Auth/database";
+import {
+  Get_notification,
+  get_userdata,
+  getallprofile,
+  updateuserdata,
+} from "../Auth/database";
 import image from "/src/assets/defaultprofileimage.png";
 import { toast } from "react-toastify";
 
@@ -16,6 +21,8 @@ export const UserDataContext = createContext();
 export const UserDataProvider = ({ children, value, setvalue }) => {
   const [postpopup, setpostpopup] = useState(false);
   const [userdata, setuserdata] = useState(value);
+  const [userNotifications, setuserNotifications] = useState([]);
+  const [GetAllusers, setGetAllusers] = useState([]);
   const [defaultprofileimage, setdefaultprofileimage] = useState(image);
 
   const delete_post = (postid) => {
@@ -29,6 +36,14 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
       toast.success("Post Deleted");
     }
   };
+
+  useEffect(() => {
+    const dataforallusers = async () => {
+      const alluser = await getallprofile();
+      setGetAllusers(alluser);
+    };
+    dataforallusers();
+  }, []);
   const handlesave = useCallback(
     (post) => {
       if (!auth?.currentUser) {
@@ -85,6 +100,7 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
   useEffect(() => {
     const data = async () => {
       userdata && (await updateuserdata(userdata));
+      userdata && setuserNotifications(await Get_notification(userdata?.uid));
     };
     data();
   }, [userdata]);
@@ -99,6 +115,9 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
         defaultprofileimage,
         userdata,
         handlesave,
+        GetAllusers,
+        userNotifications,
+        setuserNotifications,
         delete_post,
         setuserdata,
         togglepost,

@@ -134,6 +134,11 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                 />
               )}
             </label>
+            {commentby?.uid === post?.postedby && (
+              <label className="text-gray-500 mx-4 text-xs my-auto sm:text-sm ">
+                author
+              </label>
+            )}
             <label
               className="ml-auto mx-2"
               onClick={(e) => {
@@ -215,7 +220,9 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                   )}
                 </i>
                 <div className="flex">
-                  <label className=" text-sm my-auto">{comment?.reply?.length}</label>
+                  <label className=" text-sm my-auto">
+                    {comment?.reply?.length}
+                  </label>
                   <i
                     onClick={() => {
                       setactivation({

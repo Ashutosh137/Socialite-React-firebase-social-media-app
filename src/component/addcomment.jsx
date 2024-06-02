@@ -173,7 +173,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
       <h2 className="sm:text-xl text-base sm:my-3 text-center p-2 capitalize text-gray-200">
         {post?.comments?.length > 0
           ? "comments"
-          : "Don't be shy! , Your opinion is valuable , share it with us in the comments."}
+          : "No Comments Yet "}
       </h2>
       <div className="flex space-y-5 flex-col my-5 ">
         {post?.comments?.map((comm, index) => {

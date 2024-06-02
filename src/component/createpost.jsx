@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../service/Auth";
 import LinkIcon from "@mui/icons-material/Link";
 import { Getimagedownloadlink } from "../service/Auth/database";
@@ -31,9 +31,9 @@ export const Createpost = ({ toggle = () => {} }) => {
           content: posttext,
           likes: [],
           comments: [],
-          shares: 0,
           postedby: auth?.currentUser?.uid,
           postedat: new Date(),
+          views:0,
           postid: id,
           img: url,
         },

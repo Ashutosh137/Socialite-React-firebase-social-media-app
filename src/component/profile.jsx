@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import { Post } from "./post";
@@ -278,7 +278,11 @@ export const Profile = ({ username }) => {
               {profileuserdata?.following?.length} following
             </label>
           </div>
-
+          {userdata?.block?.includes(profileuserdata?.uid) && (
+            <label className="text-sm my-4  font-serif text-red-400">
+              you blocked this account
+            </label>
+          )}
           {mutual?.length > 0 &&
             userdata?.username !== profileuserdata?.username && (
               <div
@@ -288,10 +292,11 @@ export const Profile = ({ username }) => {
                 className="text-neutral-400 cursor-pointer text-xs sm:text-sm text-left "
               >
                 {mutual?.length} mutual friends also follow{" "}
-                {profileuserdata?.name}
+                <b>{profileuserdata?.name}</b>
               </div>
             )}
         </div>
+
         {profileuserdata?.username === userdata?.username ? (
           <div
             className={`${
@@ -334,7 +339,7 @@ export const Profile = ({ username }) => {
         )}
       </div>
 
-      <hr className="my-5 border-gray-400" />
+      <hr className="my-1 border-gray-400" />
 
       {profileuserdata?.uid === userdata?.uid ? (
         <>
@@ -356,22 +361,17 @@ export const Profile = ({ username }) => {
               </button>
             </div>
           ) : (
-            <>
+            <Fragment>
               {profileuserdata?.post?.map((item, index) => {
-                return (
-                  <div key={index} className="">
-                    <Post index={index} postdata={item} popup={true} />
-                    <hr className="border-gray-700" />
-                  </div>
-                );
+                return <Post key={index} postdata={item} popup={true} />;
               })}
-            </>
+            </Fragment>
           )}{" "}
         </>
       ) : (
-        <>
+        <Fragment>
           {profileuserdata?.privacy ? (
-            <>
+            <Fragment>
               {profileuserdata?.follower.includes(userdata?.uid) ? (
                 <>
                   {profileuserdata?.post?.length === 0 ? (
@@ -384,16 +384,15 @@ export const Profile = ({ username }) => {
                       </h1>
                     </div>
                   ) : (
-                    <>
+                    <Fragment>
                       {profileuserdata?.post?.map((item, index) => {
                         return (
                           <div key={index} className="">
                             <Post index={index} postdata={item} popup={true} />
-                            <hr className="border-gray-700" />
                           </div>
                         );
                       })}
-                    </>
+                    </Fragment>
                   )}
                 </>
               ) : (
@@ -405,10 +404,10 @@ export const Profile = ({ username }) => {
                     this profile is private
                   </h1>
                 </div>
-              )}{" "}
-            </>
+              )}
+            </Fragment>
           ) : (
-            <>
+            <Fragment>
               {profileuserdata?.post?.length === 0 ? (
                 <div className="w-full my-12 flex flex-col justify-center">
                   <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
@@ -419,20 +418,19 @@ export const Profile = ({ username }) => {
                   </h1>
                 </div>
               ) : (
-                <>
+                <Fragment>
                   {profileuserdata?.post?.map((item, index) => {
                     return (
                       <div key={index} className="">
                         <Post index={index} postdata={item} popup={true} />
-                        <hr className="border-gray-700" />
                       </div>
                     );
                   })}
-                </>
+                </Fragment>
               )}
-            </>
+            </Fragment>
           )}
-        </>
+        </Fragment>
       )}
 
       {!profileuserdata && !loading && (

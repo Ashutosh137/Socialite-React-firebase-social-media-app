@@ -34,7 +34,7 @@ export const Create_Account = async ({
       restricted: false,
       privacy: false,
       profileImageURL: profileimg,
-      notification: [],
+      notification: 0,
       createdAt: new Date(),
       follower: [],
       following: [],
@@ -134,8 +134,7 @@ export const getpostdatabyuid = async (uid, postid) => {
       }
     });
     return res[0];
-  } catch (err) {
-  }
+  } catch (err) {}
 };
 
 export const updateuserdata = async (userdata) => {
@@ -150,7 +149,7 @@ export const updateuserdata = async (userdata) => {
     await updateDoc(doc(firestore, `user/${docid}`), userdata);
   } catch (err) {
     console.error(err);
-    console.log("error in update userdata")
+    console.log("error in update userdata");
   }
 };
 export const updateprofileuserdata = async (userdata, username) => {
@@ -218,7 +217,10 @@ export const Getimagedownloadlink = async (image) => {
     }
     const imageUrl = await new Promise((resolve, reject) => {
       try {
-        const storageRef = ref(storage, `${auth.currentUser.uid}/${image.name}`);
+        const storageRef = ref(
+          storage,
+          `${auth.currentUser.uid}/${image.name}`
+        );
         const uploadTask = uploadBytesResumable(storageRef, image);
         uploadTask.on(
           "state_changed",

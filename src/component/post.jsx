@@ -7,6 +7,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import BarChartIcon from "@mui/icons-material/BarChart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Skeleton } from "@mui/material";
 import { Popupitem } from "../ui/popup";
@@ -21,7 +22,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ProgressBar from "@badrap/bar-of-progress";
-import Time from "../service/other/time";
+import Time, { formatNumber } from "../service/other/time";
 import Addcomment from "./addcomment";
 
 export const Post = ({ postdata, popup = true }) => {
@@ -48,10 +49,6 @@ export const Post = ({ postdata, popup = true }) => {
       progress.finish();
     };
   }, [post?.postedby]);
-
-  useEffect(() => {
-    setpost(postdata);
-  }, [postdata]);
 
   useEffect(() => {
     const data = async () => {
@@ -103,11 +100,16 @@ export const Post = ({ postdata, popup = true }) => {
     active === act ? setactive("") : setactive(act);
   }
 
+  useEffect(() => {
+    setpost((prev) => ({ ...prev, views: prev.views + 1 }));
+  }, []);
+
   if (postedby?.block?.includes(userdata?.uid)) {
     return <></>;
   }
+
   return (
-    <section className="md:my-4 post my-2 p-1 text-lg flex flex-col">
+    <section className="md:my-4 border-b-2 border-gray-700 w-full  post my-2 pb-3 p-1 text-lg flex flex-col">
       {!hide && (
         <div className="flex w-full align-middle space-x-3 ">
           <img
@@ -244,32 +246,30 @@ export const Post = ({ postdata, popup = true }) => {
               </pre>
             )}
 
-            <div className="w-full my-5">
-              {loadingimg && post?.img && (
-                <Skeleton
-                  animation="wave"
-                  sx={{ bgcolor: "grey.900" }}
-                  variant="rectangular"
-                  width={window.innerWidth >= 500 ? 500 : 300}
-                  height={window.innerWidth >= 500 ? 550 : 350}
-                />
-              )}
-              {post?.img && (
-                <img
-                  onDoubleClick={handleLike}
-                  onLoadCapture={() => {
-                    setloadingimg(false);
-                  }}
-                  src={post?.img}
-                  onClick={() => {
-                    navigate(`/profile/${postedby?.username}/${post?.postid}`);
-                  }}
-                  className={`${
-                    loadingimg ? "hidden" : "block"
-                  } w-full h-full h-postimg  border-neutral-500 border rounded-xl sm:rounded-2xl`}
-                />
-              )}
-            </div>
+            {loadingimg && post?.img && (
+              <Skeleton
+                animation="wave"
+                sx={{ bgcolor: "grey.900" }}
+                variant="rectangular"
+                width={window.innerWidth >= 500 ? 500 : 300}
+                height={window.innerWidth >= 500 ? 550 : 350}
+              />
+            )}
+            {post?.img && (
+              <img
+                onDoubleClick={handleLike}
+                onLoadCapture={() => {
+                  setloadingimg(false);
+                }}
+                src={post?.img}
+                onClick={() => {
+                  navigate(`/profile/${postedby?.username}/${post?.postid}`);
+                }}
+                className={`${
+                  loadingimg ? "hidden" : "block"
+                } w-full h-full h-postimg my-5 border-neutral-500 border rounded-xl sm:rounded-2xl`}
+              />
+            )}
 
             <div className="flex text-lg mt-5 text-gray-400 space-x-3 m-2 justify-between px-2 sm:px-5">
               <div className="flex align-middle w-full text-sm sm:text-base justify-between space-x-2">
@@ -284,6 +284,14 @@ export const Post = ({ postdata, popup = true }) => {
                   </label>
                   <i className="">
                     <InsertCommentIcon />
+                  </i>
+                </div>
+                <div className="flex text-gray-500 align-middle space-x-1">
+                  <label className="my-auto text-sm">
+                    {formatNumber(post?.views)}
+                  </label>
+                  <i className="hover:text-blue-900 drop-shadow">
+                    <BarChartIcon />
                   </i>
                 </div>
                 <div className="flex text-gray-500 align-middle space-x-1   ">

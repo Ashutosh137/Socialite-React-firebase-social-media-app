@@ -80,7 +80,6 @@ export default function Reply({ reply, setcommentpost }) {
   }
   return (
     <section className="post border border-gray-600 p-4 rounded-xl ml-auto text-xs sm:text-sm  ">
-      
       <div className="capitalize flex w-full  sm:space-x-2 ">
         <img
           className="rounded-full mx-2 bg-gray-400 outline outline-neutral-800 w-5 sm:w-7 h-5 sm:h-7"
@@ -203,7 +202,7 @@ export default function Reply({ reply, setcommentpost }) {
               </div>
             </div>
           </div>
-        
+
           {active === "report" && (
             <Popupitem
               closefunction={() => {
@@ -253,7 +252,6 @@ export default function Reply({ reply, setcommentpost }) {
           )}
         </div>
       </div>
-      
     </section>
   );
 }

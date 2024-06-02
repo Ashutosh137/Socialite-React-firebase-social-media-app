@@ -16,7 +16,8 @@ import { Popupitem } from "../ui/popup";
 import { Createpost } from "./createpost";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { userdata, defaultprofileimage } = useUserdatacontext();
+  const { userdata, defaultprofileimage, userNotifications } =
+    useUserdatacontext();
   const [post, setpost] = useState(false);
   const [navbar, setnavbar] = useState(true);
 
@@ -57,23 +58,18 @@ const Navbar = () => {
               </span>
             </Link>
             <Link to={`${userdata?.username ? `/notification` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
+              <span className="flex relative  hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <NotificationsIcon />
+                {userNotifications?.length > userdata?.notification && (
+                  <div className="my-3">
+                    <span className="absolute rounded-full py-1  text-xs font-medium content-[''] leading-none grid place-items-center top-[2%] right-[30%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white min-w-[24px] min-h-[24px]">
+                      {userNotifications?.length - userdata?.notification}
+                    </span>
+                  </div>
+                )}
                 <label className="xl:block hidden mx-2">Notifications</label>
               </span>
             </Link>
-            {/* <Link to={`${userdata?.username ? `/home` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-2 px-5 m-auto rounded-full justify-center xl:justify-start">
-                <MessageIcon />
-                <label className="xl:block hidden mx-2">Message</label>
-              </span>
-            </Link> */}
-            {/* <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
-              <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
-                <PeopleIcon />
-                <label className="xl:block hidden mx-2">community</label>
-              </span>
-            </Link> */}
             <Link to={`${userdata?.username ? `/lists` : "/login"}`}>
               <span className="flex hover:bg-gray-700  p-3 px-5 m-auto rounded-full justify-center xl:justify-start">
                 <BookmarksIcon />
