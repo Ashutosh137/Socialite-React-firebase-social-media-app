@@ -134,7 +134,9 @@ export const getpostdatabyuid = async (uid, postid) => {
       }
     });
     return res[0];
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const updateuserdata = async (userdata) => {
@@ -181,7 +183,7 @@ export const getallpost = async () => {
 };
 export const getallprofile = async () => {
   try {
-    const q = await query(user);
+    const q = await query(user, where("privacy", "==", false));
     const doc_refs = await getDocs(q);
     const res = [];
     doc_refs.forEach((country) => {

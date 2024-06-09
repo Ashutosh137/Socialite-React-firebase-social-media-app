@@ -17,7 +17,7 @@ import Search from "./page/search";
 import Notfound from "./page/not-found";
 
 function App() {
-  const [userdata,setuserdata] = useState(null);
+  const [userdata, setuserdata] = useState(null);
   return (
     <UserDataProvider value={userdata} setvalue={setuserdata}>
       <div className=" xl:mx-16 mt-20 md:mt-5">
