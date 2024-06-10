@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { toast } from "react-toastify";
 
 const user = collection(firestore, "user");
 
@@ -224,9 +225,11 @@ export const Getimagedownloadlink = async (image) => {
           `${auth.currentUser.uid}/${image.name}`
         );
         const uploadTask = uploadBytesResumable(storageRef, image);
+        toast.info("image is being uploading")
         uploadTask.on(
           "state_changed",
-          () => {},
+          () => {
+          },
           (error) => {
             console.error("Error during upload:", error);
             reject(error);

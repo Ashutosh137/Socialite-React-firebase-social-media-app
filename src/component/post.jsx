@@ -286,14 +286,6 @@ export const Post = ({ postdata, popup = true }) => {
                     <InsertCommentIcon />
                   </i>
                 </div>
-                <div className="flex text-gray-500 align-middle space-x-1">
-                  <label className="my-auto text-sm">
-                    {formatNumber(post?.views)}
-                  </label>
-                  <i className="hover:text-blue-900 drop-shadow">
-                    <BarChartIcon />
-                  </i>
-                </div>
                 <div className="flex text-gray-500 align-middle space-x-1   ">
                   {post?.likes?.length > 0 && (
                     <label
@@ -316,6 +308,14 @@ export const Post = ({ postdata, popup = true }) => {
                     ) : (
                       <FavoriteBorderIcon />
                     )}
+                  </i>
+                </div>
+                <div className="flex text-gray-500 align-middle space-x-1">
+                  <label className="my-auto text-sm">
+                    {formatNumber(post?.views)}
+                  </label>
+                  <i className="hover:text-blue-900 drop-shadow">
+                    <BarChartIcon />
                   </i>
                 </div>
                 <i

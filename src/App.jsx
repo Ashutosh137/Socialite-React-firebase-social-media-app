@@ -20,7 +20,7 @@ function App() {
   const [userdata, setuserdata] = useState(null);
   return (
     <UserDataProvider value={userdata} setvalue={setuserdata}>
-      <div className=" xl:mx-16 mt-20 md:mt-5">
+      <div className=" xl:mx-16 mt-10 md:mt-5">
         <ToastContainer
           position="top-center"
           autoClose={400}
