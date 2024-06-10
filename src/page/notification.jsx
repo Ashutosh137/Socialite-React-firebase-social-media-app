@@ -24,7 +24,7 @@ export default function Notification() {
   }, []);
 
   return (
-    <div className="flex w-full">
+    <div className="flex pt-10 sm:pt-0 w-full">
       <Navbar />
       <Helmet>
         <title>Notification | socilaite</title>
@@ -46,9 +46,7 @@ export default function Notification() {
           >
             <ArrowBack />
           </i>
-          <h1 className="text-xl my-auto py-2">
-            Notification{userNotifications}
-          </h1>
+          <h1 className="text-xl my-auto py-2">Notification</h1>
         </div>
         {userNotifications?.map((notification, index) => {
           return <Notify notification={notification} key={index} />;

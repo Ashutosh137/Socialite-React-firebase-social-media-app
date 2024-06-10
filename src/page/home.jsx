@@ -84,7 +84,7 @@ export const Home = () => {
         </div>
         <Createpost />
         <hr className="border-gray-700 w-full" />
-        <div className="sm:mx-3 mx-2">
+        <div className="sm:mx-3 mx-2  snap-y snap-mandatory">
           {loading && (
             <div className="flex items-center w-full h-96 justify-center">
               <div

@@ -19,7 +19,7 @@ export default function Setting() {
   const [report, setreport] = useState("");
   const navigate = useNavigate();
   return (
-    <div className="flex w-full justify-around  scroll-hidden my-5 ">
+    <div className="flex  pt-10 sm:pt-0 w-full justify-around  scroll-hidden my-5 ">
       <Navbar />
       <Helmet>
         <title>setting | socilaite</title>

@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "../component/login";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import { signinwithemail } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,7 +10,7 @@ export const Loginpage = () => {
     const data = await signinwithemail(email, pass);
     data && toast.success("login successfully ");
     data && navigate("/home");
-    !data && toast.error("user doesnot exist , or failed to login");
+    !data && toast.error("Email adrress and password may be incorrect");
   };
   return (
     <div className="w-full post sm:mt-5 flex p-2 capitalize">
@@ -23,7 +23,6 @@ export const Loginpage = () => {
         <meta name="keywords" content="login" />
         <meta name="author" content="login" />
         <meta name="language" content="EN" />
-
       </Helmet>
 
       <div className=" m-auto outline xl:block hidden outline-gray-900">

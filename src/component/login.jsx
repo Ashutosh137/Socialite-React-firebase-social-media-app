@@ -95,7 +95,7 @@ const Login = ({ onenter, role }) => {
               const data = await forget_password(email);
               console.log(data);
               if (!data) toast.error("Email not found");
-              else toast.success("Email sent , please check your mail box");
+              else toast.success("Email sent , please check your email box");
             }
           }}
           className="mr-auto"

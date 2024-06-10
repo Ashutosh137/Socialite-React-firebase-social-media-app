@@ -7,7 +7,7 @@ import Suggestion from "../component/suggestion";
 export const Profilepage = () => {
   const { username } = useParams();
   return (
-    <div className="flex w-full">
+    <div className="flex  pt-10 sm:pt-0 w-full">
       <Navbar />
       <Helmet>
         <title>Profile | {username} | socilaite</title>

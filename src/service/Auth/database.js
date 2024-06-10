@@ -152,7 +152,6 @@ export const updateuserdata = async (userdata) => {
     await updateDoc(doc(firestore, `user/${docid}`), userdata);
   } catch (err) {
     console.error(err);
-    console.log("error in update userdata");
   }
 };
 export const updateprofileuserdata = async (userdata, username) => {
@@ -225,11 +224,10 @@ export const Getimagedownloadlink = async (image) => {
           `${auth.currentUser.uid}/${image.name}`
         );
         const uploadTask = uploadBytesResumable(storageRef, image);
-        toast.info("image is being uploading")
+        toast.info("image is being uploading");
         uploadTask.on(
           "state_changed",
-          () => {
-          },
+          () => {},
           (error) => {
             console.error("Error during upload:", error);
             reject(error);
@@ -268,7 +266,6 @@ export const updatepost = async (post, postedby) => {
       postdata.map(async (currentpost, index) => {
         if (post.postid === currentpost.postid) {
           postdata[index] = post;
-          console.log("post updated successfully", post);
           await updateDoc(doc(firestore, `user/${docid}`), {
             post: postdata,
           });

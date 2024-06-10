@@ -11,7 +11,7 @@ export const List = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="post flex w-full ">
+    <div className="post  pt-10 sm:pt-0 flex w-full ">
       <Navbar />
       <Helmet>
         <title>Bookmark | socilaite</title>

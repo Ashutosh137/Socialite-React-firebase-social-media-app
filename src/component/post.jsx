@@ -109,7 +109,7 @@ export const Post = ({ postdata, popup = true }) => {
   }
 
   return (
-    <section className="md:my-4 border-b-2 border-gray-700 w-full  post my-2 pb-3 p-1 text-lg flex flex-col">
+    <section className="md:my-4 snap-center border-b-2 border-gray-700 w-full  post my-2 pb-3 p-1 text-lg flex flex-col">
       {!hide && (
         <div className="flex w-full align-middle space-x-3 ">
           <img
