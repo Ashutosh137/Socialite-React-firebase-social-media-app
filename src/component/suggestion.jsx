@@ -1,6 +1,7 @@
-import Profileviewbox from "./profileviewbox";
-import Search from "./search";
+import Profileviewbox from "../layout/profile/profileviewbox";
+import Search from "../layout/explore/search";
 import { useUserdatacontext } from "../service/context/usercontext";
+import Loading from "../layout/loading";
 export default function Suggestion({ bio = false }) {
   const { userdata ,GetAllusers} = useUserdatacontext();
 
@@ -21,16 +22,7 @@ export default function Suggestion({ bio = false }) {
 
           <div className="flex justify-center w-96 m-auto space-y-3 flex-col">
             {GetAllusers.length === 0 && (
-              <div className="flex items-center w-full h-96 justify-center">
-                <div
-                  className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
-                  role="status"
-                >
-                  <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                    Loading...
-                  </span>
-                </div>
-              </div>
+             <Loading/>
             )}
             {GetAllusers.map((proflie, index) => {
               return (

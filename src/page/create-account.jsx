@@ -89,7 +89,7 @@ const CreateAccount = () => {
         create an account with us
       </h1>
       <form
-        className="flex flex-col  "
+        className="flex flex-col space-y-6  "
         onSubmit={(e) => {
           e.preventDefault();
           !IsUsernameExist && checkdata();
@@ -98,7 +98,7 @@ const CreateAccount = () => {
         <Input
           type="text"
           name="username"
-          className={"max-w-80 sm:max-w-md"}
+          className={"max-w-80 my-2 sm:max-w-md"}
           placeholder="enter your unique uername ..."
           maxLength={20}
           value={formdata.username}
@@ -120,7 +120,7 @@ const CreateAccount = () => {
           min={4}
           max={10}
           type="text"
-          className={"max-w-80 sm:max-w-md"}
+          className={"max-w-80 my-2 sm:max-w-md"}
           name="name"
           placeholder="full name..."
           value={formdata.name}
@@ -132,7 +132,7 @@ const CreateAccount = () => {
           type="date"
           name="age"
           value={formdata.age}
-          className={"max-w-80 sm:max-w-md"}
+          className={"max-w-80 my-2 sm:max-w-md"}
           onChange={handelchange}
           required
         />
@@ -141,7 +141,7 @@ const CreateAccount = () => {
           type="text"
           min={4}
           max={50}
-          className={"max-w-80 sm:max-w-md"}
+          className={"max-w-80 my-2 sm:max-w-md"}
           name="bio"
           placeholder="write about your exprience , your favirate topics and many more about you "
           value={formdata.bio}

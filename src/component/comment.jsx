@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUserdatacontext } from "../service/context/usercontext";
 import { Create_notification, get_userdata } from "../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Time from "../service/other/time";
+import Time from "../service/utiles/time";
 import { Skeleton } from "@mui/material";
 import { auth } from "../service/Auth";
 import ReplyIcon from "@mui/icons-material/Reply";

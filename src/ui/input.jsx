@@ -34,6 +34,7 @@ function TextInput({ name, placeholder, className, ...props }) {
           className
         )}
         id={name}
+        name={name}
         {...props}
       />
     </div>

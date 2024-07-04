@@ -143,7 +143,8 @@ export const getpostdatabyuid = async (uid, postid) => {
 
 export const updateuserdata = async (userdata) => {
   try {
-    const q = await query(user, where("uid", "==", auth.currentUser.uid));
+    console.log(userdata)
+    const q = await query(user, where("uid", "==", userdata.uid));
     const doc_refs = await getDocs(q);
     var docid;
     doc_refs.forEach((country) => {

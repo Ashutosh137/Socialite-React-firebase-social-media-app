@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useUserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../../service/context/usercontext";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import Profileviewbox from "./profileviewbox";
+import Profileviewbox from "../profile/profileviewbox";
 
 export default function Block() {
   const { userdata, setuserdata } = useUserdatacontext();

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, forget_password, signInWithGoogle } from "../service/Auth";
+import { auth, forget_password, signInWithGoogle } from "../../service/Auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Input } from "../ui/input";
-import Button from "../ui/button";
+import { Input } from "../../ui/input";
+import Button from "../../ui/button";
 import PropTypes from "prop-types";
 
 const Login = ({ onenter, role }) => {
@@ -66,24 +66,26 @@ const Login = ({ onenter, role }) => {
         <Input
           type="email"
           placeholder="Email"
-          name={"Email"}
           value={email}
           onChange={(e) => setemail(e.target.value)}
           required
+          className={"my-2 outline"}
         />
         <Input
           type="password"
-          name="password"
           placeholder="password"
           value={pass}
           onChange={(e) => setpass(e.target.value)}
           required
+          className={"my-1 outline"}
         />
-        <p className="text-xs sm:text-sm my-3 font-serif">
-          By signing up, you agree to the <b>Terms of Service</b> and 
+        <p className="text-xs sm:text-sm py-3 ">
+          By signing up, you agree to the <b>Terms of Service</b> and
           <b> Privacy Policy</b>, including Cookie Use.
         </p>
-        <Button className={"m-auto p-20 py-1 my-3"} type="submit">{role}</Button>
+        <Button className={"w-40 rounded-xl"} type="submit">
+          {role}
+        </Button>
 
         {role === "login" && (
           <button

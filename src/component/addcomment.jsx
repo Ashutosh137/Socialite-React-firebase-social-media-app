@@ -3,7 +3,7 @@ import AttachFileSharpIcon from "@mui/icons-material/AttachFileSharp";
 import CloseIcon from "@mui/icons-material/Close";
 import Comment from "./comment";
 import ProgressBar from "@badrap/bar-of-progress";
-import Createid from "../service/other/createid";
+import Createid from "../service/utiles/createid";
 import { useUserdatacontext } from "../service/context/usercontext";
 import { auth } from "../service/Auth";
 import {
@@ -11,7 +11,6 @@ import {
   Getimagedownloadlink,
 } from "../service/Auth/database";
 import { toast } from "react-toastify";
-import comment from "./comment";
 
 export default function Addcomment({ cuupost, cuusetpost }) {
   const { userdata, defaultprofileimage } = useUserdatacontext();
@@ -74,7 +73,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
           };
         }
       });
-      console.log(newcomment)
+      console.log(newcomment);
       setpost((prev) => ({ ...prev, comments: newcomment }));
       userdata?.uid !== post.postedby &&
         (await Create_notification(comment?.postedby, {
@@ -173,7 +172,7 @@ export default function Addcomment({ cuupost, cuusetpost }) {
       <h2 className="sm:text-xl text-base sm:my-3 text-center p-2 capitalize text-gray-200">
         {post?.comments?.length > 0
           ? "comments"
-          : "No Comments Yet "}
+          : "No Comments Yet , but you can "}
       </h2>
       <div className="flex space-y-5 flex-col my-5 ">
         {post?.comments?.map((comm, index) => {

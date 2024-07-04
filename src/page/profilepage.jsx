@@ -1,6 +1,6 @@
 import React from "react";
 import { Profile } from "../component/profile";
-import Navbar from "../component/navbar";
+import Navbar from "../layout/navbar/navbar";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Suggestion from "../component/suggestion";

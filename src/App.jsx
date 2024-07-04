@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Profilepage } from "./page/profilepage";
 import { List } from "./page/list";
 import Notification from "./page/notification";
-import Seepost from "./component/seepost";
+import Seepost from "./page/seepost";
 import Search from "./page/search";
 import Notfound from "./page/not-found";
 

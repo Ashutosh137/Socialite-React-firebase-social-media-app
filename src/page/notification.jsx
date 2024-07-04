@@ -1,13 +1,11 @@
 import React from "react";
-import Navbar from "../component/navbar";
+import Navbar from "../layout/navbar/navbar";
 import Suggestion from "../component/suggestion";
 import { useUserdatacontext } from "../service/context/usercontext";
-import Notify from "../component/notify";
-import { Get_notification } from "../service/Auth/database";
+import Notify from "../layout/notification/notify";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import { Helmet } from "react-helmet";
-import ProgressBar from "@badrap/bar-of-progress";
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Notification() {

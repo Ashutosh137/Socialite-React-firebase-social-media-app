@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Navbar from "../component/navbar";
+import Navbar from "../layout/navbar/navbar";
 import { getallpost } from "../service/Auth/database";
 import { Createpost } from "../component/createpost";
 import { Post } from "../component/post";
@@ -7,6 +7,7 @@ import { auth } from "../service/Auth";
 import { Helmet } from "react-helmet";
 import Suggestion from "../component/suggestion";
 import { useUserdatacontext } from "../service/context/usercontext";
+import Loading from "../layout/loading";
 
 export const Home = () => {
   const [allpostdata, setallpostdata] = useState(null);
@@ -85,18 +86,7 @@ export const Home = () => {
         <Createpost />
         <hr className="border-gray-700 w-full" />
         <div className="sm:mx-3 mx-2 snap-y snap-mandatory">
-          {loading && (
-            <div className="flex items-center w-full h-96 justify-center">
-              <div
-                className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
-                role="status"
-              >
-                <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-                  Loading...
-                </span>
-              </div>
-            </div>
-          )}
+          {loading && <Loading />}
           {post?.length === 0 && !loading && (
             <div className="flex capitalize items-center w-full h-80 justify-center">
               no posts yet

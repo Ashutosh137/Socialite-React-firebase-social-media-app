@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import Navbar from "../component/navbar";
+import Navbar from "../layout/navbar/navbar";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import Editfuserdata from "../component/editfuserdata";
+import Editfuserdata from "../layout/profile/editfuserdata";
 import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import Resetpassword from "../component/resetpassword";
 import {Helmet} from "react-helmet";
 import { toast } from "react-toastify";
-import Block from "../component/block";
-
+import Block from "../layout/setting/block";
+import Resetpassword from "../layout/setting/resetpassword";
 export default function Setting() {
   const [active, setactive] = useState(
     `${window.innerWidth < 480 ? "" : "account"}`

@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "../component/login";
+import Login from "../layout/login/login";
 import { Helmet } from "react-helmet";
 import { signinwithemail } from "../service/Auth";
 import { useNavigate } from "react-router-dom";

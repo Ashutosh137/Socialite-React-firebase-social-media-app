@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getpostdata, updatepost } from "../service/Auth/database";
-import { Post } from "./post";
-import Navbar from "./navbar";
-import Suggestion from "./suggestion";
+import { Post } from "../component/post";
+import Navbar from "../layout/navbar/navbar";
+import Suggestion from "../component/suggestion";
 import ProgressBar from "@badrap/bar-of-progress";
 import ArrowBack from "@mui/icons-material/ArrowBack";
-import Addcomment from "./addcomment";
+import Addcomment from "../component/addcomment";
+import NotFoundPost from "../layout/post/not-found";
 
 export default function Seepost() {
   const { username, postid } = useParams();
@@ -29,7 +30,7 @@ export default function Seepost() {
     return () => {
       progress.finish();
     };
-  }, [username,postid]);
+  }, [username, postid]);
 
   useEffect(() => {
     const data = async () => {
@@ -44,23 +45,7 @@ export default function Seepost() {
     <div className="flex pt-10 sm:pt-0  post w-full justify-around h-screen scroll-hidden ">
       <Navbar />
       <div className="border-gray-800 postanimiate p-2 sm:p-4 border-x-2 w-full">
-        {post === undefined && (
-          <div className="w-full capitalize text-center text-base flex flex-col h-screen ">
-            <div className="my-auto ">
-              <p>
-                Hmm...this page doesn’t exist. Try searching for something else.
-              </p>
-              <button
-                onClick={() => {
-                  navigate("/home");
-                }}
-                className="bg-blue-600 hover:bg-blue-700 text-sm rounded-full my-5  mx-auto text-white text-center p-2 sm:px-4 capitalize  md:w-40"
-              >
-                search
-              </button>
-            </div>
-          </div>
-        )}
+        {post === undefined && <NotFoundPost />}
 
         {!loader && post && (
           <div className="w-full flex flex-col">

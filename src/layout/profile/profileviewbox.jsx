@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useUserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
-import { get_userdata, updateprofileuserdata } from "../service/Auth/database";
+import { get_userdata, updateprofileuserdata } from "../../service/Auth/database";
 import { Skeleton } from "@mui/material";
-import { auth } from "../service/Auth";
+import { auth } from "../../service/Auth";
 export default function Profileviewbox({
   profile,
   bio = false,

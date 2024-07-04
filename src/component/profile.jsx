@@ -13,14 +13,17 @@ import {
 import { toast } from "react-toastify";
 import { Skeleton } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
 import { Createpost } from "./createpost";
-import Editfuserdata from "./editfuserdata";
+import Editfuserdata from "../layout/profile/editfuserdata";
 import { auth } from "../service/Auth";
-import Profileviewbox from "./profileviewbox";
+import Profileviewbox from "../layout/profile/profileviewbox";
 import ProgressBar from "@badrap/bar-of-progress";
-import Aboutprofile from "./aboutprofile";
-
+import Aboutprofile from "../layout/profile/aboutprofile";
+import NoPost from "../layout/profile/no-post";
+import Private from "../layout/profile/private";
+import Loading from "../layout/loading";
+import Report from "../layout/profile/report";
+import FirstPost from "../layout/profile/firstPost";
 export const Profile = ({ username }) => {
   const progress = new ProgressBar();
   const [profileuserdata, setprofileuserdata] = useState([]);
@@ -344,22 +347,7 @@ export const Profile = ({ username }) => {
       {profileuserdata?.uid === userdata?.uid ? (
         <>
           {profileuserdata?.post?.length === 0 ? (
-            <div className="w-full my-20 flex flex-col  justify-center">
-              <i className="rounded-full m-auto text-zinc-800 scale-125 border-2 border-stone-700 p-3  my-2 flex justify-center ">
-                <CameraEnhanceIcon />
-              </i>
-              <h1 className="sm:text-3xl text-lg font-bold text-center my-1">
-                share your first post
-              </h1>
-              <button
-                onClick={() => {
-                  setactive("post");
-                }}
-                className="rounded-2xl text-lg md:text-xl px-10 border-white my-5 p-2 mr-auto  border-1 capitalize bg-sky-600 hover:scale-105 transition-all m-auto ease"
-              >
-                post
-              </button>
-            </div>
+            <FirstPost setactive={setactive} />
           ) : (
             <Fragment>
               {profileuserdata?.post?.map((item, index) => {
@@ -375,14 +363,7 @@ export const Profile = ({ username }) => {
               {profileuserdata?.follower.includes(userdata?.uid) ? (
                 <>
                   {profileuserdata?.post?.length === 0 ? (
-                    <div className="w-full my-12 flex flex-col justify-center">
-                      <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
-                        <CameraEnhanceIcon />
-                      </i>
-                      <h1 className="text-3xl font-bold text-center my-2">
-                        no post yet
-                      </h1>
-                    </div>
+                    <NoPost />
                   ) : (
                     <Fragment>
                       {profileuserdata?.post?.map((item, index) => {
@@ -396,27 +377,13 @@ export const Profile = ({ username }) => {
                   )}
                 </>
               ) : (
-                <div className="w-full my-12 flex flex-col justify-center">
-                  <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
-                    <CameraEnhanceIcon />
-                  </i>
-                  <h1 className="text-3xl font-bold text-center my-2">
-                    this profile is private
-                  </h1>
-                </div>
+                <Private />
               )}
             </Fragment>
           ) : (
             <Fragment>
               {profileuserdata?.post?.length === 0 ? (
-                <div className="w-full my-12 flex flex-col justify-center">
-                  <i className="rounded-full m-auto text-zinc-800 border-2 border-stone-700 p-3  flex justify-center ">
-                    <CameraEnhanceIcon />
-                  </i>
-                  <h1 className="text-3xl font-bold text-center my-2">
-                    no post yet
-                  </h1>
-                </div>
+                <NoPost />
               ) : (
                 <Fragment>
                   {profileuserdata?.post?.map((item, index) => {
@@ -439,18 +406,7 @@ export const Profile = ({ username }) => {
         </div>
       )}
 
-      {loading && (
-        <div className="flex items-center w-full h-96 justify-center">
-          <div
-            className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white"
-            role="status"
-          >
-            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-              Loading...
-            </span>
-          </div>
-        </div>
-      )}
+      {loading && <Loading />}
 
       {active === "report" && (
         <Popupitem
@@ -463,47 +419,10 @@ export const Profile = ({ username }) => {
               already reported
             </div>
           ) : (
-            <div className="max-w-sm m-auto mb-10">
-              <p className="text-xl text-center my-7 capitalize ">
-                report this post
-              </p>
-              <select className="mx-2 w-full my-8 p-3 bg-black capitalize text-white text-base border-2 px-4 border-white rounded-xl ">
-                {" "}
-                <option value="hateSpeech">Hate Speech</option>
-                <option value="spam">Spam</option>
-                <option value="harassment">Harassment</option>
-                <option value="violence">Violence</option>
-                <option value="falseInformation">False Information</option>
-                <option value="inappropriateContent">
-                  Inappropriate Content
-                </option>
-                <option value="copyrightViolation">Copyright Violation</option>
-                <option value="impersonation">Impersonation</option>
-              </select>
-              <div className="flex justify-between">
-                <button
-                  onClick={() => {
-                    setactive("");
-                  }}
-                  className="px-8 outline outline-neutral-800 capitalize m-auto p-2 text-base rounded-full hover:bg-gray-950 bg-gray-900 text-white"
-                >
-                  cancel
-                </button>
-                <button
-                  onClick={() => {
-                    setactive("");
-                    toast.success("Report sucessfully");
-                    setprofileuserdata((prev) => ({
-                      ...prev,
-                      report: [...prev.report, userdata?.uid],
-                    }));
-                  }}
-                  className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-600 bg-red-500 text-base font-semibold text-white"
-                >
-                  report
-                </button>
-              </div>
-            </div>
+            <Report
+              setactive={setactive}
+              setprofileuserdata={setprofileuserdata}
+            />
           )}
         </Popupitem>
       )}

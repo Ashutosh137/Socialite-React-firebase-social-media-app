@@ -1,7 +1,7 @@
-import { Popupitem } from "../ui/popup";
+import { Popupitem } from "../../ui/popup";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import PropTypes from "prop-types";
-import { useUserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../../service/context/usercontext";
 
 function Aboutprofile({ profiledata, close }) {
   const { defaultprofileimage } = useUserdatacontext();

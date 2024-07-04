@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import Profileviewbox from "./profileviewbox";
-import { getallprofile } from "../service/Auth/database";
+import Profileviewbox from "../profile/profileviewbox";
+import { getallprofile } from "../../service/Auth/database";
 import { Link } from "react-router-dom";
 
 export default function Search({ bio = false }) {

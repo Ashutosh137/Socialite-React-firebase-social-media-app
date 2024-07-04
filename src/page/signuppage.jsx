@@ -1,7 +1,7 @@
 import { signupwithemail } from "../service/Auth/index";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Login from "../component/login";
+import Login from "../layout/login/login";
 import { toast } from "react-toastify";
 
 const Signuppage = () => {

@@ -5,7 +5,7 @@ import { Getimagedownloadlink } from "../service/Auth/database";
 import { toast } from "react-toastify";
 import { useUserdatacontext } from "../service/context/usercontext";
 import CloseIcon from "@mui/icons-material/Close";
-import Createid from "../service/other/createid";
+import Createid from "../service/utiles/createid";
 import ProgressBar from "@badrap/bar-of-progress";
 import { TextInput } from "../ui/input";
 import Button from "../ui/button";
@@ -81,7 +81,7 @@ export const Createpost = ({ toggle = () => {} }) => {
             }}
             type="text"
             placeholder="What is Happening?!"
-            className="px-5 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll bg-black focus:outline-none  placeholder:text-neutral-500 md:text-xl p-2 "
+            className="px-5 mx-2 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll bg-black focus:outline-none  placeholder:text-neutral-500 md:text-xl p-2 "
           />
         </div>
         <span
@@ -126,10 +126,7 @@ export const Createpost = ({ toggle = () => {} }) => {
           >
             <LinkIcon />
           </button>
-          <Button
-            type="submit"
-            className="ml-auto   my-8 "
-          >
+          <Button type="submit" className="ml-auto   my-8 ">
             post
           </Button>
         </div>

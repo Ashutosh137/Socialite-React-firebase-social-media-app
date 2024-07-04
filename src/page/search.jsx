@@ -1,6 +1,6 @@
 import React from "react";
 import Suggestion from "./../component/suggestion";
-import Navbar from "./../component/navbar";
+import Navbar from "./../layout/navbar/navbar";
 import { Helmet } from "react-helmet";
 export default function Search() {
   return (

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useUserdatacontext } from "../service/context/usercontext";
+import { useUserdatacontext } from "../../service/context/usercontext";
 import ProgressBar from "@badrap/bar-of-progress";
 import LinkedCameraIcon from "@mui/icons-material/LinkedCamera";
 import { toast } from "react-toastify";
-import { Getimagedownloadlink, check_username_is_exist } from "../service/Auth/database";
-import { auth } from "../service/Auth";
+import { Getimagedownloadlink, check_username_is_exist } from "../../service/Auth/database";
+import { auth } from "../../service/Auth";
 
 export default function Editfuserdata({ toggle = () => {} }) {
   const progress = new ProgressBar();

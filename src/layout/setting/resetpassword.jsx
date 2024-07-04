@@ -1,7 +1,7 @@
 import React from "react";
-import { auth } from "../service/Auth";
 import { sendEmailVerification, sendPasswordResetEmail } from "firebase/auth";
 import { toast } from "react-toastify";
+import { auth } from "../../service/Auth";
 
 export default function Resetpassword({ toggle }) {
   const handelvarify = () => {

@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "../component/navbar";
+import Navbar from "../layout/navbar/navbar";
 import { useUserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import Suggestion from "../component/suggestion";
-import Postidtopost from "../component/postidtopost";
+import Postidtopost from "../layout/post/postidtopost";
 import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
 import {Helmet} from "react-helmet";
 export const List = () => {

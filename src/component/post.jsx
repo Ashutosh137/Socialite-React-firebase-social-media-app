@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { auth } from "../service/Auth";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Profileviewbox from "./profileviewbox";
+import Profileviewbox from "../layout/profile/profileviewbox";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -22,7 +22,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ProgressBar from "@badrap/bar-of-progress";
-import Time, { formatNumber } from "../service/other/time";
+import Time, { formatNumber } from "../service/utiles/time";
 import Addcomment from "./addcomment";
 
 export const Post = ({ postdata, popup = true }) => {
@@ -292,7 +292,7 @@ export const Post = ({ postdata, popup = true }) => {
                       onClick={() => {
                         setactive("like");
                       }}
-                      className=" my-auto  font-serif"
+                      className=" my-auto font-serif"
                     >
                       {post?.likes?.length}
                     </label>
