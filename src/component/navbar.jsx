@@ -209,7 +209,7 @@ const Navbar = () => {
                 <SearchIcon />
               </span>
             </Link>
-            <Button className="rounded-full">
+            <Button className="rounded-full m-0 py-0">
               <span
                 onClick={() => {
                   setpost(true);
