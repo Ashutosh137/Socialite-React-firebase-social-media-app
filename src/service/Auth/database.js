@@ -46,7 +46,7 @@ export const Create_Account = async ({
     });
   } catch (err) {
     console.error(err);
-    toast.error("Something went wrong , Please login Again")
+    toast.error("Something went wrong , Please login Again");
   }
 };
 export const Create_notification = async (uid, intent) => {
@@ -143,7 +143,6 @@ export const getpostdatabyuid = async (uid, postid) => {
 
 export const updateuserdata = async (userdata) => {
   try {
-    console.log(userdata)
     const q = await query(user, where("uid", "==", userdata.uid));
     const doc_refs = await getDocs(q);
     var docid;
@@ -275,6 +274,6 @@ export const updatepost = async (post, postedby) => {
       });
     });
   } catch (err) {
-    console.log(err, "error in update data");
+    console.log(err, "error in update post");
   }
 };

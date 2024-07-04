@@ -38,24 +38,21 @@ export const Post = ({ postdata, popup = true }) => {
   const navigate = useNavigate();
   const progress = new ProgressBar();
 
+
   useEffect(() => {
     const data = async () => {
       const postedby = await get_userdata(post?.postedby);
       setpostedby(postedby);
+      setpost(postdata)
     };
 
     data();
     return () => {
       progress.finish();
     };
-  }, [post?.postedby]);
+  }, [postdata]);
 
-  useEffect(() => {
-    const data = async () => {
-      await updateprofileuserdata(postedby, postedby?.username);
-    };
-    data();
-  }, [postedby]);
+
 
   useEffect(() => {
     const data = async () => {

@@ -22,7 +22,7 @@ export default function Notification() {
   }, []);
 
   return (
-    <div className="flex pt-10 sm:pt-0 w-full">
+    <div className="flex pt-10 md:pt-0 w-full">
       <Navbar />
       <Helmet>
         <title>Notification | socilaite</title>

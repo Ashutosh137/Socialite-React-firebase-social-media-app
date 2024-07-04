@@ -4,7 +4,7 @@ import Navbar from "./../layout/navbar/navbar";
 import { Helmet } from "react-helmet";
 export default function Search() {
   return (
-    <div className="flex  pt-10 sm:pt-0 w-full">
+    <div className="flex  pt-10 md:pt-0 w-full">
       <Navbar />
       <Helmet>
         <title>Explore | socilaite</title>

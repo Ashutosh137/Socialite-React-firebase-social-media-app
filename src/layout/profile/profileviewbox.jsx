@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useUserdatacontext } from "../../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
-import { get_userdata, updateprofileuserdata } from "../../service/Auth/database";
+import {
+  get_userdata,
+  updateprofileuserdata,
+} from "../../service/Auth/database";
 import { Skeleton } from "@mui/material";
 import { auth } from "../../service/Auth";
 export default function Profileviewbox({
@@ -37,27 +40,27 @@ export default function Profileviewbox({
       {
         profileuserdata?.follower?.includes(userdata?.uid)
           ? setprofileuserdata((prev) => ({
-            ...prev,
-            follower: profileuserdata?.follower.filter(
-              (e) => e !== userdata?.uid
-            ),
-          }))
+              ...prev,
+              follower: profileuserdata?.follower.filter(
+                (e) => e !== userdata?.uid
+              ),
+            }))
           : setprofileuserdata((prev) => ({
-            ...prev,
-            follower: [...prev?.follower, userdata?.uid],
-          }));
+              ...prev,
+              follower: [...prev?.follower, userdata?.uid],
+            }));
 
         !userdata?.following.includes(profileuserdata?.uid)
           ? setuserdata((prev) => ({
-            ...prev,
-            following: [...prev.following, profileuserdata?.uid],
-          }))
+              ...prev,
+              following: [...prev.following, profileuserdata?.uid],
+            }))
           : setuserdata((prev) => ({
-            ...prev,
-            following: userdata?.following.filter(
-              (e) => e !== profileuserdata?.uid
-            ),
-          }));
+              ...prev,
+              following: userdata?.following.filter(
+                (e) => e !== profileuserdata?.uid
+              ),
+            }));
       }
     } else navigate("/login");
   };

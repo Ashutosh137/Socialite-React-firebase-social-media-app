@@ -9,7 +9,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import AddIcon from "@mui/icons-material/Add";
 import SettingsIcon from "@mui/icons-material/Settings";
-function Mobilenavbar({ navbar }) {
+function Mobilenavbar({ navbar,setpost }) {
   const { userdata, defaultprofileimage } = useUserdatacontext();
   return (
     <Fragment>

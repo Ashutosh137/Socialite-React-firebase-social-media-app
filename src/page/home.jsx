@@ -62,7 +62,7 @@ export const Home = () => {
         <meta name="author" content="Home" />
         <meta name="language" content="EN" />
       </Helmet>
-      <div className="flex border-gray-800   border-x-2 mt-5 sm:mt-0  w-full sm:mx-3 flex-col ">
+      <div className="flex border-gray-800   border-x-2 mt-5 md:mt-0  w-full sm:mx-3 flex-col ">
         <div className="sticky bg-[rgb(0,0,0,0.6)] z-30 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
           <div className="flex justify-evenly my-2 bg-transparent">
             <label

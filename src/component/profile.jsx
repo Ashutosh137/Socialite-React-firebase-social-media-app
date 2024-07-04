@@ -26,32 +26,12 @@ import Report from "../layout/profile/report";
 import FirstPost from "../layout/profile/firstPost";
 export const Profile = ({ username }) => {
   const progress = new ProgressBar();
-  const [profileuserdata, setprofileuserdata] = useState([]);
+  const [profileuserdata, setprofileuserdata] = useState(null);
   const navigate = useNavigate();
   const { userdata, defaultprofileimage, setuserdata } = useUserdatacontext();
   const [loading, setloading] = useState(false);
   const [active, setactive] = useState("");
   const [mutual, setmutual] = useState([]);
-
-  useEffect(() => {
-    const data = async () => {
-      if (auth.currentUser) {
-        if (
-          userdata?.username !== profileuserdata?.username &&
-          profileuserdata
-        ) {
-          await updateprofileuserdata(profileuserdata, username);
-        }
-      }
-    };
-    data();
-  }, [profileuserdata]);
-
-  useEffect(() => {
-    if (userdata?.uid === profileuserdata?.uid) {
-      setprofileuserdata(userdata);
-    }
-  }, [userdata]);
 
   useEffect(() => {
     const data = async () => {
@@ -63,14 +43,35 @@ export const Profile = ({ username }) => {
         setprofileuserdata(profile);
       }
       progress.finish();
-      setactive("");
       setloading(false);
     };
     data();
     return () => {
       progress.finish();
+      setloading(false);
     };
+  }, [username, userdata, progress]);
+
+  useEffect(() => {
+    setactive("");
   }, [username]);
+
+  useEffect(() => {
+    if (userdata?.username === profileuserdata?.username) {
+      userdata && setprofileuserdata(userdata);
+    }
+  }, [userdata]);
+
+  useEffect(() => {
+    const data = async () => {
+      if (auth.currentUser && profileuserdata) {
+        if (userdata?.username !== profileuserdata?.username) {
+          await updateprofileuserdata(profileuserdata, username);
+        }
+      }
+    };
+    data();
+  }, [profileuserdata]);
 
   useEffect(() => {
     const data = () => {
@@ -83,9 +84,11 @@ export const Profile = ({ username }) => {
     data();
   }, [userdata, profileuserdata]);
 
-  if (profileuserdata?.block?.includes(userdata?.uid)) {
-    setprofileuserdata(null);
-  }
+  useEffect(() => {
+    if (profileuserdata?.block?.includes(userdata?.uid)) {
+      setProfileuserdata(null);
+    }
+  }, [profileuserdata]);
 
   const handelfollow = async () => {
     if (auth.currentUser && profileuserdata) {
@@ -118,6 +121,10 @@ export const Profile = ({ username }) => {
         }));
     } else navigate("/login");
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className=" postanimiate post  w-full p-2 sm:text-2xl text-lg capitalize">
@@ -368,9 +375,7 @@ export const Profile = ({ username }) => {
                     <Fragment>
                       {profileuserdata?.post?.map((item, index) => {
                         return (
-                          <div key={index} className="">
-                            <Post index={index} postdata={item} popup={true} />
-                          </div>
+                          <Post key={index} postdata={item} popup={true} />
                         );
                       })}
                     </Fragment>
@@ -387,11 +392,7 @@ export const Profile = ({ username }) => {
               ) : (
                 <Fragment>
                   {profileuserdata?.post?.map((item, index) => {
-                    return (
-                      <div key={index} className="">
-                        <Post index={index} postdata={item} popup={true} />
-                      </div>
-                    );
+                    return <Post key={index} postdata={item} popup={true} />;
                   })}
                 </Fragment>
               )}
@@ -405,8 +406,6 @@ export const Profile = ({ username }) => {
           profile doesnot exist
         </div>
       )}
-
-      {loading && <Loading />}
 
       {active === "report" && (
         <Popupitem

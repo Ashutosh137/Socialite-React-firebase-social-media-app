@@ -42,7 +42,7 @@ export default function Seepost() {
   }, [post]);
 
   return (
-    <div className="flex pt-10 sm:pt-0  post w-full justify-around h-screen scroll-hidden ">
+    <div className="flex pt-10 md:pt-0  post w-full justify-around h-screen scroll-hidden ">
       <Navbar />
       <div className="border-gray-800 postanimiate p-2 sm:p-4 border-x-2 w-full">
         {post === undefined && <NotFoundPost />}

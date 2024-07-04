@@ -18,8 +18,7 @@ import Button from "../../ui/button";
 import Mobilenavbar from "./mobile-navbar";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { userdata,  userNotifications } =
-    useUserdatacontext();
+  const { userdata, userNotifications } = useUserdatacontext();
   const [post, setpost] = useState(false);
   const [navbar, setnavbar] = useState(true);
 
@@ -94,13 +93,13 @@ const Navbar = () => {
                 <label className="xl:block hidden mx-2">settings </label>
               </span>
             </Link>
-            <Button
-              onClick={() => {
-                setpost(true);
-              }}
-              className=" m-auto my-3 xl:w-40"
-            >
-              <span className="flex justify-center space-x-2 ">
+            <Button className=" m-auto my-3 xl:w-40">
+              <span
+                onClick={() => {
+                  setpost(true);
+                }}
+                className="flex justify-center space-x-2 "
+              >
                 <AddIcon />
                 <label className="xl:block hidden">post</label>
               </span>
@@ -152,7 +151,7 @@ const Navbar = () => {
 
       {/* mobile  */}
 
-      <Mobilenavbar navbar={navbar} />
+      <Mobilenavbar setpost={setpost} navbar={navbar} />
     </Fragment>
   );
 };
