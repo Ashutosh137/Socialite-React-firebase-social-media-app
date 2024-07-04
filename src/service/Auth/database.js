@@ -46,6 +46,7 @@ export const Create_Account = async ({
     });
   } catch (err) {
     console.error(err);
+    toast.error("Something went wrong , Please login Again")
   }
 };
 export const Create_notification = async (uid, intent) => {

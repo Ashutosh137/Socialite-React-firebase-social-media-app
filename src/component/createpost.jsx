@@ -7,6 +7,8 @@ import { useUserdatacontext } from "../service/context/usercontext";
 import CloseIcon from "@mui/icons-material/Close";
 import Createid from "../service/other/createid";
 import ProgressBar from "@badrap/bar-of-progress";
+import { TextInput } from "../ui/input";
+import Button from "../ui/button";
 
 export const Createpost = ({ toggle = () => {} }) => {
   const { userdata, setuserdata, defaultprofileimage } = useUserdatacontext();
@@ -33,7 +35,7 @@ export const Createpost = ({ toggle = () => {} }) => {
           comments: [],
           postedby: auth?.currentUser?.uid,
           postedat: new Date(),
-          views:0,
+          views: 0,
           postid: id,
           img: url,
         },
@@ -56,11 +58,12 @@ export const Createpost = ({ toggle = () => {} }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          ((posttext.trim() !== "" ) || (postmedia && posttext.trim() === ""))&& handelpost();
+          (posttext.trim() !== "" || (postmedia && posttext.trim() === "")) &&
+            handelpost();
         }}
         className="flex flex-col text-xl space-y-4"
       >
-        <div className="flex my-2 justify-center align-middle">
+        <div className="flex  my-2 justify-center align-middle">
           <img
             className="rounded-full aspect-square bg-gray-400 w-10 h-10"
             src={userdata?.profileImageURL || defaultprofileimage}
@@ -69,8 +72,7 @@ export const Createpost = ({ toggle = () => {} }) => {
               e.target.src = defaultprofileimage;
             }}
           />
-          <textarea
-            autoFocus
+          <TextInput
             maxLength={100}
             value={posttext}
             rows={(posttext.match(/\n/g) || []).length + 1}
@@ -106,32 +108,30 @@ export const Createpost = ({ toggle = () => {} }) => {
             </i>
           </div>
         )}
-        <div className="flex justify-between align-middle">
+        <div className="flex justify-between w-full align-middle">
           <input
             type="file"
             id="fileInput"
             accept="image/*"
             className="hidden"
             onChange={async (e) => {
-              await setpostmedia(e.target.files[0]);
+              setpostmedia(e.target.files[0]);
             }}
           />
-          <div className="p-3 my-auto">
-            <button
-              type="button"
-              onClick={() => {
-                document.getElementById("fileInput").click();
-              }}
-            >
-              <LinkIcon />
-            </button>
-          </div>
           <button
-          type="submit"
-            className="bg-blue-500 font-mono  text-white text-center p-2 capitalize  rounded-full my-10 px-12"
+            type="button"
+            onClick={() => {
+              document.getElementById("fileInput").click();
+            }}
+          >
+            <LinkIcon />
+          </button>
+          <Button
+            type="submit"
+            className="ml-auto   my-8 "
           >
             post
-          </button>
+          </Button>
         </div>
       </form>
     </section>

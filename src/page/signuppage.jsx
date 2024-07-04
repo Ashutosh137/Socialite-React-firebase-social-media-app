@@ -1,4 +1,3 @@
-import React from "react";
 import { signupwithemail } from "../service/Auth/index";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";

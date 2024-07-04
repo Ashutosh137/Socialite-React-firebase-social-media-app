@@ -69,7 +69,7 @@ export const signupwithemail = async (email, pass) => {
       toast.error("invalid email id or passwaord");
   }
 };
-export const forget_password = async (email ) => {
+export const forget_password = async (email) => {
   try {
     const data = await sendPasswordResetEmail(auth, email);
     return data;

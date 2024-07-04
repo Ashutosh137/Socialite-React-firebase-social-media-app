@@ -14,6 +14,7 @@ import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import { Popupitem } from "../ui/popup";
 import { Createpost } from "./createpost";
+import Button from "../ui/button";
 const Navbar = () => {
   const navigate = useNavigate();
   const { userdata, defaultprofileimage, userNotifications } =
@@ -92,20 +93,20 @@ const Navbar = () => {
                 <label className="xl:block hidden mx-2">settings </label>
               </span>
             </Link>
-            <button
+            <Button
               onClick={() => {
                 setpost(true);
               }}
-              className="bg-blue-500 mr-auto my-5 text-white text-center mt-8 md:px-5 p-2 capitalize rounded-full m-auto  xl:w-40"
+              className=" m-auto my-3 xl:w-40"
             >
               <span className="flex justify-center space-x-2 ">
                 <AddIcon />
                 <label className="xl:block hidden">post</label>
               </span>
-            </button>
+            </Button>
           </nav>
 
-          <button className="bg-blue-500 text-white text-xl text-center p-2 md:px-5 mt-5  capitalize xl:w-40 m-auto rounded-full">
+          <Button className="mb-10">
             {auth.currentUser ? (
               <span
                 className="flex space-x-2  justify-center"
@@ -128,7 +129,7 @@ const Navbar = () => {
                 <label className="xl:block hidden">sign in</label>
               </span>
             )}
-          </button>
+          </Button>
         </nav>
       </header>
 
@@ -208,16 +209,16 @@ const Navbar = () => {
                 <SearchIcon />
               </span>
             </Link>
-            <button
-              onClick={() => {
-                setpost(true);
-              }}
-              className="bg-blue-500 m-auto text-white text-center md:px-5 p-2 capitalize rounded-full  md:w-40"
-            >
-              <span className="flex justify-center space-x-2 ">
+            <Button className="rounded-full">
+              <span
+                onClick={() => {
+                  setpost(true);
+                }}
+                className="flex justify-center space-x-2 "
+              >
                 <AddIcon />
               </span>
-            </button>
+            </Button>
 
             <Link
               to={`${userdata?.username ? `/notification` : "/login"}`}

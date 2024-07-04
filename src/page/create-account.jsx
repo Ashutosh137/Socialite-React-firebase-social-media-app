@@ -10,12 +10,14 @@ import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { useUserdatacontext } from "../service/context/usercontext";
 import ProgressBar from "@badrap/bar-of-progress";
+import Button from "../ui/button";
+import { Input, TextInput } from "../ui/input";
 
 const CreateAccount = () => {
+  const pregress = new ProgressBar();
   const navigate = useNavigate();
   const { setuserdata } = useUserdatacontext();
-  const pregress = new ProgressBar();
-  const [isusernameexist, setisusernameexist] = useState(false);
+  const [IsUsernameExist, setIsUsernameExist] = useState(false);
 
   useEffect(() => {
     const data = async () => {
@@ -54,6 +56,23 @@ const CreateAccount = () => {
     setformdata((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  const handelusername = async (e) => {
+    handelchange(e);
+    const data = await check_username_is_exist(
+      e.target.value.trim().toLowerCase()
+    );
+    const isValidInput = /^[a-zA-Z0-9_]+$/.test(
+      e.target.value.trim().toLowerCase()
+    );
+    if (data || !isValidInput) {
+      setIsUsernameExist(true);
+      e.target.style.borderColor = "red";
+    } else {
+      setIsUsernameExist(false);
+      e.target.style.borderColor = "black";
+    }
+  };
+
   return (
     <div className="capitalize sm:px-5 px-3">
       <Helmet>
@@ -67,123 +86,71 @@ const CreateAccount = () => {
         <meta name="language" content="EN" />
       </Helmet>
       <h1 className="text-4xl md:text-6xl sm:my-12 my-5 font-bold ">
-        create an account with us{" "}
+        create an account with us
       </h1>
       <form
         className="flex flex-col  "
         onSubmit={(e) => {
           e.preventDefault();
-          !isusernameexist && checkdata();
+          !IsUsernameExist && checkdata();
         }}
       >
-        <div className="flex-col flex my-2">
-          <label
-            className="md:text-xl text-base font-sans p-1 mx-3 "
-            min={4}
-            max={10}
-          >
-            {" "}
-            username
-          </label>
-          <input
-            type="text"
-            name="username"
-            placeholder="enter your unique uername ..."
-            maxLength={20}
-            value={formdata.username}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 w-80 md:w-2/5 md:text-lg text-sm p-2 border-3   rounded-2xl my-2"
-            onChange={async (e) => {
-              handelchange(e);
-              const data = await check_username_is_exist(
-                e.target.value.trim().toLowerCase()
-              );
-              const isValidInput = /^[a-zA-Z0-9_]+$/.test(
-                e.target.value.trim().toLowerCase()
-              );
-              if (data || !isValidInput) {
-                setisusernameexist(true);
-                e.target.style.borderColor = "red";
-              } else {
-                setisusernameexist(false);
-                e.target.style.borderColor = "black";
-              }
-            }}
-            required
-          ></input>
+        <Input
+          type="text"
+          name="username"
+          className={"max-w-80 sm:max-w-md"}
+          placeholder="enter your unique uername ..."
+          maxLength={20}
+          value={formdata.username}
+          onChange={handelusername}
+          required
+        />
 
-          <label className="text-gray-500 text-sm mx-3 m-1">
-            username should not includes any special charcter
-          </label>
-        </div>
+        <label className="text-gray-500 text-sm mx-3 m-1">
+          username should not includes any special charcter
+        </label>
 
-        {isusernameexist && (
+        {IsUsernameExist && (
           <label className="text-red-400 mx-3 capitalize">
             invalid username or already exist
           </label>
         )}
-        <div className="flex-col flex my-2">
-          <label className="md:text-xl text-base font-sans p-1 mx-3 ">
-            {" "}
-            full name{" "}
-          </label>
 
-          <input
-            min={4}
-            max={10}
-            type="text"
-            name="name"
-            placeholder="full name..."
-            value={formdata.name}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5 md:text-lg text-sm p-2 border-1  rounded-2xl my-2   "
-            onChange={handelchange}
-            required
-          ></input>
-        </div>
+        <Input
+          min={4}
+          max={10}
+          type="text"
+          className={"max-w-80 sm:max-w-md"}
+          name="name"
+          placeholder="full name..."
+          value={formdata.name}
+          onChange={handelchange}
+          required
+        />
 
-        <div className="flex-col flex my-2">
-          <label className="md:text-xl text-base  font-sans p-1 mx-3 ">
-            date of birth
-          </label>
-          <input
-            type="date"
-            name="age"
-            value={formdata.age}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1   rounded-2xl my-2   "
-            onChange={(e) => {
-              handelchange(e);
-              if (
-                formdata.age > new Date() ||
-                formdata?.age < new Date("1970-1-1")
-              ) {
-                e.target.accepter = false;
-              }
-            }}
-            required
-          ></input>
-        </div>
-        <div className="flex-col flex my-2">
-          <label className="md:text-xl text-base  font-sans p-1 mx-3 ">
-            about yourself
-          </label>
+        <Input
+          type="date"
+          name="age"
+          value={formdata.age}
+          className={"max-w-80 sm:max-w-md"}
+          onChange={handelchange}
+          required
+        />
 
-          <textarea
-            type="text"
-            min={4}
-            max={50}
-            name="bio"
-            placeholder="write about your exprience , your favirate topics and many more about you "
-            value={formdata.bio}
-            className="px-5 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-80 md:w-2/5   md:text-lg text-sm p-2 border-1   rounded-2xl my-2   "
-            onChange={handelchange}
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className="rounded-2xl text-lg mx-3 md:text-xl border-white my-6 p-2 mr-auto md:w-80 px-7 border-1 capitalize bg-sky-600 hover:scale-105 transition-all ease"
-        >
-          create account
-        </button>
-      </form>{" "}
+        <TextInput
+          type="text"
+          min={4}
+          max={50}
+          className={"max-w-80 sm:max-w-md"}
+          name="bio"
+          placeholder="write about your exprience , your favirate topics and many more about you "
+          value={formdata.bio}
+          onChange={handelchange}
+        />
+        <Button className="p-9 py-2" type="submit">
+          create-account
+        </Button>
+      </form>
     </div>
   );
 };

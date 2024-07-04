@@ -1,16 +1,16 @@
-import React from "react";
 import PropTypes from "prop-types";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-const Popupitem = ({ children, closefunction }) => {
+
+const Popupitem = ({ children, closefunction = () => {} }) => {
   return (
-    <section className="backdrop-blur-sm  z-50 fixed left-0 top-0 w-screen h-screen ">
-      <div className=" fixed shadow-gray-700  post popup shadow-2xl rounded-3xl flex  border-2 border-gray-700 animinate left-1/4 top-16 bg-black text-white">
+    <section className="backdrop-blur-sm z-50 fixed left-0 top-0 w-screen h-screen ">
+      <div className="fixed shadow-gray-700 post popup shadow-2xl rounded-3xl flex border-2 border-gray-700 animinate left-1/4 top-16 bg-black text-white">
         <div className="text-4xl p-4 z-40">
           <button onClick={closefunction}>
             <CloseFullscreenIcon />
           </button>
         </div>
-        <div className=" max-h-popup my-8 w-full p-1 mr-4 overflow-scroll scroll-hidden ">
+        <div className="max-h-popup my-8 w-full p-1 mr-4 overflow-scroll scroll-hidden ">
           {children}
         </div>
       </div>
@@ -26,4 +26,14 @@ const Popupitem = ({ children, closefunction }) => {
     </section>
   );
 };
+
+Popupitem.defaultProps = {
+  closefunction: () => {},
+};
+
+Popupitem.propTypes = {
+  children: PropTypes.node.isRequired,
+  closefunction: PropTypes.func,
+};
+
 export { Popupitem };

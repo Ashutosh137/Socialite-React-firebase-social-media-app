@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, forget_password, signInWithGoogle } from "../service/Auth";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Input } from "../ui/input";
+import Button from "../ui/button";
+import PropTypes from "prop-types";
 
 const Login = ({ onenter, role }) => {
   const [email, setemail] = useState("");
@@ -16,13 +19,11 @@ const Login = ({ onenter, role }) => {
   };
 
   const handelgooglesignup = async () => {
-    const data = await signInWithGoogle();
-
-    {
+    const data = await signInWithGoogle().then(() => {
       data && role === "signup"
         ? navigate("./create-account")
         : navigate("/home");
-    }
+    });
   };
 
   useEffect(() => {
@@ -42,9 +43,9 @@ const Login = ({ onenter, role }) => {
           onClick={handelgooglesignup}
         >
           <i className="mx-2">
-            <GoogleIcon />{" "}
+            <GoogleIcon />
           </i>
-          sign-up with Google
+          {role} with Google
         </button>
       </div>
       <div className="my-4 ">
@@ -56,53 +57,50 @@ const Login = ({ onenter, role }) => {
       </div>
 
       <form
-        className="flex  flex-col  "
+        className="flex flex-col "
         onSubmit={(e) => {
           e.preventDefault();
           handelsubmit();
         }}
       >
-        <input
+        <Input
           type="email"
           placeholder="Email"
+          name={"Email"}
           value={email}
-          className="px-3  text-xl p-2 border-1 border-black rounded-lg my-2 border text-black  "
           onChange={(e) => setemail(e.target.value)}
           required
-        ></input>
-        <input
+        />
+        <Input
           type="password"
+          name="password"
           placeholder="password"
           value={pass}
-          className="px-3 text-xl p-2 border-1 border-black rounded-lg my-2 border text-black "
           onChange={(e) => setpass(e.target.value)}
           required
-        ></input>
-        <label className="text-xs sm:text-sm my-3 font-serif">
-          By signing up, you agree to the Terms of Service and Privacy Policy,
-          including Cookie Use.
-        </label>
-        <button
-          type="submit"
-          className="rounded-2xl w-80 my-4 text-xl p-1 capitalize bg-sky-600  m-auto hover:scale-105 transition-all ease"
-        >
-          {role === "login" ? "login" : "sign-up"}
-        </button>
-        {role==="login"&&<button
-          onClick={async () => {
-            if (email === "") toast.error("plase enter your email address");
-            else {
-              const data = await forget_password(email);
-              console.log(data);
-              if (!data) toast.error("Email not found");
-              else toast.success("Email sent , please check your email box");
-            }
-          }}
-          className="mr-auto"
-          type="button"
-        >
-          Forget password ?
-        </button>}
+        />
+        <p className="text-xs sm:text-sm my-3 font-serif">
+          By signing up, you agree to the <b>Terms of Service</b> and 
+          <b> Privacy Policy</b>, including Cookie Use.
+        </p>
+        <Button className={"m-auto p-20 py-1 my-3"} type="submit">{role}</Button>
+
+        {role === "login" && (
+          <button
+            onClick={async () => {
+              if (email === "") toast.error("plase enter your email address");
+              else {
+                const data = await forget_password(email);
+                if (!data) toast.error("Email not found");
+                else toast.success("Email sent , please check your email box");
+              }
+            }}
+            className="mr-auto"
+            type="button"
+          >
+            Forget password ?
+          </button>
+        )}
       </form>
       {role === "signup" ? (
         <div className="my-3  capitalize text-base sm:text-xl flex flex-col ">
@@ -127,5 +125,10 @@ const Login = ({ onenter, role }) => {
       )}
     </section>
   );
+};
+
+Login.PropTypes = {
+  role: PropTypes.string,
+  onenter: PropTypes.func,
 };
 export default Login;
