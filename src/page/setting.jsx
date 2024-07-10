@@ -29,7 +29,6 @@ export default function Setting() {
         <meta name="keywords" content="setting" />
         <meta name="author" content="setting" />
         <meta name="language" content="EN" />
-
       </Helmet>
       <section className="flex post border-gray-800  text-center capitalize text-base border-x-2  w-full">
         <div

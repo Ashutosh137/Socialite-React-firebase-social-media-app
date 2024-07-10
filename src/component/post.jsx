@@ -38,12 +38,11 @@ export const Post = ({ postdata, popup = true }) => {
   const navigate = useNavigate();
   const progress = new ProgressBar();
 
-
   useEffect(() => {
     const data = async () => {
       const postedby = await get_userdata(post?.postedby);
       setpostedby(postedby);
-      setpost(postdata)
+      setpost(postdata);
     };
 
     data();
@@ -51,8 +50,6 @@ export const Post = ({ postdata, popup = true }) => {
       progress.finish();
     };
   }, [postdata]);
-
-
 
   useEffect(() => {
     const data = async () => {
@@ -237,7 +234,7 @@ export const Post = ({ postdata, popup = true }) => {
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}/${post?.postid}`);
                 }}
-                className="text-sm w-full my-2 "
+                className="text-sm w-full pt-3 sm:pt-6 "
               >
                 {post?.content}
               </pre>
@@ -246,7 +243,7 @@ export const Post = ({ postdata, popup = true }) => {
             {loadingimg && post?.img && (
               <Skeleton
                 animation="wave"
-                sx={{ bgcolor: "grey.900" }}
+                sx={{ bgcolor: "grey.900", borderRadius: "1rem", my: 3 }}
                 variant="rectangular"
                 width={window.innerWidth >= 500 ? 500 : 300}
                 height={window.innerWidth >= 500 ? 550 : 350}
