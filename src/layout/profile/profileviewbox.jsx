@@ -65,7 +65,7 @@ export default function Profileviewbox({
     } else navigate("/login");
   };
 
-  if (profileuserdata?.block?.includes(userdata?.uid)) {
+  if (profileuserdata?.block?.includes(userdata?.uid) || !profileuserdata) {
     return <></>;
   }
   return (

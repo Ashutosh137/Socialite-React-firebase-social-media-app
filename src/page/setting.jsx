@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import Navbar from "../layout/navbar/navbar";
+import React, { Fragment, useState } from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Editfuserdata from "../layout/profile/editfuserdata";
 import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 import { toast } from "react-toastify";
 import Block from "../layout/setting/block";
 import Resetpassword from "../layout/setting/resetpassword";
@@ -18,8 +17,7 @@ export default function Setting() {
   const [report, setreport] = useState("");
   const navigate = useNavigate();
   return (
-    <div className="flex  pt-10 md:pt-0 w-full justify-around  scroll-hidden my-5 ">
-      <Navbar />
+    <Fragment>
       <Helmet>
         <title>setting | socilaite</title>
         <meta name="description" content="setting" />
@@ -179,6 +177,6 @@ export default function Setting() {
           </div>
         </div>
       </section>
-    </div>
+    </Fragment>
   );
 }

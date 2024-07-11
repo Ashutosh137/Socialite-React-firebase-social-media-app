@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import Navbar from "../layout/navbar/navbar";
+import { Fragment, useEffect, useState } from "react";
 import { getallpost } from "../service/Auth/database";
 import { Createpost } from "../component/createpost";
 import { Post } from "../component/post";
 import { auth } from "../service/Auth";
 import { Helmet } from "react-helmet";
-import Suggestion from "../component/suggestion";
 import { useUserdatacontext } from "../service/context/usercontext";
 import Loading from "../layout/loading";
 
@@ -50,8 +48,7 @@ export const Home = () => {
   };
 
   return (
-    <div className="flex w-full justify-around  ">
-      <Navbar />
+    <Fragment>
       <Helmet>
         <title>Home | socilaite</title>
         <meta name="description" content="Home" />
@@ -97,9 +94,7 @@ export const Home = () => {
           ))}
         </div>
       </div>
-      <div className="w-1/4 hidden xl:block">
-        <Suggestion />
-      </div>
-    </div>
+      
+    </Fragment>
   );
 };

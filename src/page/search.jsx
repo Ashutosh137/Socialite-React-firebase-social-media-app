@@ -1,11 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Suggestion from "./../component/suggestion";
-import Navbar from "./../layout/navbar/navbar";
 import { Helmet } from "react-helmet";
 export default function Search() {
   return (
-    <div className="flex  pt-10 md:pt-0 w-full">
-      <Navbar />
+    <Fragment>
       <Helmet>
         <title>Explore | socilaite</title>
         <meta name="description" content="Explore" />
@@ -19,9 +17,6 @@ export default function Search() {
       <div className="w-full sm:px-10 pb-20">
         <Suggestion bio={true} />
       </div>
-      <div className="w-1/4 hidden xl:block">
-        <Suggestion />
-      </div>
-    </div>
+    </Fragment>
   );
 }

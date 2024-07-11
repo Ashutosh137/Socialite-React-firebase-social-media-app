@@ -1,8 +1,6 @@
-import React from "react";
-import Navbar from "../layout/navbar/navbar";
+import React, { Fragment } from "react";
 import { useUserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
-import Suggestion from "../component/suggestion";
 import Postidtopost from "../layout/post/postidtopost";
 import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
 import {Helmet} from "react-helmet";
@@ -11,8 +9,7 @@ export const List = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="post  pt-10 md:pt-0 flex w-full ">
-      <Navbar />
+    <Fragment >
       <Helmet>
         <title>Bookmark | socilaite</title>
         <meta name="description" content="Bookmark" />
@@ -74,9 +71,7 @@ export const List = () => {
           )}
         </div>
       </div>
-      <div className="w-1/4 hidden xl:block">
-        <Suggestion />
-      </div>
-    </div>
+      
+    </Fragment>
   );
 };

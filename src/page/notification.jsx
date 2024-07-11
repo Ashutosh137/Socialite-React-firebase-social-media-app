@@ -1,6 +1,4 @@
-import React from "react";
-import Navbar from "../layout/navbar/navbar";
-import Suggestion from "../component/suggestion";
+import React, { Fragment } from "react";
 import { useUserdatacontext } from "../service/context/usercontext";
 import Notify from "../layout/notification/notify";
 import ArrowBack from "@mui/icons-material/ArrowBack";
@@ -22,8 +20,7 @@ export default function Notification() {
   }, []);
 
   return (
-    <div className="flex pt-10 md:pt-0 w-full">
-      <Navbar />
+    <Fragment>
       <Helmet>
         <title>Notification | socilaite</title>
         <meta name="description" content="Notification" />
@@ -55,9 +52,7 @@ export default function Notification() {
           </div>
         )}
       </div>
-      <div className="w-1/4 hidden xl:block">
-        <Suggestion />
-      </div>
-    </div>
+     
+    </Fragment>
   );
 }

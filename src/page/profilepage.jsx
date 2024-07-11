@@ -1,14 +1,11 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Profile } from "../component/profile";
-import Navbar from "../layout/navbar/navbar";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Suggestion from "../component/suggestion";
 export const Profilepage = () => {
   const { username } = useParams();
   return (
-    <div className="flex  pt-10 md:pt-0 w-full">
-      <Navbar />
+    <Fragment>
       <Helmet>
         <title>Profile | {username} | socilaite</title>
         <meta name="description" content="Profile" />
@@ -22,9 +19,7 @@ export const Profilepage = () => {
       <div className="border-x-2 w-full border-zinc-700">
         <Profile username={username} />
       </div>
-      <div className="w-1/4 hidden xl:block">
-        <Suggestion />
-      </div>
-    </div>
+      
+    </Fragment>
   );
 };

@@ -36,20 +36,16 @@ export const Post = ({ postdata, popup = true }) => {
 
   const [loadingimg, setloadingimg] = useState(true);
   const navigate = useNavigate();
-  const progress = new ProgressBar();
 
   useEffect(() => {
     const data = async () => {
       const postedby = await get_userdata(post?.postedby);
       setpostedby(postedby);
-      setpost(postdata);
     };
 
     data();
-    return () => {
-      progress.finish();
-    };
-  }, [postdata]);
+   
+  }, [post]);
 
   useEffect(() => {
     const data = async () => {

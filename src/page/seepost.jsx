@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getpostdata, updatepost } from "../service/Auth/database";
 import { Post } from "../component/post";
-import Navbar from "../layout/navbar/navbar";
-import Suggestion from "../component/suggestion";
 import ProgressBar from "@badrap/bar-of-progress";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import Addcomment from "../component/addcomment";
 import NotFoundPost from "../layout/post/not-found";
+import { Helmet } from "react-helmet";
 
 export default function Seepost() {
   const { username, postid } = useParams();
@@ -42,8 +41,10 @@ export default function Seepost() {
   }, [post]);
 
   return (
-    <div className="flex pt-10 md:pt-0  post w-full justify-around h-screen scroll-hidden ">
-      <Navbar />
+    <Fragment>
+      <Helmet>
+        <title>Post || {username}</title>
+      </Helmet>
       <div className="border-gray-800 postanimiate p-2 sm:p-4 border-x-2 w-full">
         {post === undefined && <NotFoundPost />}
 
@@ -69,10 +70,6 @@ export default function Seepost() {
           </div>
         )}
       </div>
-
-      <div className="w-1/4 hidden md:block">
-        <Suggestion />
-      </div>
-    </div>
+    </Fragment>
   );
 }

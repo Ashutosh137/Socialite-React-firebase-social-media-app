@@ -50,7 +50,7 @@ export const Profile = ({ username }) => {
       progress.finish();
       setloading(false);
     };
-  }, [username,userdata]);
+  }, [username]);
 
   useEffect(() => {
     setactive("");
