@@ -11,17 +11,16 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Skeleton } from "@mui/material";
 import { Popupitem } from "../ui/popup";
+import Linkify from "linkify-react";
 import ShareIcon from "@mui/icons-material/Share";
 import { useUserdatacontext } from "../service/context/usercontext";
 import {
   Create_notification,
   get_userdata,
   updatepost,
-  updateprofileuserdata,
 } from "../service/Auth/database";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import ProgressBar from "@badrap/bar-of-progress";
 import Time, { formatNumber } from "../service/utiles/time";
 import Addcomment from "./addcomment";
 
@@ -44,7 +43,6 @@ export const Post = ({ postdata, popup = true }) => {
     };
 
     data();
-   
   }, [post]);
 
   useEffect(() => {
@@ -232,7 +230,7 @@ export const Post = ({ postdata, popup = true }) => {
                 }}
                 className="text-sm w-full pt-3 sm:pt-6 "
               >
-                {post?.content}
+                <Linkify>{post?.content}</Linkify>
               </pre>
             )}
 
