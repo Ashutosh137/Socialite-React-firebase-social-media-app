@@ -228,7 +228,7 @@ export const Post = ({ postdata, popup = true }) => {
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}/${post?.postid}`);
                 }}
-                className="text-sm w-full pt-3 sm:pt-6 "
+                className="text-sm w-full whitespace-break-spaces pt-3 sm:pt-6 "
               >
                 <Linkify>{post?.content}</Linkify>
               </pre>

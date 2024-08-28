@@ -1,9 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Profile } from "../component/profile";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import useTop from "../service/utiles/useTop";
 export const Profilepage = () => {
   const { username } = useParams();
+
+  useTop();
   return (
     <Fragment>
       <Helmet>
@@ -19,7 +22,6 @@ export const Profilepage = () => {
       <div className="border-x-2 w-full border-zinc-700">
         <Profile username={username} />
       </div>
-      
     </Fragment>
   );
 };
