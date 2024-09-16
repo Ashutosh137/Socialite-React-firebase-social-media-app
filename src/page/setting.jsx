@@ -11,7 +11,7 @@ import Block from "../layout/setting/block";
 import Resetpassword from "../layout/setting/resetpassword";
 export default function Setting() {
   const [active, setactive] = useState(
-    `${window.innerWidth < 480 ? "" : "account"}`
+    `${window.innerWidth < 480 ? "" : "account"}`,
   );
   const [reportitle, setreportitle] = useState("");
   const [report, setreport] = useState("");
@@ -161,7 +161,7 @@ export default function Setting() {
                       onClick={() => {
                         reportitle !== "" &&
                           toast.success(
-                            `Reported sucessfully on  ${reportitle}`
+                            `Reported sucessfully on  ${reportitle}`,
                           );
                         setreport("");
                         setreportitle("");

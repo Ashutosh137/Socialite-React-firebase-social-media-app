@@ -59,10 +59,10 @@ const CreateAccount = () => {
   const handelusername = async (e) => {
     handelchange(e);
     const data = await check_username_is_exist(
-      e.target.value.trim().toLowerCase()
+      e.target.value.trim().toLowerCase(),
     );
     const isValidInput = /^[a-zA-Z0-9_]+$/.test(
-      e.target.value.trim().toLowerCase()
+      e.target.value.trim().toLowerCase(),
     );
     if (data || !isValidInput) {
       setIsUsernameExist(true);

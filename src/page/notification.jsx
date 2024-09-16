@@ -3,7 +3,7 @@ import { useUserdatacontext } from "../service/context/usercontext";
 import Notify from "../layout/notification/notify";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import { Helmet } from "react-helmet";
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Notification() {
@@ -52,7 +52,6 @@ export default function Notification() {
           </div>
         )}
       </div>
-     
     </Fragment>
   );
 }

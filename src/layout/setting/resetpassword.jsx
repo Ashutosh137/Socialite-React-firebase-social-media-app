@@ -8,7 +8,7 @@ export default function Resetpassword({ toggle }) {
     !auth.currentUser.emailVerified &&
       sendEmailVerification(auth.currentUser) &&
       toast.success(
-        "Sending a varification link to your email address , please check your email "
+        "Sending a varification link to your email address , please check your email ",
       );
   };
 
@@ -49,7 +49,7 @@ export default function Resetpassword({ toggle }) {
           onClick={async () => {
             await sendPasswordResetEmail(auth, auth.currentUser.email);
             toast.success(
-              "sended a reset password link to  your email address , please check your email "
+              "sended a reset password link to  your email address , please check your email ",
             );
           }}
         >

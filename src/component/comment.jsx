@@ -77,7 +77,7 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
     setpost((pre) => ({
       ...pre,
       comments: pre?.comments.filter(
-        (curr) => curr.commentid !== comment?.commentid
+        (curr) => curr.commentid !== comment?.commentid,
       ),
     }));
   };

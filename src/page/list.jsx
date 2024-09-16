@@ -3,13 +3,13 @@ import { useUserdatacontext } from "../service/context/usercontext";
 import { useNavigate } from "react-router-dom";
 import Postidtopost from "../layout/post/postidtopost";
 import BookmarkRemoveSharpIcon from "@mui/icons-material/BookmarkRemoveSharp";
-import {Helmet} from "react-helmet";
+import { Helmet } from "react-helmet";
 export const List = () => {
   const { userdata, setuserdata } = useUserdatacontext();
   const navigate = useNavigate();
 
   return (
-    <Fragment >
+    <Fragment>
       <Helmet>
         <title>Bookmark | socilaite</title>
         <meta name="description" content="Bookmark" />
@@ -19,7 +19,6 @@ export const List = () => {
         <meta name="keywords" content="Bookmark" />
         <meta name="author" content="Bookmark" />
         <meta name="language" content="EN" />
-
       </Helmet>
       <div className="w-full post border-gray-600 border-x-2 sm:px-5 py-5 sm:py-0">
         <div className="flex">
@@ -71,7 +70,6 @@ export const List = () => {
           )}
         </div>
       </div>
-      
     </Fragment>
   );
 };

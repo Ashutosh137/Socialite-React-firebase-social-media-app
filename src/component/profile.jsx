@@ -77,8 +77,8 @@ export const Profile = ({ username }) => {
     const data = () => {
       setmutual(
         profileuserdata?.follower?.filter((pre) =>
-          userdata?.follower?.includes(pre)
-        )
+          userdata?.follower?.includes(pre),
+        ),
       );
     };
     data();
@@ -96,7 +96,7 @@ export const Profile = ({ username }) => {
         ? setprofileuserdata((prev) => ({
             ...prev,
             follower: profileuserdata?.follower.filter(
-              (e) => e !== userdata?.uid
+              (e) => e !== userdata?.uid,
             ),
           }))
         : setprofileuserdata((prev) => ({
@@ -111,7 +111,7 @@ export const Profile = ({ username }) => {
         : setuserdata((prev) => ({
             ...prev,
             following: userdata?.following.filter(
-              (e) => e !== profileuserdata?.uid
+              (e) => e !== profileuserdata?.uid,
             ),
           }));
       !profileuserdata?.follower?.includes(userdata?.uid) &&
@@ -203,7 +203,7 @@ export const Profile = ({ username }) => {
                       setuserdata((prev) => ({
                         ...prev,
                         block: prev?.block?.filter(
-                          (item) => item !== profileuserdata?.uid
+                          (item) => item !== profileuserdata?.uid,
                         ),
                       }));
                   }}

@@ -1,7 +1,7 @@
 import React from "react";
 import CameraEnhanceIcon from "@mui/icons-material/CameraEnhance";
 
-function FirstPost({setactive}) {
+function FirstPost({ setactive }) {
   return (
     <div className="w-full my-20 flex flex-col  justify-center">
       <i className="rounded-full m-auto text-zinc-800 scale-125 border-2 border-stone-700 p-3  my-2 flex justify-center ">

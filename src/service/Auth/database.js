@@ -81,7 +81,7 @@ export const Get_notification = async (uid) => {
     const q = await query(
       collection(firestore, "notification"),
       where("uid", "==", uid),
-      orderBy("time", "desc")
+      orderBy("time", "desc"),
     );
     const doc_refs = await getDocs(q);
     const res = [];
@@ -222,7 +222,7 @@ export const Getimagedownloadlink = async (image) => {
       try {
         const storageRef = ref(
           storage,
-          `${auth.currentUser.uid}/${image.name}`
+          `${auth.currentUser.uid}/${image.name}`,
         );
         const uploadTask = uploadBytesResumable(storageRef, image);
         toast.info("image is being uploading");
@@ -241,7 +241,7 @@ export const Getimagedownloadlink = async (image) => {
               console.error("Error getting download URL:", error);
               reject(error);
             }
-          }
+          },
         );
       } catch (error) {
         console.log(error);

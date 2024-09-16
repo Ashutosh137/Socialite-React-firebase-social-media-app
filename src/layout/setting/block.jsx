@@ -15,7 +15,7 @@ export default function Block() {
       }));
     };
     data();
-  }, [privacy,setuserdata]);
+  }, [privacy, setuserdata]);
 
   return (
     <section className="post text-center p-2 text-sm sm:text-base sm:p-5 capitalize w-full ">

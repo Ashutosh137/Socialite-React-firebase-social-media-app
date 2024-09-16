@@ -45,8 +45,6 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
     dataforallusers();
   }, []);
 
-
-
   const handlesave = useCallback(
     (post) => {
       if (!auth?.currentUser) {
@@ -60,7 +58,7 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
         setuserdata((prev) => ({
           ...prev,
           saved: prev.saved.filter(
-            (savedpost) => post?.postid !== savedpost?.postid
+            (savedpost) => post?.postid !== savedpost?.postid,
           ),
         }));
         toast.success("Removed from your Bookmark");
@@ -78,7 +76,7 @@ export const UserDataProvider = ({ children, value, setvalue }) => {
         toast.success("Added to your Bookmark");
       }
     },
-    [auth, userdata]
+    [auth, userdata],
   );
 
   const navigate = useNavigate();

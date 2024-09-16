@@ -51,7 +51,7 @@ export const signupwithemail = async (email, pass) => {
     const { error, res } = await createUserWithEmailAndPassword(
       auth,
       email,
-      pass
+      pass,
     );
 
     if (res) {
@@ -63,7 +63,7 @@ export const signupwithemail = async (email, pass) => {
     console.error(err.code);
     if (err.code === "auth/email-already-in-use") {
       toast.error(
-        "This email id is already in use , please use different email id"
+        "This email id is already in use , please use different email id",
       );
     } else if (err.code === "auth/invalid-email")
       toast.error("invalid email id or passwaord");

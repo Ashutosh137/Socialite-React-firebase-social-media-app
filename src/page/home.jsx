@@ -34,7 +34,7 @@ export const Home = () => {
   useEffect(() => {
     if (active === "follow" && userdata?.following) {
       const filteredPosts = allpostdata.filter((post) =>
-        userdata.following.includes(post.postedby)
+        userdata.following.includes(post.postedby),
       );
       setpost(filteredPosts);
     } else {
@@ -94,7 +94,6 @@ export const Home = () => {
           ))}
         </div>
       </div>
-      
     </Fragment>
   );
 };

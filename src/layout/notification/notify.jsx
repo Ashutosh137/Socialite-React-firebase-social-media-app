@@ -26,7 +26,7 @@ export default function Notify({ notification }) {
           className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
           onClick={() => {
             navigate(
-              `/profile/${userdata?.username}/${notification?.intent?.postid}`
+              `/profile/${userdata?.username}/${notification?.intent?.postid}`,
             );
           }}
         >
@@ -67,7 +67,7 @@ export default function Notify({ notification }) {
           className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
           onClick={() => {
             navigate(
-              `/profile/${userdata?.username}/${notification?.intent?.postid}`
+              `/profile/${userdata?.username}/${notification?.intent?.postid}`,
             );
           }}
         >
@@ -109,7 +109,7 @@ export default function Notify({ notification }) {
           className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
           onClick={() => {
             navigate(
-              `/profile/${userdata?.username}/${notification?.intent?.postid}`
+              `/profile/${userdata?.username}/${notification?.intent?.postid}`,
             );
           }}
         >
@@ -150,7 +150,7 @@ export default function Notify({ notification }) {
           className="p-2 my-2 border-2 rounded-xl border-gray-700 cursor-pointer w-full flex mx-auto justify-left "
           onClick={() => {
             navigate(
-              `/profile/${userdata?.username}/${notification?.intent?.postid}`
+              `/profile/${userdata?.username}/${notification?.intent?.postid}`,
             );
           }}
         >

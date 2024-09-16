@@ -37,7 +37,7 @@ export default function Search({ bio = false }) {
 
   const debouncedFetchRelevantUsers = useCallback(
     debounce(fetchRelevantUsers, 500),
-    []
+    [],
   );
 
   useEffect(() => {

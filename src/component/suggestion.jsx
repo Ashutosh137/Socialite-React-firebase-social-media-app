@@ -3,7 +3,7 @@ import Search from "../layout/explore/search";
 import { useUserdatacontext } from "../service/context/usercontext";
 import Loading from "../layout/loading";
 export default function Suggestion({ bio = false }) {
-  const { userdata ,GetAllusers} = useUserdatacontext();
+  const { userdata, GetAllusers } = useUserdatacontext();
 
   if (GetAllusers == []) {
     return <></>;
@@ -21,9 +21,7 @@ export default function Suggestion({ bio = false }) {
           </h2>
 
           <div className="flex justify-center w-96 m-auto space-y-3 flex-col">
-            {GetAllusers.length === 0 && (
-             <Loading/>
-            )}
+            {GetAllusers.length === 0 && <Loading />}
             {GetAllusers.map((proflie, index) => {
               return (
                 proflie?.username !== userdata?.username && (

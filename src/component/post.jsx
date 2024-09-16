@@ -182,7 +182,7 @@ export const Post = ({ postdata, popup = true }) => {
                     <i className="flex justify-center space-x-3">
                       <label>
                         {userdata?.saved?.some(
-                          (savedpost) => post?.postid === savedpost?.postid
+                          (savedpost) => post?.postid === savedpost?.postid,
                         )
                           ? "Remove from bookmark"
                           : "Add to bookmark"}
@@ -327,7 +327,7 @@ export const Post = ({ postdata, popup = true }) => {
                 className="hover:text-[#27cbf0]"
               >
                 {userdata?.saved?.some(
-                  (savedpost) => post?.postid === savedpost?.postid
+                  (savedpost) => post?.postid === savedpost?.postid,
                 ) ? (
                   <BookmarkIcon style={{ color: "#37cbf0" }} />
                 ) : (

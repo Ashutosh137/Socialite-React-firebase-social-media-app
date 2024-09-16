@@ -42,7 +42,7 @@ export default function Profileviewbox({
           ? setprofileuserdata((prev) => ({
               ...prev,
               follower: profileuserdata?.follower.filter(
-                (e) => e !== userdata?.uid
+                (e) => e !== userdata?.uid,
               ),
             }))
           : setprofileuserdata((prev) => ({
@@ -58,7 +58,7 @@ export default function Profileviewbox({
           : setuserdata((prev) => ({
               ...prev,
               following: userdata?.following.filter(
-                (e) => e !== profileuserdata?.uid
+                (e) => e !== profileuserdata?.uid,
               ),
             }));
       }

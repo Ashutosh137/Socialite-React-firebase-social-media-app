@@ -10,29 +10,29 @@ Before you begin, make sure you have Docker installed on your system. You can do
 
 1. Clone this repository to your local machine:
 
-    ```bash
-    git clone https://github.com/Ashutosh137/Socialite-React-firebase-social-media-app
-    ```
+   ```bash
+   git clone https://github.com/Ashutosh137/Socialite-React-firebase-social-media-app
+   ```
 
 2. Navigate to the cloned directory:
 
-    ```bash
-    cd socialite-react-docker
-    ```
+   ```bash
+   cd socialite-react-docker
+   ```
 
 3. Build the Docker image:
 
-    ```bash
-    docker build -t socialite-react .
-    ```
+   ```bash
+   docker build -t socialite-react .
+   ```
 
 4. Run the Docker container:
 
-    ```bash
-    docker run -it -p 3000:5173 socialite-react
-    ```
+   ```bash
+   docker run -it -p 3000:5173 socialite-react
+   ```
 
-    This command will start the React app and expose it on port 3000. You can access the app by visiting http://localhost:3000 in your web browser.
+   This command will start the React app and expose it on port 3000. You can access the app by visiting http://localhost:3000 in your web browser.
 
 ## Customizations
 
@@ -42,14 +42,10 @@ If you need to customize any environment variables or configurations, you can mo
 
 - **Port Already in Use**: If port 3000 is already in use on your system, you can change the port mapping in the `docker run` command to a different available port, for example:
 
-    ```bash
-    docker run -it -p 4000:5173 socialite-react
-    ```
+  ```bash
+  docker run -it -p 4000:5173 socialite-react
+  ```
 
-
-
-or  
-
-
+or
 
 just write "docker pull ashutosh136/socialite:latest" on cmd
