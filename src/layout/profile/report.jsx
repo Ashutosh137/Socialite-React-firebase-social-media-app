@@ -28,7 +28,7 @@ function Report({ setactive, setprofileuserdata }) {
           onClick={() => {
             setactive("");
             toast.success("Report sucessfully");
-            setprofileuserdata((prev) => ({
+            setprofileuserdata && setprofileuserdata((prev) => ({
               ...prev,
               report: [...prev.report, userdata?.uid],
             }));

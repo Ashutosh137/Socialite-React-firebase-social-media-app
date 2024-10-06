@@ -1,4 +1,5 @@
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./page/home";
 import signuppage from "./page/signuppage";
@@ -8,14 +9,13 @@ import { useState } from "react";
 import { UserDataProvider } from "./service/context/usercontext";
 import Setting from "./page/setting";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Profilepage } from "./page/profilepage";
-import { List } from "./page/list";
 import Notification from "./page/notification";
 import Seepost from "./page/seepost";
 import Search from "./page/search";
 import Notfound from "./page/not-found";
 import { Layout } from "./layout/layout";
+import { List } from "./page/list";
 
 function App() {
   const [userdata, setuserdata] = useState(null);
@@ -66,7 +66,7 @@ function App() {
             />
           )}
           {userdata && (
-            <Route exect path="/lists" element={<Layout Component={Home} />} />
+            <Route exect path="/lists" element={<Layout Component={List} />} />
           )}
           <Route path="*" Component={Notfound} />
         </Routes>

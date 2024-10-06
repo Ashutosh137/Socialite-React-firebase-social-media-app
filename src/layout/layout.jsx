@@ -10,7 +10,7 @@ export const Layout = ({ Component, suggetion = true }) => {
       </div>
 
       {suggetion && (
-        <div className="w-1/4 hidden xl:block">
+        <div className="w-1/4  border-l-2 border-gray-400 hidden xl:block">
           <Suggestion />
         </div>
       )}

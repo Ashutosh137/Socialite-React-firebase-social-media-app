@@ -15,12 +15,6 @@ textarea {
   height: inherit;
 }
 
-.h-postimg {
-  max-height: 40rem;
-  max-width: 30rem;
-  object-fit: cover;
-}
-
 .max-h-popup {
   max-height: 75vh;
 }
@@ -39,6 +33,8 @@ textarea {
 
 .overflow {
   white-space: pre;
+  max-width: 8rem;
+  overflow: hidden;
 }
 
 .title {

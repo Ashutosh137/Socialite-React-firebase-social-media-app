@@ -40,7 +40,7 @@ const Navbar = () => {
 
   return (
     <Fragment>
-      <header className="p-2 hidden md:block w-40 xl:w-96">
+      <header className="p-2 hidden border-r-2  border-gray-400 md:block w-40 xl:w-96">
         <nav className="fixed flex flex-col h-screen  md:p-1 ">
           <h1 className="text-3xl title py-5 text-center xl:text-left first-letter:text-5xl font-bold ">
             Socialite

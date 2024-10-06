@@ -10,7 +10,7 @@ function Input({ name, placeholder, className, ...props }) {
 
       <input
         className={twMerge(
-          `  placeholder:capitalize bg-black text-white outline-1 p-4 py-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 md:text-lg text-sm  rounded-xl `,
+          `  placeholder:capitalize focus:border bg-black text-white outline-1 p-4 py-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500 md:text-lg text-sm  rounded-xl `,
           className,
         )}
         id={name}

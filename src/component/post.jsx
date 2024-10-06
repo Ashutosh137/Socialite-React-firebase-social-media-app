@@ -2,8 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { auth } from "../service/Auth";
 import InsertCommentIcon from "@mui/icons-material/InsertComment";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Profileviewbox from "../layout/profile/profileviewbox";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
@@ -23,6 +21,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Time, { formatNumber } from "../service/utiles/time";
 import Addcomment from "./addcomment";
+import PostMenu from "../layout/post/PostMenu";
+import HidePost from "../layout/post/HidePost";
+import LikePost from "../layout/post/likePost";
+import DeletePost from "../layout/post/DeletePost";
+import Report from "../layout/post/Report";
 
 export const Post = ({ postdata, popup = true }) => {
   const { userdata, handlesave, delete_post, defaultprofileimage } =
@@ -97,9 +100,9 @@ export const Post = ({ postdata, popup = true }) => {
   }
 
   return (
-    <section className="md:my-4 snap-center border-b-2 border-gray-700 w-full  post my-2 pb-3 p-1 text-lg flex flex-col">
+    <section className="md:my-4  snap-center border-b-2 border-gray-700 w-full  post my-2 pb-3 p-1 text-lg flex flex-col">
       {!hide && (
-        <div className="flex w-full align-middle space-x-3 ">
+        <div className="flex space-x-2 w-11/12   ">
           <img
             className="rounded-full border border-neutral-500 w-8 aspect-square sm:w-10 h-8 sm:h-10"
             src={postedby?.profileImageURL || defaultprofileimage}
@@ -107,8 +110,8 @@ export const Post = ({ postdata, popup = true }) => {
               e.target.src = defaultprofileimage;
             }}
           />
-          <div className="flex w-full m-1 sm:mx-3 flex-col">
-            <div className="flex relative text-sm sm:text-base  align-middle">
+          <div className="flex w-full m-1 sm:mx-3 flex-col ">
+            <div className="flex relative text-sm sm:text-base align-middle">
               <div
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}`);
@@ -151,87 +154,28 @@ export const Post = ({ postdata, popup = true }) => {
                 </i>
               </div>
               {active === "menu" && (
-                <div className="absolute top-12 z-50 right-3 =sm:right-8 px-4 text-sm bg-black sm:-my-10 -my-2 py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
-                  <button
-                    className="w-40 p-1 rounded-full hover:bg-gray-950 capitalize"
-                    onClick={() => {
-                      navigate(`/profile/${postedby?.username} `);
-                      setactive("");
-                    }}
-                  >
-                    view profile
-                  </button>
-
-                  {popup && (
-                    <button
-                      className="w-40 p-1 rounded-full capitalize hover:bg-gray-950"
-                      onClick={() => {
-                        setactive("comment");
-                      }}
-                    >
-                      View comment
-                    </button>
-                  )}
-
-                  <button
-                    className="w-40 capitalize p-1 rounded-full hover:bg-gray-950 text-white"
-                    onClick={() => {
-                      handlesave(post);
-                    }}
-                  >
-                    <i className="flex justify-center space-x-3">
-                      <label>
-                        {userdata?.saved?.some(
-                          (savedpost) => post?.postid === savedpost?.postid,
-                        )
-                          ? "Remove from bookmark"
-                          : "Add to bookmark"}
-                      </label>
-                    </i>
-                  </button>
-
-                  <button
-                    className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500 "
-                    onClick={() => {
-                      setactive("report");
-                    }}
-                  >
-                    Report
-                  </button>
-                  {popup && userdata?.username !== postedby?.username && (
-                    <button
-                      className="w-40 p-1 rounded-full hover:bg-gray-950 text-red-500"
-                      onClick={() => {
-                        sethide(true);
-                      }}
-                    >
-                      Hide post
-                    </button>
-                  )}
-
-                  {userdata?.username === postedby?.username && (
-                    <button
-                      className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                      onClick={() => {
-                        auth.currentUser && setactive("delete");
-                      }}
-                    >
-                      Delete
-                    </button>
-                  )}
-                </div>
+                <PostMenu
+                  post={post}
+                  setactive={setactive}
+                  popup={popup}
+                  handlesave={handlesave}
+                  postedby={postedby}
+                  sethide={sethide}
+                />
               )}
             </div>
 
             {post?.content && (
-              <pre
+              <p
+                className="text-sm text-clip w-full text-justify break-words block whitespace-pre-wrap pt-3 sm:pt-6 cursor-pointer"
+                role="button"
+                tabIndex={0}
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}/${post?.postid}`);
                 }}
-                className="text-sm w-full whitespace-break-spaces pt-3 sm:pt-6 "
               >
                 <Linkify>{post?.content}</Linkify>
-              </pre>
+              </p>
             )}
 
             {loadingimg && post?.img && (
@@ -255,7 +199,7 @@ export const Post = ({ postdata, popup = true }) => {
                 }}
                 className={`${
                   loadingimg ? "hidden" : "block"
-                } w-full h-full h-postimg my-5 border-neutral-500 border rounded-xl sm:rounded-2xl`}
+                } w-full h-full max-w-[30rem] max-h-[35rem] object-cover my-2 border-neutral-500 border rounded-xl sm:rounded-2xl`}
               />
             )}
 
@@ -327,7 +271,7 @@ export const Post = ({ postdata, popup = true }) => {
                 className="hover:text-[#27cbf0]"
               >
                 {userdata?.saved?.some(
-                  (savedpost) => post?.postid === savedpost?.postid,
+                  (savedpost) => post?.postid === savedpost?.postid
                 ) ? (
                   <BookmarkIcon style={{ color: "#37cbf0" }} />
                 ) : (
@@ -339,131 +283,14 @@ export const Post = ({ postdata, popup = true }) => {
         </div>
       )}
 
-      {hide && (
-        <div className="flex w-full sm:px-5 border-y-2 border-gray-950 rounded-3xl p-2 justify-around align-middle ">
-          <div className="flex mx-5 w-full sm:space-x-5 space-x-2">
-            <i className="text-gray-500 my-auto px-3 ">
-              <VisibilityOffIcon />
-            </i>
-            <label className="font-semibold text-gray-400  m-auto text-base ">
-              Post hidden
-            </label>
-          </div>
-
-          <button
-            onClick={() => {
-              sethide(false);
-              setactive("");
-            }}
-            className="px-8 capitalize mr-auto sm:mx-5 p-2 rounded-full text-sm sm:text-base text-gray-400 hover:bg-gray-950 bg-gray-900"
-          >
-            undo
-          </button>
-        </div>
-      )}
-      {active === "like" && (
-        <div>
-          {
-            <Popupitem
-              closefunction={() => {
-                setactive("");
-              }}
-            >
-              <div className="flex flex-col justify-center align-middle space-y-3">
-                <h2 className="text-center text-xl sm:text-2xl capitalize my-3 ">
-                  likes
-                </h2>
-                <div className="m-auto">
-                  {post?.likes.map((profile, index) => {
-                    return (
-                      <Profileviewbox key={index} profileusername={profile} />
-                    );
-                  })}
-                </div>
-              </div>
-            </Popupitem>
-          }
-        </div>
-      )}
+      {hide && <HidePost setactive={setactive} sethide={sethide} />}
+      {active === "like" && <LikePost post={post} setactive={setactive} />}
 
       {active === "delete" && (
-        <Popupitem
-          closefunction={() => {
-            setactive("");
-          }}
-        >
-          <div className="max-w-sm m-auto mb-10">
-            <p className="text-xl text-center my-7 capitalize ">
-              would you like to delete this post
-            </p>
-            <div className="flex justify-between">
-              <button
-                onClick={() => {
-                  setactive("");
-                }}
-                className="px-8 outline outline-neutral-800 capitalize m-auto p-2 rounded-full hover:bg-gray-950 bg-gray-900 text-white"
-              >
-                cancel
-              </button>
-              <button
-                onClick={() => {
-                  delete_post(post.postid);
-                  setactive("");
-                }}
-                className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-white"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </Popupitem>
+        <DeletePost delete_post={delete_post} setactive={setactive} />
       )}
 
-      {active === "report" && (
-        <Popupitem
-          closefunction={() => {
-            setactive("");
-          }}
-        >
-          <div className="max-w-sm m-auto mb-10">
-            <p className="text-xl text-center my-7 capitalize ">
-              report this post
-            </p>
-            <select className="mx-2 w-full my-8 p-3 bg-black capitalize text-white text-base border-2 px-4 border-white rounded-xl ">
-              {" "}
-              <option value="hateSpeech">Hate Speech</option>
-              <option value="spam">Spam</option>
-              <option value="harassment">Harassment</option>
-              <option value="violence">Violence</option>
-              <option value="falseInformation">False Information</option>
-              <option value="inappropriateContent">
-                Inappropriate Content
-              </option>
-              <option value="copyrightViolation">Copyright Violation</option>
-              <option value="impersonation">Impersonation</option>
-            </select>
-            <div className="flex justify-between">
-              <button
-                onClick={() => {
-                  setactive("");
-                }}
-                className="px-8 outline outline-neutral-800 capitalize m-auto p-2 rounded-full hover:bg-gray-950 bg-gray-900 text-white"
-              >
-                cancel
-              </button>
-              <button
-                onClick={() => {
-                  setactive("");
-                  auth.currentUser && toast.success("Report sucessfully");
-                }}
-                className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-700 bg-red-600 text-white"
-              >
-                report
-              </button>
-            </div>
-          </div>
-        </Popupitem>
-      )}
+      {active === "report" && <Report setactive={setactive} />}
 
       {popup && (
         <>

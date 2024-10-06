@@ -11,6 +11,7 @@ import {
   Getimagedownloadlink,
 } from "../service/Auth/database";
 import { toast } from "react-toastify";
+import Button from "../ui/button";
 
 export default function Addcomment({ cuupost, cuusetpost }) {
   const { userdata, defaultprofileimage } = useUserdatacontext();
@@ -86,108 +87,98 @@ export default function Addcomment({ cuupost, cuusetpost }) {
     setcommenttext("");
     progress.finish();
   };
+
   return (
-    <div className="flex post flex-col ">
+    <div className="flex flex-col space-y-4 pt-4  border border-gray-700 rounded-lg">
       {active !== "comment" && (
-        <div className="flex space-x-3 m-1 justify-start align-middle w-full">
-          <label className="text-sm capitalize my-auto text-left ">
-            repling to {active?.to}
+        <div className="flex items-center  space-x-3 mb-3 w-full">
+          <label className="text-sm font-medium text-gray-300">
+            Replying to {active?.to}
           </label>
-          <i
-            onClick={() => {
-              setactive("comment");
-            }}
-            className="text-gray-400"
-          >
-            {" "}
-            <CloseIcon />
-          </i>
+          <CloseIcon
+            onClick={() => setactive("comment")}
+            className="cursor-pointer text-gray-400"
+          />
         </div>
       )}
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          auth?.currentUser &&
-            commenttext.trim() !== "" &&
-            auth?.currentUser &&
-            (await handelcomment());
+          auth?.currentUser && commenttext.trim() && (await handelcomment());
           !auth?.currentUser && toast.error("Login required");
         }}
-        className="flex w-full my-2 sm:p-4 p-2 border rounded-xl border-gray-500 justify-around"
+        className="flex flex-col w-full  rounded-xl p-4"
       >
-        <img
-          src={userdata?.profileImageURL || defaultprofileimage}
-          className="w-10 h-10 bg-gray-400  rounded-full"
-          onError={(e) => {
-            e.target.src = defaultprofileimage;
-          }}
-        />
-        <div className="flex w-full mx-2 space-x-1">
-          <input
-            onChange={(e) => {
-              setcommenttext(e.target.value);
-            }}
-            value={commenttext}
-            maxLength={50}
-            type="text"
-            className=" w-full bg-black capitalize text-white text-sm sm:text-base border px-2 sm:px-4 border-white rounded-xl "
-            placeholder="write a comment .."
+        <div className="flex items-start space-x-3 mb-3">
+          <img
+            src={userdata?.profileImageURL || defaultprofileimage}
+            className="w-12 h-12 rounded-full bg-gray-500 object-cover"
+            onError={(e) => (e.target.src = defaultprofileimage)}
           />
-          <button
-            type="button"
-            onClick={() => document.getElementById("commentfile").click()}
-          >
-            <AttachFileSharpIcon />
-          </button>
-          <button className="bg-blue-500 text-sm  text-white text-center p-2 sm:px-4 capitalize rounded-md  md:w-40">
-            comment
-          </button>
-          <input
-            type="file"
-            name=""
-            accept="image/*"
-            onChange={(e) => setcommentfile(e.target.files[0])}
-            className="hidden"
-            id="commentfile"
-          />
+          <div className="flex flex-col w-full space-y-2">
+            <div className="flex justify-between">
+              <input
+                onChange={(e) => setcommenttext(e.target.value)}
+                value={commenttext}
+                maxLength={50}
+                type="text"
+                className="w-full p-2 text-sm sm:text-base bg-black text-gray-200 border border-gray-700 rounded-md"
+                placeholder="Write a comment..."
+              />
+              <button
+                type="button"
+                onClick={() => document.getElementById("commentfile").click()}
+                className="p-2 text-gray-400 hover:text-gray-200 transition"
+              >
+                <AttachFileSharpIcon />
+              </button>
+            </div>
+            <input
+              type="file"
+              name="commentfile"
+              accept="image/*"
+              onChange={(e) => setcommentfile(e.target.files[0])}
+              className="hidden"
+              id="commentfile"
+            />
+          </div>
         </div>
+        <Button
+          type="submit"
+          className="mt-4 py-2 px-6 w-full max-w-60 md:text-sm mx-auto bg-blue-500 text-white font-semibold text-sm rounded-md hover:bg-blue-600 transition"
+        >
+          add Comment
+        </Button>
       </form>
+
       {commentfile && (
-        <div className="flex">
+        <div className="flex items-center space-x-3 mt-3">
           <img
             src={URL.createObjectURL(commentfile)}
-            className="w-60  mx-5 m-3 aspect-auto rounded-3xl"
+            className="w-60 h-auto rounded-lg"
           />
-          <i
-            onClick={() => {
-              setcommentfile(null);
-            }}
-            className="mr-auto cursor-pointer p-3"
-          >
-            <CloseIcon />
-          </i>
+          <CloseIcon
+            onClick={() => setcommentfile(null)}
+            className="cursor-pointer text-gray-500 hover:text-gray-300 transition"
+          />
         </div>
       )}
 
-      <h2 className="sm:text-xl text-base sm:my-3 text-center p-2 capitalize text-gray-200">
-        {post?.comments?.length > 0
-          ? "comments"
-          : "No Comments Yet , but you can "}
+      <h2 className="text-lg font-semibold text-center text-gray-300 mt-4">
+        {post?.comments?.length > 0 ? "Comments" : "No Comments Yet"}
       </h2>
-      <div className="flex space-y-5 flex-col my-5 ">
-        {post?.comments?.map((comm, index) => {
-          return (
-            <div key={index} className="flex flex-col space-y-1 ">
-              <Comment
-                setpost={setpost}
-                setactivation={setactive}
-                currentcomment={comm}
-                post={post}
-              />
-              <hr className="w-full border-gray-700" />
-            </div>
-          );
-        })}
+      <div className="flex flex-col space-y-4">
+        {post?.comments?.map((comm, index) => (
+          <div key={index} className="flex flex-col space-y-2">
+            <Comment
+              setpost={setpost}
+              setactivation={setactive}
+              currentcomment={comm}
+              post={post}
+            />
+            <hr className="w-full border-gray-700" />
+          </div>
+        ))}
       </div>
     </div>
   );

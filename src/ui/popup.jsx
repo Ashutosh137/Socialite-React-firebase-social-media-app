@@ -1,7 +1,14 @@
 import PropTypes from "prop-types";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
+import { useEffect } from "react";
 
 const Popupitem = ({ children, closefunction = () => {} }) => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  });
   return (
     <section className="backdrop-blur-sm z-50 fixed left-0 top-0 w-screen h-screen ">
       <div className="fixed shadow-gray-700 post popup shadow-2xl rounded-3xl flex border-2 border-gray-700 animinate left-1/4 top-16 bg-black text-white">

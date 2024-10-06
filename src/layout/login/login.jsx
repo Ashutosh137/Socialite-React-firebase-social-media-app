@@ -83,7 +83,12 @@ const Login = ({ onenter, role }) => {
           By signing up, you agree to the <b>Terms of Service</b> and
           <b> Privacy Policy</b>, including Cookie Use.
         </p>
-        <Button className={"w-40 rounded-xl"} type="submit">
+        <Button
+          className={
+            "w-80 text-white/90 text-base md:text-lg mx-auto p-1 sm:p-1 rounded-xl"
+          }
+          type="submit"
+        >
           {role}
         </Button>
 
