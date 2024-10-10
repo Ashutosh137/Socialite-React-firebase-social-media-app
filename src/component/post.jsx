@@ -102,7 +102,7 @@ export const Post = ({ postdata, popup = true }) => {
   return (
     <section className="md:my-4  snap-center border-b-2 border-gray-700 w-full  post my-2 pb-3 p-1 text-lg flex flex-col">
       {!hide && (
-        <div className="flex space-x-2 w-11/12   ">
+        <div className="flex  space-x-2 w-full   ">
           <img
             className="rounded-full border border-neutral-500 w-8 aspect-square sm:w-10 h-8 sm:h-10"
             src={postedby?.profileImageURL || defaultprofileimage}
@@ -110,8 +110,8 @@ export const Post = ({ postdata, popup = true }) => {
               e.target.src = defaultprofileimage;
             }}
           />
-          <div className="flex w-full m-1 sm:mx-3 flex-col ">
-            <div className="flex relative text-sm sm:text-base align-middle">
+          <div className="flex w-full overflow-hidden m-1 sm:mx-3 flex-col ">
+            <div className="flex w-full relative text-sm sm:text-base align-middle">
               <div
                 onClick={() => {
                   navigate(`/profile/${postedby?.username}`);
@@ -167,7 +167,7 @@ export const Post = ({ postdata, popup = true }) => {
 
             {post?.content && (
               <p
-                className="text-sm text-clip w-full text-justify break-words block whitespace-pre-wrap pt-3 sm:pt-6 cursor-pointer"
+                className="text-sm w-auto text-clip text-justify break-words block whitespace-pre-wrap pt-3 sm:pt-6 cursor-pointer"
                 role="button"
                 tabIndex={0}
                 onClick={() => {

@@ -59,8 +59,8 @@ export const Home = () => {
         <meta name="author" content="Home" />
         <meta name="language" content="EN" />
       </Helmet>
-      <div className="flex   w-full sm:mx-3 flex-col ">
-        <div className="sticky bg-[rgb(0,0,0,0.6)] z-30 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
+      <div className="flex  sm:mx-3 flex-col ">
+        <div className="sticky  z-30 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
           <div className="flex justify-evenly my-2 bg-transparent">
             <label
               onClick={() => handleTabChange("")}

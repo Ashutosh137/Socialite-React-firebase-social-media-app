@@ -34,7 +34,7 @@ function TextInput({ name, placeholder, className, ...props }) {
       <textarea
         placeholder={placeholder}
         className={twMerge(
-          " p-5 py-3 placeholder:capitalize bg-black text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-full md:text-lg text-sm  border-1  rounded-2xl my-1  ",
+          " p-5 py-3 placeholder:capitalize bg-inherit text-white  border-2 border-gray-300 placeholder:font-serif placeholder:text-neutral-500  w-full md:text-lg text-sm  border-1  rounded-2xl my-1  ",
           className,
         )}
         id={name}

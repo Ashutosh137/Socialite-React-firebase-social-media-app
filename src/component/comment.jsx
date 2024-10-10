@@ -11,8 +11,9 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Popupitem } from "../ui/popup";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
-import Reply from "./reply";
+import Reply from "../layout/Comment/reply";
 import Report from "../layout/profile/report";
+import Menu from "../layout/Comment/Menu";
 
 export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
   const { userdata, defaultprofileimage } = useUserdatacontext();
@@ -150,35 +151,12 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
               <MoreVertIcon />
             </label>
             {active === "menu" && (
-              <div className="absolute top-5 z-50 right-7 sm:right-8 px-4 text-sm bg-black -my-5 py-2 sm:py-5 sm:p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-1 sm:space-y-2  ">
-                <button
-                  className="sm:w-40 w-28 p-1  rounded-full text-white hover:bg-gray-950 "
-                  onClick={() => {
-                    navigate(`/profile/${commentby?.username} `);
-                  }}
-                >
-                  View profile
-                </button>
-                <button
-                  className="sm:w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                  onClick={() => {
-                    setactive("report");
-                  }}
-                >
-                  Report
-                </button>
-                {(userdata?.username === commentby?.username ||
-                  post?.postedby === userdata?.uid) && (
-                  <button
-                    className="sm:w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                    onClick={() => {
-                      delcomment();
-                    }}
-                  >
-                    Delete
-                  </button>
-                )}
-              </div>
+              <Menu
+                delcomment={delcomment}
+                setactive={setactive}
+                post={post}
+                commentby={commentby}
+              />
             )}
           </div>
 
@@ -203,9 +181,10 @@ export default Comment = ({ currentcomment, setpost, post, setactivation }) => {
                     setloadingimg(false);
                   }}
                   src={comment?.image}
-                  className={`w-40 rounded-xl aspect-auto my-2 ${
+                  className={`w-80 rounded-xl aspect-auto my-2 ${
                     loadingimg ? "hidden" : "block"
                   }  `}
+                
                 />
               )}
             </div>

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useUserdatacontext } from "../service/context/usercontext";
-import { Create_notification, get_userdata } from "../service/Auth/database";
+import { useUserdatacontext } from "../../service/context/usercontext";
+import { Create_notification, get_userdata } from "../../service/Auth/database";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Time from "../service/utiles/time";
+import Time from "../../service/utiles/time";
 import { Skeleton } from "@mui/material";
-import { auth } from "../service/Auth";
+import { auth } from "../../service/Auth";
 import { toast } from "react-toastify";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Popupitem } from "../ui/popup";
+import { Popupitem } from "../../ui/popup";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useNavigate } from "react-router-dom";
+import Menu from "../Reply/Menu";
 
 export default function Reply({ reply, setcommentpost }) {
   const { userdata, defaultprofileimage } = useUserdatacontext();
@@ -129,36 +130,7 @@ export default function Reply({ reply, setcommentpost }) {
               <MoreVertIcon />
             </label>
             {active === "menu" && (
-              <div className="absolute top-5 z-50 right-3 sm:right-8 px-4 text-sm bg-black sm:-my-16 -my-5 py-5 p-3 rounded-xl shadow-sm shadow-white flex flex-col space-y-2  ">
-                <button
-                  className="w-40 p-1 rounded-full text-white hover:bg-gray-950 "
-                  onClick={() => {
-                    navigate(`/profile/${commentby?.username} `);
-                    toggle();
-                  }}
-                >
-                  View profile
-                </button>
-                <button
-                  className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                  onClick={() => {
-                    setactive("report");
-                  }}
-                >
-                  Report
-                </button>
-                {(userdata?.username === commentby?.username ||
-                  comment?.postedby === userdata?.uid) && (
-                  <button
-                    className="w-40 p-1 rounded-full text-red-500 hover:bg-gray-950 "
-                    onClick={() => {
-                      delcomment();
-                    }}
-                  >
-                    Delete
-                  </button>
-                )}
-              </div>
+              <Menu comment={comment} commentby={commentby} setactive={setactive}/>
             )}
           </div>
 

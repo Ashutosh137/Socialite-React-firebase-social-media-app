@@ -6,15 +6,14 @@ import { auth } from "../service/Auth";
 import { useNavigate } from "react-router-dom";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Helmet } from "react-helmet";
-import { toast } from "react-toastify";
 import Block from "../layout/setting/block";
 import Resetpassword from "../layout/setting/resetpassword";
+import Report from "../layout/setting/Report";
 export default function Setting() {
   const [active, setactive] = useState(
-    `${window.innerWidth < 480 ? "" : "account"}`,
+    `${window.innerWidth < 480 ? "" : "account"}`
   );
-  const [reportitle, setreportitle] = useState("");
-  const [report, setreport] = useState("");
+
   const navigate = useNavigate();
   return (
     <Fragment>
@@ -30,7 +29,7 @@ export default function Setting() {
       </Helmet>
       <section className="flex post border-gray-800  text-center capitalize text-base border-x-2  w-full">
         <div
-          className={`px-3 flex-col w-full sm:w-auto ${
+          className={`px-3 flex-col  w-full sm:w-auto ${
             active === "" ? "flex" : "hidden"
           } md:flex`}
         >
@@ -40,12 +39,12 @@ export default function Setting() {
             </i>
             <h1 className="text-2xl font-semibold m-auto">settings</h1>
           </div>
-          <div className=" mt-5 flex flex-col p-2">
+          <div className=" mt-5 flex flex-col space-y-3 md:space-y-5 p-2">
             <div
               onClick={() => {
                 active === "account" ? setactive("") : setactive("account");
               }}
-              className="p-3 justify-center hover:bg-gray-950 w-full sm:w-72 border-gray-700 border-2 m-3 rounded-3xl flex"
+              className="p-3 justify-center hover:bg-gray-950 w-full sm:w-72 border-gray-700 border-2  rounded-3xl flex"
             >
               <h1 className="m-auto w-full">account</h1>
               <i className="ml-auto">
@@ -57,7 +56,7 @@ export default function Setting() {
               onClick={() => {
                 active === "password" ? setactive("") : setactive("password");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2  rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">password and protection</h1>
               <i className="ml-auto">
@@ -69,7 +68,7 @@ export default function Setting() {
               onClick={() => {
                 navigate("/lists");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2  rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">bookmark collection</h1>
               <i className="ml-auto">
@@ -80,7 +79,7 @@ export default function Setting() {
               onClick={() => {
                 active === "block" ? setactive("") : setactive("block");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2  rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">who can see your posts</h1>
               <i className="ml-auto">
@@ -91,7 +90,7 @@ export default function Setting() {
               onClick={() => {
                 active === "report" ? setactive("") : setactive("report");
               }}
-              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2 m-3 rounded-3xl sm:w-72 flex"
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2  rounded-3xl sm:w-72 flex"
             >
               <h1 className="m-auto w-full">report a problem</h1>
               <i className="ml-auto ">
@@ -103,7 +102,7 @@ export default function Setting() {
                 navigate("/login");
                 auth.signOut();
               }}
-              className="p-3 justify-center border-gray-700 border-2 text-red-400 hover:text-white transition-colors ease-in-out duration-400 font-semibold m-3 rounded-3xl w-72 flex"
+              className="p-3 justify-center border-gray-700 border-2 text-red-400 hover:text-white transition-colors ease-in-out duration-400 font-semibold  rounded-3xl w-72 flex"
             >
               logout
             </div>
@@ -128,52 +127,7 @@ export default function Setting() {
             )}
             {active === "block" && <Block />}
 
-            {active === "report" && (
-              <section className="w-full  p-2 text-sm sm:text-base text-left capitalize">
-                <h1 className="text-center text-xl">report a problem</h1>
-                <div className="my-5 flex flex-col justify-center space-y-3">
-                  <div className="flex-col flex space-y-1">
-                    <label className=" p-2 mx-3 "> report title</label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Report Title"
-                      value={reportitle}
-                      className="px-5 placeholder:capitalize bg-black placeholder:text-neutral-500  sm:text-lg text-sm p-2 rounded-xl   "
-                      onChange={(e) => setreportitle(e.target.value)}
-                      autoFocus
-                    ></input>
-                  </div>
-                  <div className="flex-col flex space-y-1">
-                    <label className="p-2 mx-3 "> discribe your problem</label>
-
-                    <textarea
-                      type="text"
-                      rows={3}
-                      placeholder="discribe your problem in brirf "
-                      value={report}
-                      className="px-5 placeholder:capitalize bg-black   placeholder:text-neutral-500  sm:text-lg text-sm p-2  rounded-xl   "
-                      onChange={(e) => setreport(e.target.value)}
-                    ></textarea>
-                  </div>
-                  <div className=" m-auto">
-                    <button
-                      onClick={() => {
-                        reportitle !== "" &&
-                          toast.success(
-                            `Reported sucessfully on  ${reportitle}`,
-                          );
-                        setreport("");
-                        setreportitle("");
-                      }}
-                      className="bg-blue-500 hover:bg-blue-600 rounded-full m-auto  shadow-lg capitalize p-3 px-5 w-60 my-3 font-semibold "
-                    >
-                      report
-                    </button>
-                  </div>
-                </div>
-              </section>
-            )}
+            {active === "report" && <Report />}
           </div>
         </div>
       </section>

@@ -81,7 +81,7 @@ export const Createpost = ({ toggle = () => {} }) => {
             }}
             type="text"
             placeholder="What is Happening?!"
-            className="px-5 mx-2 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll bg-black focus:outline-none  placeholder:text-neutral-500 md:text-xl p-2 "
+            className="px-5 mx-2 placeholder:capitalize text-white w-full scroll-smooth overflow-y-scroll focus:outline-none  placeholder:text-neutral-500 md:text-xl p-2 "
           />
         </div>
         <span

@@ -24,6 +24,7 @@ import Private from "../layout/profile/private";
 import Loading from "../layout/loading";
 import Report from "../layout/profile/report";
 import FirstPost from "../layout/profile/firstPost";
+import Menu from "../layout/profile/menu";
 export const Profile = ({ username }) => {
   const progress = new ProgressBar();
   const [profileuserdata, setprofileuserdata] = useState(null);
@@ -77,8 +78,8 @@ export const Profile = ({ username }) => {
     const data = () => {
       setmutual(
         profileuserdata?.follower?.filter((pre) =>
-          userdata?.follower?.includes(pre),
-        ),
+          userdata?.follower?.includes(pre)
+        )
       );
     };
     data();
@@ -96,7 +97,7 @@ export const Profile = ({ username }) => {
         ? setprofileuserdata((prev) => ({
             ...prev,
             follower: profileuserdata?.follower.filter(
-              (e) => e !== userdata?.uid,
+              (e) => e !== userdata?.uid
             ),
           }))
         : setprofileuserdata((prev) => ({
@@ -111,7 +112,7 @@ export const Profile = ({ username }) => {
         : setuserdata((prev) => ({
             ...prev,
             following: userdata?.following.filter(
-              (e) => e !== profileuserdata?.uid,
+              (e) => e !== profileuserdata?.uid
             ),
           }));
       !profileuserdata?.follower?.includes(userdata?.uid) &&
@@ -160,72 +161,7 @@ export const Profile = ({ username }) => {
           <MoreVertIcon />
         </i>
         {active === "setting" && profileuserdata && (
-          <div className="absolute top-12 right-3  sm:right-8 px-8 sm:px-4 text-sm bg-black z-50 sm:-my-10 -my-2 py-5 p-2  rounded-xl shadow-sm shadow-white flex flex-col space-y-2 sm:space-y-4  ">
-            <button
-              className="sm:w-40 capitalize  p-1 rounded-full hover:bg-gray-950 "
-              onClick={() => {
-                navigator.share({
-                  title:
-                    "Spreading the Vibes: Check Out My Latest Socialite Post! ",
-                  text: "Embark on a journey through elegance and excitement! My newest post on Socialite App is here to dazzle your feed. Swipe up to experience the glitz, glamour, and all things fabulous!",
-                  url: window.location.href,
-                });
-                setactive("");
-              }}
-            >
-              share profile{" "}
-            </button>
-            <button
-              className="sm:w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
-              onClick={() => {
-                setactive("about");
-              }}
-            >
-              about profile{" "}
-            </button>
-            {profileuserdata?.username !== userdata?.username ? (
-              <>
-                <button
-                  className="sm:w-40 capitalize  p-1 rounded-full text-red-500 hover:bg-gray-950"
-                  onClick={() => {
-                    auth.currentUser && setactive("report");
-                  }}
-                >
-                  report{" "}
-                </button>
-                <button
-                  className="sm:w-40 capitalize  p-1 rounded-full hover:bg-gray-950 text-red-500 "
-                  onClick={() => {
-                    auth.currentUser &&
-                      !userdata?.block?.includes(profileuserdata?.uid) &&
-                      setactive("block");
-                    userdata?.block?.includes(profileuserdata?.uid) &&
-                      setuserdata((prev) => ({
-                        ...prev,
-                        block: prev?.block?.filter(
-                          (item) => item !== profileuserdata?.uid,
-                        ),
-                      }));
-                  }}
-                >
-                  {userdata?.block?.includes(profileuserdata?.uid)
-                    ? "Unblock"
-                    : "block"}{" "}
-                </button>
-              </>
-            ) : (
-              <>
-                <button
-                  className="w-40 capitalize  p-1 rounded-full  hover:bg-gray-950"
-                  onClick={() => {
-                    navigate("/setting");
-                  }}
-                >
-                  account settings
-                </button>
-              </>
-            )}
-          </div>
+          <Menu profileuserdata={profileuserdata} setactive={setactive} />
         )}
       </div>
       <div className="flex post">

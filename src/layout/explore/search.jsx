@@ -60,7 +60,7 @@ export default function Search({ bio = false }) {
             value={searchtext}
             name="search"
             onChange={(e) => setsearchtext(e.target.value)}
-            className="p-3 w-full bg-black text-white rounded-full outline-none"
+            className="p-3 w-full bg-inherit text-white rounded-full outline-none"
             placeholder="Search.."
           />
         </div>

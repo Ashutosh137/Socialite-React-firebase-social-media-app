@@ -5,7 +5,7 @@ export const Layout = ({ Component, suggetion = true }) => {
   return (
     <div className="flex w-full justify-around  ">
       <Navbar />
-      <div className="mt-5 w-full sm:mt-0">
+      <div className="mt-8 w-full sm:mt-0">
         <Component />
       </div>
 
