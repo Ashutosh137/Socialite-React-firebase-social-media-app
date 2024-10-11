@@ -5,12 +5,12 @@ export const Layout = ({ Component, suggetion = true }) => {
   return (
     <div className="flex w-full justify-around  ">
       <Navbar />
-      <div className="mt-8 w-full sm:mt-0">
+      <div className="mt-8  md:pl-36 xl:pl-56  w-full md:mt-0">
         <Component />
       </div>
 
       {suggetion && (
-        <div className="w-1/4  border-l-2 border-gray-400 hidden xl:block">
+        <div className="w-4/12  border-l-2 border-gray-400 hidden xl:block">
           <Suggestion />
         </div>
       )}

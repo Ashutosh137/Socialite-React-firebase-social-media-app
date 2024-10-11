@@ -1,7 +1,7 @@
 import React from "react";
 import { Popupitem } from "../../ui/popup";
 
-function DeletePost({ setactive, delete_post }) {
+function DeletePost({ setactive, delete_post, post }) {
   return (
     <Popupitem
       closefunction={() => {

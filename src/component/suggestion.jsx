@@ -28,7 +28,7 @@ export default function Suggestion({ bio = false }) {
                 (profile, index) =>
                   profile?.username !== userdata?.username && (
                     <Profileviewbox bio={bio} key={index} profile={profile} />
-                  )
+                  ),
               )}
             </div>
           </div>

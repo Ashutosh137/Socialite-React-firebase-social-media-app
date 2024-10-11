@@ -8,7 +8,7 @@ import {
 import { Skeleton } from "@mui/material";
 import { auth } from "../../service/Auth";
 export default function Profileviewbox({
-  profile=null,
+  profile = null,
   bio = false,
   profileusername,
 }) {
@@ -69,7 +69,7 @@ export default function Profileviewbox({
     return <></>;
   }
   return (
-    <section className="flex min-w-80  justify-between  post cursor-pointer p-1 align-middle ">
+    <section className="flex w-80  justify-between  post cursor-pointer p-1 align-middle ">
       <img
         src={profileuserdata?.profileImageURL || defaultprofileimage}
         onError={(e) => {

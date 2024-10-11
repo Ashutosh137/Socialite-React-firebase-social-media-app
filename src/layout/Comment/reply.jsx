@@ -130,7 +130,11 @@ export default function Reply({ reply, setcommentpost }) {
               <MoreVertIcon />
             </label>
             {active === "menu" && (
-              <Menu comment={comment} commentby={commentby} setactive={setactive}/>
+              <Menu
+                comment={comment}
+                commentby={commentby}
+                setactive={setactive}
+              />
             )}
           </div>
 

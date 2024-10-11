@@ -54,7 +54,7 @@ export const Createpost = ({ toggle = () => {} }) => {
   };
 
   return (
-    <section className="text-center post mx-5 capitalize">
+    <section className="text-center post mx-2 capitalize">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -73,7 +73,7 @@ export const Createpost = ({ toggle = () => {} }) => {
             }}
           />
           <TextInput
-            maxLength={100}
+            maxLength={500}
             value={posttext}
             rows={(posttext.match(/\n/g) || []).length + 1}
             onChange={(e) => {

@@ -167,7 +167,7 @@ export const Post = ({ postdata, popup = true }) => {
 
             {post?.content && (
               <p
-                className="text-sm w-auto text-clip text-justify break-words block whitespace-pre-wrap pt-3 sm:pt-6 cursor-pointer"
+                className="text-sm w-auto text-clip text-justify break-words block whitespace-pre-wrap pt-3 sm:pt-4 cursor-pointer"
                 role="button"
                 tabIndex={0}
                 onClick={() => {
@@ -183,8 +183,8 @@ export const Post = ({ postdata, popup = true }) => {
                 animation="wave"
                 sx={{ bgcolor: "grey.900", borderRadius: "1rem", my: 3 }}
                 variant="rectangular"
-                width={window.innerWidth >= 500 ? 500 : 300}
-                height={window.innerWidth >= 500 ? 550 : 350}
+                width={{ xs: 250, md: 500 }}
+                height={{ xs: 300, md: 550 }}
               />
             )}
             {post?.img && (
@@ -198,8 +198,8 @@ export const Post = ({ postdata, popup = true }) => {
                   navigate(`/profile/${postedby?.username}/${post?.postid}`);
                 }}
                 className={`${
-                  loadingimg ? "hidden" : "block"
-                } w-full h-full max-w-[30rem] max-h-[35rem] object-cover my-2 border-neutral-500 border rounded-xl sm:rounded-2xl`}
+                  loadingimg ? "hidden" : "block mt-5"
+                } w-full  h-full max-w-[30rem] max-h-[35rem]  object-cover my-2 border-neutral-500 border rounded-xl sm:rounded-2xl`}
               />
             )}
 
@@ -271,7 +271,7 @@ export const Post = ({ postdata, popup = true }) => {
                 className="hover:text-[#27cbf0]"
               >
                 {userdata?.saved?.some(
-                  (savedpost) => post?.postid === savedpost?.postid
+                  (savedpost) => post?.postid === savedpost?.postid,
                 ) ? (
                   <BookmarkIcon style={{ color: "#37cbf0" }} />
                 ) : (
@@ -287,7 +287,11 @@ export const Post = ({ postdata, popup = true }) => {
       {active === "like" && <LikePost post={post} setactive={setactive} />}
 
       {active === "delete" && (
-        <DeletePost delete_post={delete_post} setactive={setactive} />
+        <DeletePost
+          delete_post={delete_post}
+          post={post}
+          setactive={setactive}
+        />
       )}
 
       {active === "report" && <Report setactive={setactive} />}

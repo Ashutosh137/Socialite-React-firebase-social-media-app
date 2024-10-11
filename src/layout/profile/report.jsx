@@ -28,10 +28,11 @@ function Report({ setactive, setprofileuserdata }) {
           onClick={() => {
             setactive("");
             toast.success("Report sucessfully");
-            setprofileuserdata && setprofileuserdata((prev) => ({
-              ...prev,
-              report: [...prev.report, userdata?.uid],
-            }));
+            setprofileuserdata &&
+              setprofileuserdata((prev) => ({
+                ...prev,
+                report: [...prev.report, userdata?.uid],
+              }));
           }}
           className="px-8 capitalize m-auto p-2 rounded-full hover:bg-red-600 bg-red-500 text-base font-semibold text-white"
         >

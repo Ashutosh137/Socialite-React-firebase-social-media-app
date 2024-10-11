@@ -40,9 +40,9 @@ const Navbar = () => {
 
   return (
     <Fragment>
-      <header className="p-2 hidden border-r-2  border-gray-400 md:block w-40 xl:w-96">
-        <nav className="fixed flex flex-col h-screen  md:p-1 ">
-          <h1 className="text-3xl title py-5 text-center xl:text-left first-letter:text-5xl font-bold ">
+      <header className="p-2 hidden  md:block">
+        <nav className="fixed border-r border-gray-300 flex md:w-36 xl:w-56 flex-col h-screen   ">
+          <h1 className="text-3xl text-center title py-5  first-letter:text-5xl font-bold ">
             Socialite
           </h1>
           <nav className="flex align-middle my-auto text-xl justify-center capitalize flex-col">
@@ -93,12 +93,12 @@ const Navbar = () => {
                 <label className="xl:block hidden mx-2">settings </label>
               </span>
             </Link>
-            <Button className=" m-auto my-3 xl:w-40">
+            <Button className="  my-5 max-w-40">
               <span
                 onClick={() => {
                   setpost(true);
                 }}
-                className="flex justify-center space-x-2 "
+                className="flex justify-center w-full space-x-2 "
               >
                 <AddIcon />
                 <label className="xl:block hidden">post</label>
@@ -106,7 +106,7 @@ const Navbar = () => {
             </Button>
           </nav>
 
-          <Button className="mb-10">
+          <Button className="mb-10 max-w-40">
             {auth.currentUser ? (
               <span
                 className="flex space-x-2  justify-center"

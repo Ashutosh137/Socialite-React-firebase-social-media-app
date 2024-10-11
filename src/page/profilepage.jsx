@@ -19,7 +19,7 @@ export const Profilepage = () => {
         <meta name="author" content="Profile" />
         <meta name="language" content="EN" />
       </Helmet>
-      <div className="border-x-2 w-full border-zinc-700">
+      <div className="w-full ">
         <Profile username={username} />
       </div>
     </Fragment>

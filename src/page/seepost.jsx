@@ -45,12 +45,12 @@ export default function Seepost() {
       <Helmet>
         <title>Post || {username}</title>
       </Helmet>
-      <div className="border-gray-800 postanimiate p-2 sm:p-4 border-x-2 w-full">
+      <div className=" postanimiate p-2 sm:p-4 w-full">
         {post === undefined && <NotFoundPost />}
 
         {!loader && post && (
           <div className="w-full flex flex-col">
-            <div className="flex  bg-black capitalize space-x-4 ">
+            <div className="flex  capitalize space-x-4 ">
               <i
                 onClick={() => {
                   navigate("/home");

@@ -114,14 +114,14 @@ export default function Notify({ notification }) {
           }}
         >
           <img
-            className="w-10 aspect-square m-2 rounded-full my-auto"
+            className="w-10 aspect-square m-2 mx-1 rounded-full my-auto"
             src={likeby?.profileImageURL || defaultprofileimage}
             onClick={(e) => {
               e.stopPropagation();
               navigate(`/profile/${likeby?.username}`);
             }}
           />
-          <span className=" text-base capitalize my-auto px-2 ">
+          <span className=" text-base capitalize my-auto px-1 ">
             <label
               className="px-1  font-semibold"
               onClick={(e) => {

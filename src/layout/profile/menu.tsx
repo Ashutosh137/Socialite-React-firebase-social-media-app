@@ -56,7 +56,7 @@ function Menu({ setactive, profileuserdata }) {
                   setuserdata((prev) => ({
                     ...prev,
                     block: prev?.block?.filter(
-                      (item) => item !== profileuserdata?.uid
+                      (item) => item !== profileuserdata?.uid,
                     ),
                   }));
               }}

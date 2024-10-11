@@ -14,7 +14,7 @@ function Menu({ delcomment, setactive, commentby, post }) {
     >
       <div className="flex flex-col space-y-2 divide-y">
         <button
-          className="sm:w-40 w-28 p-1   text-white hover:bg-gray-950 "
+          className="sm:w-40 w-28 p-1 text-white hover:bg-gray-950 "
           onClick={() => {
             navigate(`/profile/${commentby?.username} `);
           }}

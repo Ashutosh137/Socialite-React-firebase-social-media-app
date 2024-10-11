@@ -59,9 +59,9 @@ export const Home = () => {
         <meta name="author" content="Home" />
         <meta name="language" content="EN" />
       </Helmet>
-      <div className="flex  sm:mx-3 flex-col ">
-        <div className="sticky  z-30 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
-          <div className="flex justify-evenly my-2 bg-transparent">
+      <div className="  w-full px-2 ">
+        <div className="sticky bg-inherit/50  z-30 text-neutral-200 capitalize text-base sm:text-lg my-2 top-0 ">
+          <div className="flex  justify-evenly my-2 bg-transparent">
             <label
               onClick={() => handleTabChange("")}
               className={`${
@@ -74,7 +74,7 @@ export const Home = () => {
               onClick={() => auth?.currentUser && handleTabChange("follow")}
               className={`${
                 active === "follow" ? "border-sky-500 border-b-2" : ""
-              }  p-1`}
+              }`}
             >
               Following
             </label>
@@ -82,7 +82,7 @@ export const Home = () => {
         </div>
         <Createpost />
         <hr className="border-gray-700 w-full" />
-        <div className="sm:mx-3 mx-2 snap-y snap-mandatory">
+        <div className=" mx-2 snap-y w-full snap-mandatory">
           {loading && <Loading />}
           {post?.length === 0 && !loading && (
             <div className="flex capitalize items-center w-full h-80 justify-center">

@@ -53,7 +53,7 @@ function PostMenu({ setactive, popup, handlesave, postedby, sethide, post }) {
           <i className="flex justify-center space-x-3">
             <label>
               {userdata?.saved?.some(
-                (savedpost) => post?.postid === savedpost?.postid
+                (savedpost) => post?.postid === savedpost?.postid,
               )
                 ? "Remove from bookmark"
                 : "Add to bookmark"}

@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Notification() {
-  // const progress = new ProgressBar();
   const { setuserdata, userNotifications } = useUserdatacontext();
   const navigate = useNavigate();
 

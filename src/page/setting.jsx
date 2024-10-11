@@ -9,9 +9,10 @@ import { Helmet } from "react-helmet";
 import Block from "../layout/setting/block";
 import Resetpassword from "../layout/setting/resetpassword";
 import Report from "../layout/setting/Report";
+import DeveloperContact from "../layout/setting/Develope";
 export default function Setting() {
   const [active, setactive] = useState(
-    `${window.innerWidth < 480 ? "" : "account"}`
+    `${window.innerWidth < 480 ? "" : "account"}`,
   );
 
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function Setting() {
         <meta name="author" content="setting" />
         <meta name="language" content="EN" />
       </Helmet>
-      <section className="flex post border-gray-800  text-center capitalize text-base border-x-2  w-full">
+      <section className="flex post  text-center capitalize text-base  w-full">
         <div
           className={`px-3 flex-col  w-full sm:w-auto ${
             active === "" ? "flex" : "hidden"
@@ -99,6 +100,17 @@ export default function Setting() {
             </div>
             <div
               onClick={() => {
+                active === "developer" ? setactive("") : setactive("developer");
+              }}
+              className="p-3 justify-center hover:bg-gray-950 border-gray-700 w-full border-2  rounded-3xl sm:w-72 flex"
+            >
+              <h1 className="m-auto w-full">Developer contact</h1>
+              <i className="ml-auto ">
+                <KeyboardArrowRightIcon />
+              </i>
+            </div>
+            <div
+              onClick={() => {
                 navigate("/login");
                 auth.signOut();
               }}
@@ -126,6 +138,7 @@ export default function Setting() {
               <Resetpassword toggle={() => setactive("")} />
             )}
             {active === "block" && <Block />}
+            {active === "developer" && <DeveloperContact />}
 
             {active === "report" && <Report />}
           </div>

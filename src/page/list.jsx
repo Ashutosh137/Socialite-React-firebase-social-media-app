@@ -20,7 +20,7 @@ export const List = () => {
         <meta name="author" content="Bookmark" />
         <meta name="language" content="EN" />
       </Helmet>
-      <div className="w-full post border-gray-600 border-x-2 sm:px-5 py-5 sm:py-0">
+      <div className="w-full post  sm:px-5 py-5 sm:py-0">
         <div className="flex">
           <h1 className="sm:text-2xl text-xl p-2 sm:py-0  my-5 border-b-2 border-gray-500  text-left capitalize ">
             bookmark collection
